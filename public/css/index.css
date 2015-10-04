@@ -1,3 +1,51 @@
-.being-body {
-	background-color: #171717;
-}
+/*
+ * Navbar 
+ */
+ .being-body .navbar-brand {
+ 	color: #c80a48;
+ }
+ .being-body .navbar.navbar-inverse.navbar-fixed-top .navbar-collapse.collapse a {
+ 	color: #fff;
+ }
+ .being-body .navbar.navbar-inverse.navbar-fixed-top .navbar-collapse.collapse a:hover {
+ 	color: #c80a48;
+ }
+
+
+/*
+ * Body
+ */
+ .being-body {
+ 	background-color: #171717;
+ }
+
+ #home .home-body .home-text{
+ 	/* position: absolute;
+ 	top: 30%;
+ 	left: 40%;
+ 	margin-top: -50px;
+ 	margin-left: -50px; */
+ 	padding-top: 225px;
+ 	padding-bottom: 225px;
+ }
+
+ .text-body{
+ 	font-weight: bold;
+ 	text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black; 	
+ }
+
+ .text-body h1 {
+ 	font-weight: bold;
+ }
+ .text-body p {
+ 	letter-spacing: 1.25px;
+ }
+
+ .page-scroll a{
+ 	background-color: #c80a48;
+ 	color: #FFFFFF;
+ }
+
+ .home-text {
+ 	color: #FFFFFF;
+ }
