@@ -10,6 +10,15 @@
  .being-body .navbar.navbar-inverse.navbar-fixed-top .navbar-collapse.collapse a:hover {
  	color: #c80a48;
  }
+ ul.dropdown-menu.app-list{
+ 	background-color: #171717;
+ 	border-radius: 7px;
+ 	border: 2px solid rgba(255, 255, 255, 0.75);
+ 	box-shadow: 2px 2px 14px rgb(200, 10, 72);
+ }
+ ul.dropdown-menu.app-list li a{
+ 	color: white;
+ }
 
 
 /*

@@ -1,0 +1,49 @@
+#profile {
+	background-color: #0d0c0d;
+	padding-top: 60px;
+}
+#profile .section-content .profile-text {
+	padding-top: 20px;
+}
+#profile .section-content .profile-text h2 {
+	color: #c80a48;
+	padding-bottom: 20px;
+	padding-top: 15px;
+	font-size: 3em;
+}
+#profile .section-content .profile-text p {
+	color: #FFE2B6;
+	padding-bottom: 20px;
+	padding-top: 15px;
+	padding-right: 15px;
+	line-height: 1.7;
+}
+@media (max-width: 480px) {
+	#profile .section-content {
+		padding-left: 10px;
+	}
+}
+#profile .section-content .contact-details {
+	padding-top: 100px;
+	padding-bottom: 20px;
+}
+#profile .section-content .contact-details h4 {
+	color: #c80a48;
+}
+#profile .section-content .contact-details ul {
+	color: #FFE2B6;
+}
+#profile .section-content .contact-details .btn-custom {
+	background-color: #c80a48;
+	font-family: 'Raleway', sans-serif;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	color: #ffffff;
+	border-radius: 3px;
+	box-shadow: 0 3px 0 #970837;
+}
+#profile .section-content .profile-picture {
+	height: 100%;
+	overflow: hidden;
+}
