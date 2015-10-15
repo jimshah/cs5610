@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Jainam Shah</title>
+
+	<!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="css/index.css">
+	<link rel="stylesheet" href="/me/css/resume.css">
+
+</head>
+<body class="being-body">
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/">Jainam Shah</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="/">Home</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apps <span class="caret"></span></a>
+						<ul class="dropdown-menu app-list">
+							<li><a href="/assignment/home.html">Form Maker</a></li>
+							<li><a href="/widgets/weather.html">Weather</a></li>
+						</ul>
+					</li>
+					<li><a href="/me/resume.html">Resume</a></li>
+					<li><a href="/me/profile.html">About Me</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div id="resume" class="container section-wrapper">
+		<div class="section-content col-xs-11 col-md-12">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 text-center">
+					<h2 class="section-title">My Resume</h2>
+
+					<p class="section-subtitle animated bounceInLeft" style="opacity: 1;">
+						Blah Blah BLah n then Some Blah Blah Blah Quotes
+					</p>
+				</div>
+				<!-- //.col-md-8 -->
+			</div>
+			<!-- //.row -->
+
+			<!-- EDUCATION START -->
+			<div class="row education">
+				<div class="col-md-10 col-md-offset-1">
+					<h3>
+						My Education
+						<br>
+						2007 - 2015
+					</h3>
+
+					<div class="panel-group resume" id="education">
+						<div id="edu-0" class="resume-item">
+							<div class="resume-year">
+								<span class="resume-year">2013-2015</span>
+							</div>
+							<div class="resume-btn text-center">
+								<a ng-click="toggleEdu(0)"></a>
+							</div>
+							<div class="panel">
+								<div class="panel-heading resume-title">
+									<div class="panel-title">
+										<h4 class="resume-title">Masters Degree - Northeastern University</h4>
+									</div>
+								</div>
+
+								<div class="resume-description" ng-show="edu.isToggled" id="education1">
+									<div class="panel-body text-grey">
+										<p>Blah Blah Blah, and then Blah Blah Blah, and again Blah Blah and Blah</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="edu-1" class="resume-item">
+							<div class="resume-year">
+								<span class="resume-year">2009-2013</span>
+							</div>
+							<div class="resume-btn text-center">
+								<a ng-click="toggleEdu(1)"></a>
+							</div>
+							<div class="panel">
+								<div class="panel-heading resume-title">
+									<div class="panel-title">
+										<h4 class="resume-title">Bachelors Degree - Mumbai University</h4>
+									</div>
+								</div>
+
+								<div class="resume-description" ng-show="edu.isToggled" id="education1">
+									<div class="panel-body text-grey">
+										<p>Blah Blah Blah, and then Blah Blah Blah, and again Blah Blah and Blah</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- //EDUCATION END -->
+
+			<!-- WORK EXPERIENCE START -->
+			<div class="row work-experience">
+				<div class="col-md-10 col-md-offset-1">
+					<h3>
+						Work Experience
+						<br>
+						2014 - Now
+					</h3>
+
+					<div class="panel-group resume" id="work">
+
+						<div id="w-0" class="resume-item">
+							<div class="resume-year">
+								<span class="resume-year">Jan-Aug,2015</span>
+							</div>
+							<div class="resume-btn text-center">
+								<a ng-click="toggleWork(0)"></a>
+							</div>
+							<div class="panel">
+								<div class="panel-heading resume-title">
+									<div class="panel-title">
+										<h4 class="resume-title">Engineering Intern - Cartera Commerce</h4>
+									</div>
+								</div>
+
+								<div class="resume-description" ng-show="w.isToggled" id="education1">
+									<div class="panel-body text-grey">
+										<p>Blah Blah Blah, and then Blah Blah Blah, and again Blah Blah and Blah</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="w-1" class="resume-item">
+							<div class="resume-year">
+								<span class="resume-year">Sep-Dec,2014</span>
+							</div>
+							<div class="resume-btn text-center">
+								<a ng-click="toggleWork(1)"></a>
+							</div>
+							<div class="panel">
+								<div class="panel-heading resume-title">
+									<div class="panel-title">
+										<h4 class="resume-title">Graduate Assistant, Fundamentals of Computer Networks</h4>
+									</div>
+								</div>
+
+								<div class="resume-description" ng-show="w.isToggled" id="education1">
+									<div class="panel-body text-grey">
+										<p>Blah Blah Blah, and then Blah Blah Blah, and again Blah Blah and Blah</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="w-2" class="resume-item">
+							<div class="resume-year">
+								<span class="resume-year">May-Aug,2014</span>
+							</div>
+							<div class="resume-btn text-center">
+								<a ng-click="toggleWork(2)"></a>
+							</div>
+							<div class="panel">
+								<div class="panel-heading resume-title">
+									<div class="panel-title">
+										<h4 class="resume-title">Web Developer Intern - Demandware, Inc.</h4>
+									</div>
+								</div>
+
+								<div class="resume-description" ng-show="w.isToggled" id="education1">
+									<div class="panel-body text-grey">
+										<p>Blah Blah Blah, and then Blah Blah Blah, and again Blah Blah and Blah</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- //.section-content -->
+	</div>
+	<!-- Bootstrap core JavaScript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</body>
+</html>

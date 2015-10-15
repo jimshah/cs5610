@@ -1,0 +1,129 @@
+.being-body {
+	background-color: rgb(13, 12, 13);
+}
+#resume {
+	padding-top: 60px;
+}#resume h3 {
+  text-align: left;
+}
+#resume a {
+  color: #337ab7;
+  text-decoration: none;
+  color: #c80a48;
+  outline: none;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+#resume .section-title {
+  margin-bottom: 20px;
+  font-size: 35px;
+  letter-spacing: 1px;
+}
+#resume .section-subtitle {
+  color: #a1a1a1;
+  font-size: 18px;
+  font-style: italic;
+}
+#resume .education,
+#resume .work-experience {
+  margin-top: 30px;
+}
+#resume .education .resume,
+#resume .work-experience .resume {
+  position: relative;
+  margin-top: 30px;
+}
+#resume .education .resume .resume-item:not(:last-child):before,
+#resume .work-experience .resume .resume-item:not(:last-child):before {
+  position: absolute;
+  content: '';
+  width: 1px;
+  height: calc(100% + 20px);
+  top: 0;
+  left: 170px;
+  border-left: 1px dashed #484848;
+}
+#resume .education .resume .resume-item,
+#resume .work-experience .resume .resume-item {
+  position: relative;
+  margin-bottom: 20px;
+}
+#resume .education .resume .resume-item .resume-year,
+#resume .work-experience .resume .resume-item .resume-year {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  display: block;
+  width: 120px;
+  height: 40px;
+  line-height: 40px;
+  background-color: #c80a48;
+  text-align: center;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 4px;
+}
+#resume .education .resume .resume-item .resume-btn,
+#resume .work-experience .resume .resume-item .resume-btn {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  left: 150px;
+  width: 40px;
+  height: 40px;
+  background-color: #2e2e2e;
+  border-radius: 4px;
+}
+#resume .education .resume .resume-item .resume-btn a,
+#resume .work-experience .resume .resume-item .resume-btn a {
+  display: block;
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+}
+#resume .education .resume .resume-item .resume-btn a::before,
+#resume .work-experience .resume .resume-item .resume-btn a::before {
+  font-size: 2em;
+  content: '+';
+}
+#resume .education .resume .resume-item .panel,
+#resume .work-experience .resume .resume-item .panel {
+  margin-left: 210px;
+  width: calc(100% - 210px);
+  padding: 10px;
+  background: transparent;
+  border: 1px solid #6e6e6e;
+  border-radius: 0px;
+  margin-bottom: 0;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+#resume .education .resume .resume-item .panel .panel-heading.resume-title,
+#resume .work-experience .resume .resume-item .panel .panel-heading.resume-title {
+  position: relative;
+  color: #c80a48;
+  color: #FFFFFF;
+}
+#resume .education .resume .resume-item .panel .panel-heading.resume-title .panel-title,
+#resume .work-experience .resume .resume-item .panel .panel-heading.resume-title .panel-title {
+  text-transform: uppercase;
+}
+#resume .education .resume .resume-item .panel .panel-heading.resume-title .panel-title h4,
+#resume .work-experience .resume .resume-item .panel .panel-heading.resume-title .panel-title h4 {
+  margin: 0;
+}
+#resume .education .resume .resume-item .panel .resume-description.ng-animate,
+#resume .work-experience .resume .resume-item .panel .resume-description.ng-animate {
+  -webkit-animation: none 0s;
+}
+#resume .education .resume .resume-item .panel .resume-description,
+#resume .work-experience .resume .resume-item .panel .resume-description {
+  color: #ffffff;
+  font-weight: lighter;
+  line-height: 1.5;
+}
