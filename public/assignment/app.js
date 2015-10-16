@@ -25,7 +25,7 @@
 	angular.module(myFormApp.applicationModuleName).config(['$locationProvider',
 		function($locationProvider) {
 			console.log("hello, hash prefixed");
-			$locationProvider.hashPrefix('!');
+			//$locationProvider.hashPrefix('!');
 		}
 		]);
 
@@ -33,28 +33,38 @@
 	angular
 	.module(myFormApp.applicationModuleName)
 	.config(MyAppFunction)
-	.controller("HelloWorldController", HelloWorldController);
 
 	function MyAppFunction($routeProvider){
 		$routeProvider
 		.when("/", {
-			templateUrl : "index.html" 
+			templateUrl : "/assignment/home/home.view.html" 
+		})
+		.when("/home", {
+			templateUrl : "/assignment/home/home.view.html" 
+		})
+		.when("/login", {
+			templateUrl : "/assignment/login/login.view.html" 
+		})
+		.when("/register", {
+			templateUrl : "/assignment/register/register.view.html" 
+		})
+		.when("/profile", {
+			templateUrl : "/assignment/profile/profile.view.html" 
+		})
+		.when("/form", {
+			templateUrl : "/assignment/form/form.view.html" 
 		})
 		.otherwise({
 			redirectTo : "/" 
 		})
-	};
-
-	function HelloWorldController($scope){
-
-		$scope.hello = "Hello Jainam..!!";
-
-		$scope.courseName = "WebDev CS5610";
-
-		$scope.user = {
-			fname : "jnam",
-			lname : "shah"
-		};
+		/*$routeProvider
+		.when("/", {
+			templateUrl : "home/home.html" 
+		})
+		
+		.otherwise({
+			redirectTo : "/" 
+		})*/
 	};
 
 })();

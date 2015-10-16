@@ -1,0 +1,132 @@
+[33mcommit bea35eae1f917c43d1bc89d6843fdd9f2c5fd02d[m
+Author: Jainam Shah <jimshah@ccs.neu.edu>
+Date:   Thu Oct 15 16:23:36 2015 -0400
+
+    assignment 2.1
+
+[33mcommit f3dc06d517b280b58e357e48c7dc7b2ba8f94591[m
+Author: Jainam Shah <jimshah@ccs.neu.edu>
+Date:   Wed Oct 7 17:00:36 2015 -0400
+
+    Adding aboutMe, Fixing NavBar, Adding in widgets
+
+[33mcommit 2e4b5dce7bd72f97f57916e393b76a1d6eeb8bba[m
+Author: Jainam Shah <jimshah@ccs.neu.edu>
+Date:   Wed Oct 7 15:38:57 2015 -0400
+
+    adding in 404 page if wrong url is passed in and adding in shahs folder
+
+[33mcommit 5397cc1f7550dea5a8bc1e0fb5a05119e326ac79[m
+Author: Jainam Shah <jimshah@ccs.neu.edu>
+Date:   Sun Oct 4 22:30:50 2015 -0400
+
+    Assignment#1 Commit #8
+
+[33mcommit 9b9df874545d315a3710c53dad0b64c553d99c4a[m
+Author: Jainam Shah <jimshah@ccs.neu.edu>
+Date:   Sun Oct 4 17:31:11 2015 -0400
+
+    Assignment #1 Commit #7
+
+[33mcommit 147528486609c4389ecb2f254a3d90fb0a0205b3[m
+Author: Jainam Shah <jimshah@ccs.neu.edu>
+Date:   Sun Oct 4 15:01:55 2015 -0400
+
+    Assignment #1 Commit #6
+
+[33mcommit 331c8e8a5733f105c40ccf009851e99cc59b7f0d[m
+Author: Jainam Shah <jimshah@ccs.neu.edu>
+Date:   Sun Oct 4 14:34:03 2015 -0400
+
+    Assignment#1 Commit #5
+
+[33mcommit 59d71d923fec09fc16a0c462ff1e68b5be9f6546[m
+Author: Jainam Shah <jimshah@ccs.neu.edu>
+Date:   Sun Oct 4 14:09:04 2015 -0400
+
+    Assignment #1 Commit #4
+
+[33mcommit e95879fa044a505cace917f527d4c45ca3a74aa1[m
+Author: Jainam Shah <jimshah@ccs.neu.edu>
+Date:   Sun Oct 4 13:52:43 2015 -0400
+
+    Assignment #1 Commmit #3
+
+[33mcommit 2a4f5e357e02864d9b375e388b9223886df786ed[m
+Author: Jainam Shah <jimshah@ccs.neu.edu>
+Date:   Sun Oct 4 12:23:28 2015 -0400
+
+    Assignment #1 commit 2
+
+[33mcommit 2bbe77e34fcdd8b8f51be182925973c30e1d4087[m
+Author: Jainam Shah <jimshah@ccs.neu.edu>
+Date:   Sat Oct 3 19:42:33 2015 -0400
+
+    assignment 1 commit 1
+
+[33mcommit b8c63d127f5a1d9f3097d9ee6994c09833a6ce3c[m
+Author: Jainam Shah <jimshah@ccs.neu.edu>
+Date:   Thu Sep 17 12:25:25 2015 +0530
+
+    Updating README
+
+[33mcommit 4556ba5d842fc090537ac1f569a207ea0d4eaab0[m
+Author: Jainam Shah <jimshah@ccs.neu.edu>
+Date:   Thu Sep 17 12:20:30 2015 +0530
+
+    Adding hello.js
+
+[33mcommit 4e703ecbf04595accbdb930d8b4adbfce64f0fb5[m
+Merge: 3ad3ea6 d3d164c
+Author: Jainam Shah <jimshah@ccs.neu.edu>
+Date:   Thu Sep 17 12:13:14 2015 +0530
+
+    Merge branch 'master' of https://github.com/jimshah/cs5610fall2015
+
+[33mcommit d3d164cbc6ae63371e4d3aa310ae631e7897170d[m
+Author: Jainam Shah <jimshah@ccs.neu.edu>
+Date:   Thu Sep 17 12:07:35 2015 +0530
+
+    Deleting all files from repo
+
+[33mcommit 3ad3ea64908f59ac23c1143e07ed8e4cd31555e4[m
+Author: Jainam Shah <jimshah@ccs.neu.edu>
+Date:   Thu Sep 17 11:58:22 2015 +0530
+
+    Adding in git ignore
+
+[33mcommit a5ae473a8da31030a5208f3285503be15b61a4a9[m
+Author: Jainam Shah <jimshah@ccs.neu.edu>
+Date:   Thu Sep 17 11:42:07 2015 +0530
+
+    changing node app port on openshift to 8080
+
+[33mcommit 4bb78e265792bcc230aa78c58b5cf84200f366c3[m
+Author: Jainam Shah <jimshah@ccs.neu.edu>
+Date:   Thu Sep 17 11:36:06 2015 +0530
+
+    changing node app port on openshift to 3000
+
+[33mcommit 0f6cd98cc14d732f7d91f99714fe26d389299168[m
+Author: Jainam Shah <jimshah@ccs.neu.edu>
+Date:   Thu Sep 17 11:14:20 2015 +0530
+
+    Adding hello.js
+
+[33mcommit eda3c5642d1694d56dc31cac4906a8593f4f0464[m
+Author: Jainam Shah <jimshah@ccs.neu.edu>
+Date:   Thu Sep 17 01:36:40 2015 +0530
+
+    Adding README for this repo
+
+[33mcommit 4d21e14f3a0aecac8188cdf5446f4667170025fc[m
+Author: Jainam Shah <jimshah@ccs.neu.edu>
+Date:   Sun Sep 13 00:53:17 2015 +0530
+
+    Changed index.html for cs5610 fall 2015
+
+[33mcommit 5f730911b0cfe7bb73c24b3efe9bd9512d26974b[m
+Author: Template builder <builder@example.com>
+Date:   Sat Sep 12 14:17:03 2015 -0400
+
+    Creating template
