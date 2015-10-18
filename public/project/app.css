@@ -1,0 +1,19 @@
+.join-body {
+	background-color: #181818;
+}
+.join-body #body-image img{
+	/* z-index: -1;
+	width: 100%;
+	position: absolute;
+	min-height: 400px; */
+	z-index: -1;
+	position: fixed; 
+	top: 0; 
+	left: 0; 
+
+	/* Preserve aspet ratio */
+	min-width: 100%;
+	min-height: 100%;
+
+	opacity: 0.5;
+}

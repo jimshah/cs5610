@@ -1,0 +1,21 @@
+<div id="nav-border"></div>
+<nav id="navigation" class="navbar center-menu" role="navigation" ng-controller="HeaderController">
+    <div class="container navbar-container">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".js-collapse" ng-click="toggleCollapsibleMenu()">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand brand-logo" href="/project">
+            <b>JoinUs</b>
+        </a>
+        <div class="collapse navbar-collapse js-collapse">
+            <ul class="nav navbar-nav navbar navbar-right">
+                <li id="header-{{$index}}" class="header-title" ng-repeat='header in headerList'>
+                    <a ng-click="gotoBottom($index)">{{header}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

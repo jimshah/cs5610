@@ -1,0 +1,65 @@
+/**
+ * primary header
+ */
+
+ #navigation {
+ 	padding-top: 20px;
+ }
+ #navigation .brand-logo {
+ 	color: #fff;
+ 	background-color: #ec6952;
+ 	padding: 15px 30px;
+ 	border-radius: 5px;
+ }
+ #navigation .header-title a {
+ 	color: #fff;
+ 	padding: 15px 30px;
+ 	border-radius: 5px;
+ }
+
+ #navigation .header-title a:hover{
+ 	text-decoration: none;
+ 	/* background-color: #eee; */
+ 	color: #ec6952;
+ 	background: none;
+ }
+ #nav-border {
+ 	margin-top: 20px;
+ 	display: list-item;
+ 	background-image: url('/project/modules/core/images/event-2.jpg');
+ 	background-repeat: no-repeat;
+ 	background-size: 100% 100%;
+ 	border-radius: 0px;
+ 	border-top: 5px solid rgba(253, 253, 3, 0.25);
+ 	border-bottom: 5px solid rgba(253, 253, 3, 0.25);
+ }
+
+ #navigation button {
+ 	background-color: rgb(236, 105, 82);
+ }
+
+ #navigation button span {
+ 	background-color: white;
+ }
+
+ #navigation .header-title a {
+ 	font-size: 20px;
+ }
+
+/**
+ * Secondary header
+ */
+ .secondary-header .navbar .navbar-nav {
+ 	display: inline-block;
+ 	float: none;
+ }
+
+ .secondary-header .navbar .navbar-collapse {
+ 	text-align: center;
+ }
+
+ .secondary-header .secondary-nav a{
+ 	color: #fff;
+ 	font-size: 16px;
+ 	font-stretch: ultra-expanded;
+ }

@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<!--<html lang="en" ng-app="MyApp">-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Welcome..!!</title>
+
+  <!--<link rel="icon" href="../../favicon.ico">-->
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <!-- Custom style for this template-->
+  <link rel="stylesheet" href="/project/app.css">
+  <link rel="stylesheet" href="/project/modules/home/home.css">
+  <link rel="stylesheet" href="/project/modules/core/core.css">
+
+
+  <!-- Angular from CDN-->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.js"></script>
+  <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
+  <!-- External dependencies-->
+  <!-- NONE -->
+
+  <!-- Importing Custom Scripts-->
+  <script src="app.js"></script>
+  <script src="config.js"></script>
+  <script src="/project/modules/home/home.js"></script>
+  <script src="/project/modules/core/core.js"></script>
+</head>
+
+<body class="ng-cloak join-body">
+  <header class="primary-header" data-ng-include="'/project/modules/core/primary-header.html'"> </header>
+  <header class="secondary-header" data-ng-include="'/project/modules/core/secondary-header.html'"> </header>
+  <!-- <div ng-include="'/project/modules/home/home.html'"></div> -->
+  <div id="body-image">
+    <img src="/project/modules/core/images/event-2.jpg" alt="Event">
+  </div>
+  <div ng-view></div>
+
+  <!-- Bootstrap core JavaScript -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</body>
+</html>

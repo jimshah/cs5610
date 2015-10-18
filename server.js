@@ -14,10 +14,10 @@ app.use(bodyParser());
 app.use(morgan("dev"));
 
 // Handle 404
-app.use(function(req, res) {
+/*app.use(function(req, res) {
 	res.redirect(302, '/not-found.html');
 	//res.send('404: Page not Found', 404);
-});
+});*/
 
   // Handle 500
   app.use(function(error, req, res, next) {
