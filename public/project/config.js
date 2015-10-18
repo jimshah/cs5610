@@ -9,7 +9,11 @@
 		$routeProvider
 		.when("/", {
 			templateUrl : "/project/modules/home/home.html" 
-		})/*
+		})
+		.otherwise({
+			redirectTo : "/" 
+		})
+		/*
 		.when("/home", {
 			templateUrl : "/assignment/home/home.view.html" 
 		})
@@ -24,17 +28,6 @@
 		})
 		.when("/form", {
 			templateUrl : "/assignment/form/form.view.html" 
-		})*/
-		.otherwise({
-			redirectTo : "/" 
-		})
-		/*$routeProvider
-		.when("/", {
-			templateUrl : "home/home.html" 
-		})
-		
-		.otherwise({
-			redirectTo : "/" 
 		})*/
 	};
 

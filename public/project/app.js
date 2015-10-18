@@ -26,7 +26,7 @@
 	angular.module(app.applicationModuleName).config(['$locationProvider',
 		function($locationProvider) {
 			console.log("hello, hash prefixed");
-			$locationProvider.hashPrefix('!');
+			//$locationProvider.hashPrefix('!');
 		}
 		]);
 

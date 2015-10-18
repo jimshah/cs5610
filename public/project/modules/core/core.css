@@ -63,3 +63,10 @@
  	font-size: 16px;
  	font-stretch: ultra-expanded;
  }
+
+ .secondary-header .secondary-nav .list-inline>li{
+ 	text-shadow: -1px 0 #EC6952, 0 1px #EC6952, 1px 0 #EC6952, 0 -1px #EC6952;
+    letter-spacing: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+ }
