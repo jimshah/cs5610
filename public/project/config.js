@@ -10,6 +10,9 @@
 		.when("/", {
 			templateUrl : "/project/modules/home/home.html" 
 		})
+		.when("/events", {
+			templateUrl : "/project/modules/events/events.view.html" 
+		})
 		.otherwise({
 			redirectTo : "/" 
 		})

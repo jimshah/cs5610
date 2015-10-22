@@ -23,8 +23,8 @@
 	angular.module(app.applicationModuleName,app.applicationModuleVendorDependencies);
 
 	// Setting HTML5 Location Mode
-	angular.module(app.applicationModuleName).config(['$locationProvider',
-		function($locationProvider) {
+	angular.module(app.applicationModuleName).config(['$locationProvider', '$httpProvider', 
+		function($locationProvider, $httpProvider) {
 			console.log("hello, hash prefixed");
 			//$locationProvider.hashPrefix('!');
 		}

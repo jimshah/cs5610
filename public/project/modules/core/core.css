@@ -5,11 +5,13 @@
  #navigation {
  	padding-top: 20px;
  }
- #navigation .brand-logo {
- 	color: #fff;
+ #navigation .brand-logo img{
+ 	/* color: #fff;
  	background-color: #ec6952;
  	padding: 15px 30px;
- 	border-radius: 5px;
+ 	border-radius: 5px; */
+ 	max-width: 120px;
+ 	margin-top: -30px;
  }
  #navigation .header-title a {
  	color: #fff;
@@ -66,7 +68,7 @@
 
  .secondary-header .secondary-nav .list-inline>li{
  	text-shadow: -1px 0 #EC6952, 0 1px #EC6952, 1px 0 #EC6952, 0 -1px #EC6952;
-    letter-spacing: 2px;
-    padding-left: 10px;
-    padding-right: 10px;
+ 	letter-spacing: 2px;
+ 	padding-left: 10px;
+ 	padding-right: 10px;
  }

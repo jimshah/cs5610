@@ -13,6 +13,9 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser());
 app.use(morgan("dev"));
 
+//Load Routes
+require("./app/routes")(app);
+
 // Handle 404
 /*app.use(function(req, res) {
 	res.redirect(302, '/not-found.html');

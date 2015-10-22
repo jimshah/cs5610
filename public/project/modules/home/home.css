@@ -1,13 +1,30 @@
 #map {
-    height:420px;
-    width:600px;
+	height:420px;
+	width:600px;
 }
 #map .infoWindowContent {
-    font-size:  14px !important;
-    border-top: 1px solid #ccc;
-    padding-top: 10px;
+	font-size:  14px !important;
+	border-top: 1px solid #ccc;
+	padding-top: 10px;
 }
 #map h2 {
-    margin-bottom:0;
-    margin-top: 0;
+	margin-bottom:0;
+	margin-top: 0;
+}
+.main-text {
+	padding-top: 70px;
+}
+.title-text {
+	font-size: 46px;
+	margin-bottom: 20px;
+	margin-top: 0;
+	font-weight: 700;
+	text-shadow: -1px 0 #EC6952, 0 1px #EC6952, 1px 0 #EC6952, 0 -1px #EC6952;
+	color: #fff;
+}
+.hiws {
+	color: white;
+}
+.how-it-works{
+	padding-top: 100px;
 }

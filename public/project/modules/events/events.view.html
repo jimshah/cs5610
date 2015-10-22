@@ -1,0 +1,13 @@
+<div class="container" ng-controller="EventsController">
+	<div class="row text-center main-text">
+		<h2 class="title-text">Events Page</h2>
+		<!-- <div ng-include="'/project/modules/home/partials/how-it-works.html'"></div> -->
+		<div class="categories">
+			<ul class="event-categories list-group">
+				<a href="#/events">
+					<li class="category list-group-item" ng-repeat="cat in categories">{{cat.name}}</li>
+				</a>
+			</ul>
+		</div>
+	</div>
+</div>
