@@ -4,9 +4,9 @@
 		<!-- <div ng-include="'/project/modules/home/partials/how-it-works.html'"></div> -->
 		<div class="categories">
 			<ul class="event-categories list-group">
-				<a href="#/events">
-					<li class="category list-group-item" ng-repeat="cat in categories">{{cat.name}}</li>
-				</a>
+				<li class="category list-group-item" ng-repeat="cat in categories">
+					<a href="#/events">{{cat.name}}</a>
+				</li>
 			</ul>
 		</div>
 	</div>
