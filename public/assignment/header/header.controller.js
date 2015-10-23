@@ -10,12 +10,19 @@
 	//Defining header controller
 	angular
 	.module(moduleName)
-	.controller("HeaderController", ['$scope', '$location', HeaderController]);
+	.controller("HeaderController", ['$scope', '$location', '$rootScope', HeaderController]);
 	
 	//HeaderController function
-	function HeaderController($scope, $location){
+	function HeaderController($scope, $location, $rootScope){
 		$scope.$location = $location;
+		$scope.user = $rootScope.user;
 		console.log("Hello header here");
+
+		//listen for login/sigin to grab logged in user
+		$rootScope.$on("auth", function(event, user){
+			$scope.user = $rootScope.user = user;
+		});
+		
 	};
 
 })();

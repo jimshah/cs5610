@@ -20,17 +20,17 @@
 		//Login Button navigating to #/profile
 		$scope.login = function(){
 			if ($scope.username && $scope.password){
-				UserService.findAllUsers(function(error, users){
-					if (error){console.log(error);}
-					else {console.log(users);}
-				});
+				//Scope error make null
+				$scope.error = null;
 				UserService.findUserByUsernameAndPassword($scope.username, $scope.password, function(error, user){
 					if (error){
 						$scope.error = error;
 					} else {
-						$scope.error = "";
+						//update rootscope user 
 						$rootScope.user = user;
-						console.log("login called, routing to profile view");
+						//broadcast login auth event for listeners to update loggedin user 
+						$rootScope.$broadcast('auth', user);
+						//Navigate to profile
 						$location.path( "/profile" );
 					}
 				});
