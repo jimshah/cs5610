@@ -15,13 +15,13 @@
 				<input type="password" data-ng-model="password" class="form-control" id="inputPassword3" placeholder="Password" required>
 			</div>
 		</div>
+		<div class="error not-found" ng-if="error">
+			<span>{{error}}</span>
+		</div>
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
 				<button type="submit" ng-click="login()" class="btn btn-default">Login</button>
 			</div>
-		</div>
-		<div class="error not-found" ng-if="error">
-			<span>{{error}}</span>
 		</div>
 	</form>
 

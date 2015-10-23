@@ -124,18 +124,26 @@
 		   */
 		   function updateUser(userId, updatedUser, callback){
 		   	try {
+		   		var found = false;
+		   		var userAfterUpdate;
 		   		users.forEach(function(user){
 		   			if (user && user.id===userId){
-		  				//Updating only newly properties from th einput updatedUser object
+		   				found = true;
+		  				//Updating only newly properties from the input updatedUser object
 		  				for(var prop in user){
 		  					if (updatedUser[prop]){
 		  						user[prop] = updatedUser[prop];
 		  					}
 		  				}
 		  				user.id = userId;
+		  				userAfterUpdate = user;
 		  			}
 		  		});
-		   		return callback(null, user);
+		  		if (found){
+		  			return callback(null, userAfterUpdate);
+		  		} else {
+		  			return callback("Error finding user with id : "+userId, null);
+		  		}
 		   	} catch(error){
 		   		console.log("catched an Exception in 'updateUser' method", error);
 		   		return callback(error);
@@ -155,8 +163,6 @@
 		 	return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
 		 	s4() + '-' + s4() + s4() + s4();
 		 }
-
-		 console.log("guid", guid());
 
 		//Creating a UserService
 		var userService = {
