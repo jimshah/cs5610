@@ -1,5 +1,5 @@
-<div class="app-header" data-ng-controller="HeaderController">
-  <nav class="navbar navbar-inverse navbar-fixed-top">
+<div class="app-header">
+  <nav class="navbar navbar-inverse navbar-fixed-top" data-ng-controller="HeaderController">
     <div class="container-fluid">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -12,8 +12,8 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#/register">Register</a></li>
-          <li><a href="#/login">Login</a></li>
+          <li ng-class="{'active' : $location.url().indexOf('register') != -1}"><a href="#/register">Register</a></li>
+          <li ng-class="{'active' : $location.url().indexOf('login') != -1}"><a href="#/login">Login</a></li>
           <li><a href="#/">Username</a></li>
           <li><a href="#/">Logout</a></li>
         </ul>
