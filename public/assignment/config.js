@@ -7,7 +7,8 @@
 	function MyAppFunction($routeProvider){
 		$routeProvider
 		.when("/", {
-			templateUrl : "/assignment/home/home.view.html" 
+			/*templateUrl : "/assignment/home/home.view.html" */
+			redirectTo : "/home" 
 		})
 		.when("/home", {
 			templateUrl : "/assignment/home/home.view.html" 
