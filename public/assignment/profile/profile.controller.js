@@ -25,11 +25,13 @@
 		//Update button to update user profile
 		$scope.update = function(){
 			$scope.error = null;
+			$scope.success = null;
 			UserService.updateUser($scope.user.id, $scope.user, function(error, updatedUser){
 				if (error){
 					$scope.error = error;
 				} else {
 					$scope.user = updatedUser;
+					$scope.success = "Succesfully updated user profile";
 				}
 			});
 		};

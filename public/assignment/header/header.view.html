@@ -15,7 +15,7 @@
           <li ng-if="!user" ng-class="{'active' : $location.url().indexOf('register') != -1}"><a href="#/register">Register</a></li>
           <li ng-if="!user" ng-class="{'active' : $location.url().indexOf('login') != -1}"><a href="#/login">Login</a></li>
           <li ng-if="user"><a href="#/profile">Username</a></li>
-          <li ng-if="user"><a href="#/">Logout</a></li>
+          <li ng-if="user"><a href="#/" ng-click="logout()">Logout</a></li>
         </ul>
         <form class="navbar-form navbar-right">
           <input type="text" class="form-control" placeholder="Search...">
