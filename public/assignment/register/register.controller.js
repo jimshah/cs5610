@@ -50,7 +50,6 @@
 									email: $scope.email
 								}
 								UserService.createUser(newUserObject, function(err, newlyCreatedUser){
-									console.log("newly created user is ", newlyCreatedUser);
 									//update rootscope user 
 									$rootScope.user = newlyCreatedUser;
 									//broadcast login auth event for listeners to update loggedin user 
