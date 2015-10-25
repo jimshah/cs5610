@@ -72,14 +72,22 @@
 		 			return callback("please provide a valid formId string");
 		 		} else {
 		 			var found = false;
+		 			var userId ;
 		 			forms.forEach(function(form, index){
 		 				if (form && form.id === formId){
 		 					found = true;
+		 					userId = form.userid;
 		 					forms.splice(index, 1);
 		 				}
 		 			});
 		 			if (found){
-		 				return callback(null, forms);
+		 				var remaningForms = [];
+		 				forms.forEach(function(form, index){
+		 					if (form && form.userid === userId){
+		 						remaningForms.push(form);
+		 					}
+		 				})
+		 				return callback(null, remaningForms);
 		 			} else {
 		 				return callback("No form found with formId : "+formId);
 		 			}
