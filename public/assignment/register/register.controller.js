@@ -15,7 +15,6 @@
 	//HeaderController function
 	function RegisterController($scope, $location, $rootScope, UserService ){
 		$scope.$location = $location;
-		console.log("Hello register here");
 
 		//register function : registering a user
 		$scope.register = function(){

@@ -15,7 +15,6 @@
 	//HeaderController function
 	function SidebarController($scope, $location){
 		$scope.$location = $location;
-		console.log("Hello sidebar here");
 	};
 
 })();

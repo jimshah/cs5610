@@ -21,10 +21,10 @@
 	//Declaring our root module
 	angular.module(myFormApp.applicationModuleName,myFormApp.applicationModuleVendorDependencies);
 
-	// Setting HTML5 Location Mode
+	// Setting HTML5 Location Mode - May be later, not now
 	angular.module(myFormApp.applicationModuleName).config(['$locationProvider',
 		function($locationProvider) {
-			console.log("hello, hash prefixed");
+			// console.log("hello, hash prefixed");
 			//$locationProvider.hashPrefix('!');
 		}
 		]);

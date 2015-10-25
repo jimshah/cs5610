@@ -15,7 +15,6 @@
 	//HeaderController function
 	function LoginController($scope, $location, $rootScope, UserService ){
 		$scope.$location = $location;
-		console.log("Hello login here");
 
 		//Login Button navigating to #/profile
 		$scope.login = function(){

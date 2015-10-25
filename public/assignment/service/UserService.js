@@ -6,7 +6,6 @@
 
 	//UserService  function
 	function UserService ($window, $http, $q, $rootScope){
-		console.log("Hi UserService is here");
 
 		//Local Empty Array of Users
 		var users = [
@@ -16,7 +15,8 @@
 			password: "aa",
 			fname: "aa",
 			lname: "aa",
-			email: "aa@aa.com"
+			email: "aa@aa.com",
+			role: []
 		},
 		{
 			id: "4543473b-d068-1048-e846-f68e04ea5c62",
@@ -24,7 +24,8 @@
 			password: "zz",
 			fname: "zz",
 			lname: "zz",
-			email: "zz@zz.com"
+			email: "zz@zz.com",
+			role: []
 		}];
 
 		/**
@@ -81,6 +82,7 @@
 		 			return callback("please provide a valid user object");
 		 		} else {
 		 			user.id = guid();
+		 			user.role = [];
 		 			users.push(user);
 		 			return callback(null, user);
 		 		}
