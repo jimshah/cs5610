@@ -1,5 +1,7 @@
 (function(){
 
+	'use strict';
+	
 	// Add a new vertical module
 	var registerModule = function(moduleName, dependencies) {
 		// Create angular module

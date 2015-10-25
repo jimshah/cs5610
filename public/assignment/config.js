@@ -1,4 +1,7 @@
 (function(){
+
+	'use strict';
+	
 	//Creating "HelloWorldController" controller -> normally create a separate files for controller
 	angular
 	.module(myFormApp.applicationModuleName)
