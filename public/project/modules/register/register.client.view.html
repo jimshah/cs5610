@@ -1,0 +1,53 @@
+<div class="container register" ng-controller="RegisterController">
+	<div class="row">
+		<h2 class="title">Register Page</h2>
+
+		<!-- FORM STARTS -->
+		<form class="form-horizontal register-form">
+
+			<div class="form-group">
+				<label for="register-fname" class="col-sm-2">First Name:</label>
+				<div class="col-sm-5">
+					<input type="text" data-ng-model="user.fname" class="form-control" id="register-fname" placeholder="First Name" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="register-lname" class="col-sm-2">Last Name:</label>
+				<div class="col-sm-5">
+					<input type="text" data-ng-model="user.lname" class="form-control" id="register-lname" placeholder="Last Name" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="register-email" class="col-sm-2">Email:</label>
+				<div class="col-sm-5">
+					<input type="email" data-ng-model="user.email" class="form-control" id="register-email" placeholder="Email" required>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="register-password" class="col-sm-2">Password:</label>
+				<div class="col-sm-5">
+					<input type="password" data-ng-model="user.password" class="form-control" id="register-password" placeholder="Password" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="register-vpassword" class="col-sm-2">Verify Password:</label>
+				<div class="col-sm-5">
+					<input type="password" data-ng-model="user.vpassword" class="form-control" id="register-vpassword" placeholder="Verify Password" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-5">
+					<button type="submit" ng-click="register()" class="btn btn-default">Register</button>
+				</div>
+			</div>
+			<div class="success updated" ng-if="success">
+				<span>{{success}}</span>
+			</div>
+			<div class="error updated" ng-if="error">
+				<span>{{error}}</span>
+			</div>
+		</form>
+
+	</div>
+</div>

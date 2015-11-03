@@ -16,6 +16,15 @@
                 <li id="header-{{$index}}" class="header-title" ng-repeat='header in headerList'>
                     <a ng-click="goto($index)">{{header}}</a>
                 </li>
+                <li ng-if="!user" class="header-title">
+                    <a href="#/register" >Register</a>
+                </li>
+                <li ng-if="!user" class="header-title">
+                    <a href="">Login</a>
+                </li>
+                <li ng-if="user" class="header-title">
+                    <a href="" ng-click="logout()">Logout</a>
+                </li>
             </ul>
         </div>
     </div>

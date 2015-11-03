@@ -10,12 +10,19 @@
 	//Defining header controller
 	angular
 	.module(moduleName)
-	.controller("HeaderController", ['$scope', '$anchorScroll', '$location', '$window', 'CoreEvents', 
-		function($scope, $anchorScroll, $location, $window, CoreEvents) {
+	.controller("HeaderController", ['$scope', '$rootScope', '$location', '$window', 'CoreEvents', 
+		function($scope, $rootScope, $location, $window, CoreEvents) {
 			$scope.isCollapsed = false;
 			$scope.headerList = ['Home','Contact'];
 			$scope.coreCategories = [];
 			$scope.secondaryHeaders = [];
+
+			$scope.user = $rootScope.user;
+
+			//listen for login/sigin to grab logged in user
+			$rootScope.$on("auth", function(event, user){
+				$scope.user = $rootScope.user = user;
+			});
 
 			$scope.initializeCoreCategories = function(){
 				CoreEvents.categories()
@@ -36,17 +43,23 @@
 				$location.path( "/"+destinationRoute );
 			};
 
+			$scope.logout = function(){
+				$scope.user = $rootScope.user = null;
+				//Navigate to home
+				$location.path( "/home" );
+			};
+
 			$scope.initializeCoreCategories();
 		}
 		]);
 
-	angular.module(moduleName).filter('formatHeader', function() {
-		return function(input) {
-			input = input || "";
-			var re = new RegExp("_" , 'g');
-			input = input.replace(re, ' ');
-			return input.charAt(0).toUpperCase() + input.slice(1);
-		};
-	});
+angular.module(moduleName).filter('formatHeader', function() {
+	return function(input) {
+		input = input || "";
+		var re = new RegExp("_" , 'g');
+		input = input.replace(re, ' ');
+		return input.charAt(0).toUpperCase() + input.slice(1);
+	};
+});
 
 })();

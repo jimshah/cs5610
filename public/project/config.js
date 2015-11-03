@@ -22,6 +22,9 @@
 		.when("/contact", {
 			templateUrl : "/project/modules/contact/contact.client.view.html" 
 		})
+		.when("/register", {
+			templateUrl : "/project/modules/register/register.client.view.html" 
+		})
 		.otherwise({
 			redirectTo : "/" 
 		})
