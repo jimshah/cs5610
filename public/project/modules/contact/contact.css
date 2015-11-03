@@ -1,0 +1,26 @@
+.contact {
+	background-color: rgba(31, 8, 8, 0.46);
+    padding: 40px;
+}
+
+.contact .heading {
+	color: white;
+	padding-bottom: 25px;
+}
+
+.contact .heading .title {
+	font-size: 46px;
+	margin-bottom: 20px;
+	margin-top: 0;
+	font-weight: 700;
+	text-shadow: -1px 0 #EC6952, 0 1px #EC6952, 1px 0 #EC6952, 0 -1px #EC6952;
+	color: #fff;
+}
+
+.contact .description .contact-form {
+	color: white;
+}
+
+.contact .description .contact-form .form-group{
+	padding-top: 15px;
+}

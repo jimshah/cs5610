@@ -1,0 +1,51 @@
+<div class="container contact" ng-controller="ContactController">
+	<div class="row heading">
+		<h2 class="title">Contact us</h2>
+		<h5 claass="sub-title">Fill the form below keenly and we will get back to you soon.</h5>
+	</div>
+	<div class="row description">
+		<!-- FORM STARTS -->
+		<form class="form-horizontal contact-form">
+
+			<div class="form-group">
+				<label for="contact-fname" class="col-sm-2">First Name:</label>
+				<div class="col-sm-10">
+					<input type="text" data-ng-model="contact.fname" class="form-control" id="contact-fname" placeholder="First Name" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="contact-lname" class="col-sm-2">Last Name:</label>
+				<div class="col-sm-10">
+					<input type="text" data-ng-model="contact.lname" class="form-control" id="contact-lname" placeholder="Last Name" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="contact-email" class="col-sm-2">Email:</label>
+				<div class="col-sm-10">
+					<input type="email" data-ng-model="contact.email" class="form-control" id="contact-email" placeholder="Email" required>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="contact-website" class="col-sm-2">Website:</label>
+				<div class="col-sm-10">
+					<input type="text" data-ng-model="contact.website" class="form-control" id="contact-website" placeholder="http://www.yourwebsite.com">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="contact-query" class="col-sm-2">Query</label>
+				<div class="col-sm-10">
+					<textarea  rows="6" type="text" data-ng-model="contact.query" class="form-control" id="contact-query" placeholder="Post your query here ..." required></textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" ng-click="submitContactQuery()" class="btn btn-default">Submit</button>
+				</div>
+			</div>
+			<div class="success updated" ng-if="success">
+				<span>{{success}}</span>
+			</div>
+		</form>
+	</div>
+</div>

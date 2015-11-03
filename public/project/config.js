@@ -10,11 +10,17 @@
 		.when("/", {
 			templateUrl : "/project/modules/home/home.html" 
 		})
+		.when("/home", {
+			templateUrl : "/project/modules/home/home.html" 
+		})
 		.when("/events/:categoryId", {
 			templateUrl : "/project/modules/events/events.view.html" 
 		})
 		.when("/event/:eventId", {
 			templateUrl : "/project/modules/events/event.client.view.html" 
+		})
+		.when("/contact", {
+			templateUrl : "/project/modules/contact/contact.client.view.html" 
 		})
 		.otherwise({
 			redirectTo : "/" 

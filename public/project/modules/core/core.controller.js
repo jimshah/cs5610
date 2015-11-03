@@ -29,6 +29,13 @@
 				});
 			};
 
+			$scope.goto = function(index){
+				var destinationRoute = $scope.headerList[index];
+				destinationRoute = destinationRoute.toLowerCase();
+				//Navigate to profile
+				$location.path( "/"+destinationRoute );
+			};
+
 			$scope.initializeCoreCategories();
 		}
 		]);
