@@ -10,8 +10,11 @@
 		.when("/", {
 			templateUrl : "/project/modules/home/home.html" 
 		})
-		.when("/events", {
+		.when("/events/:categoryId", {
 			templateUrl : "/project/modules/events/events.view.html" 
+		})
+		.when("/event/:eventId", {
+			templateUrl : "/project/modules/events/event.client.view.html" 
 		})
 		.otherwise({
 			redirectTo : "/" 

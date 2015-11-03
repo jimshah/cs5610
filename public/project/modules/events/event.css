@@ -1,0 +1,19 @@
+.individual-event .event-description {
+	color: white;
+	font-weight: bold;
+}
+.individual-event .event-description .event-title{
+	font-size: 46px;
+	margin-bottom: 20px;
+	margin-top: 0;
+	font-weight: 700;
+	text-shadow: -1px 0 #EC6952, 0 1px #EC6952, 1px 0 #EC6952, 0 -1px #EC6952;
+	color: #fff;
+	padding-bottom: 50px;
+}
+.individual-event .event-description .address,.venue,.time{
+	padding: 10px;
+}
+.individual-event .event-description .description{
+	padding-top: 25px;
+}

@@ -1,10 +1,13 @@
-<div class="secondary-nav text-center">
+<div class="secondary-nav text-center" ng-controller="HeaderController">
   <ul class="list-inline">
-    <li><a href="#/events">Featured</a></li>
+  	<li ng-repeat="header in secondaryHeaders">
+  		<a href="#/events/{{header.id}}">{{header.id | formatHeader}}</a>
+  	</li>
+    <!-- <li><a href="#/events">Featured</a></li>
     <li><a href="#/events">Birthdays</a></li>
     <li><a href="#/events">Weddings</a></li>
     <li><a href="#/events">Occasional</a></li>
     <li><a href="#/events">Seasonal</a></li>
-    <li><a href="#/events">Social</a></li>
+    <li><a href="#/events">Social</a></li> -->
   </ul>
 </div>

@@ -10,31 +10,36 @@
 	//Defining header controller
 	angular
 	.module(moduleName)
-	.controller("HeaderController", ['$scope', '$anchorScroll', '$location',
-		function($scope, $anchorScroll, $location) {
+	.controller("HeaderController", ['$scope', '$anchorScroll', '$location', '$window', 'CoreEvents', 
+		function($scope, $anchorScroll, $location, $window, CoreEvents) {
 			$scope.isCollapsed = false;
 			$scope.headerList = ['Home','Contact'];
+			$scope.coreCategories = [];
+			$scope.secondaryHeaders = [];
 
-			/*$scope.toggleCollapsibleMenu = function() {
-				$scope.isCollapsed = !$scope.isCollapsed;
+			$scope.initializeCoreCategories = function(){
+				CoreEvents.categories()
+				.then(function(categories){
+					$scope.coreCategories = $window.categories = categories.category;
+					if ($scope.coreCategories.length <= 5){
+						$scope.secondaryHeaders = $scope.coreCategories;
+					} else {
+						$scope.secondaryHeaders = $scope.coreCategories.splice(0,5);
+					}
+				});
 			};
-			// Collapsing the menu after navigation
-			$scope.$on('$stateChangeSuccess', function() {
-				$scope.isCollapsed = false;
-			});
 
-			$scope.gotoBottom = function(index){
-				var header = $scope.headerList[index];
-				header = header ? header.toLowerCase() : "";
-				if (header){
-					//$location.hash(header);
-      				//$anchorScroll();
-      				$location.path('/'+header);
-      			}
+			$scope.initializeCoreCategories();
+		}
+		]);
 
-      			console.log("Hi "+header+", you're being clicked");
-      		};*/
-      	}
-      	]);
+	angular.module(moduleName).filter('formatHeader', function() {
+		return function(input) {
+			input = input || "";
+			var re = new RegExp("_" , 'g');
+			input = input.replace(re, ' ');
+			return input.charAt(0).toUpperCase() + input.slice(1);
+		};
+	});
 
 })();

@@ -1,6 +1,7 @@
 .categories .event-categories .category {
-	background-color: transparent;
-	border: none;
+	/* background-color: transparent;
+	border: none; */
+	background-color: rgba(31, 8, 8, 0.46);
 }
 
 .category-events li.event {
@@ -11,4 +12,23 @@
 	/*text-shadow: 0 0 #EC6952, 0 0 #EC6952, 0 0 #EC6952, 0 0 #EC6952;*/
 	color: white;
 	font-weight: bold;
+}
+
+.category-events li.event .event-title {
+	padding-bottom: 15px;
+	padding-top: 10px;
+}
+
+.category-events li.event .event-description {
+
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3;
+	line-height: 1.25;
+	/* max-height: 2; */
+	padding-left: 40px;
+	padding-right: 40px;
+	padding-top: 10px;
 }
