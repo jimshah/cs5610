@@ -13,10 +13,19 @@
 	.controller("EventsController", ['$scope', '$http', '$location', 'Events',
 		function($scope, $http, $location, Events) {
 			$scope.categories = [];
+			$scope.categoryEvents = [];
+
 			Events.categories()
 			.then(function(categories){
 				$scope.categories = categories.category;
 			});
+
+			Events.categoryEvents()
+			.then(function(categoryEvents){
+				$scope.categoryEvents = categoryEvents.events.event;
+			});
+
+
 		}]);
 
 })();

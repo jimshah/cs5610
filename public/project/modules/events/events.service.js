@@ -11,9 +11,21 @@
 			return {
 				categories: function() {
 					var deferred = $q.defer();
-					$http.get('/api/categories?app_key=z7m8NNZ7d6SXhtJv')
+					$http.get('/api/categories')
 					.success(function (response) {
 						$window.categories = response;
+						deferred.resolve(response);
+					})
+					.error(function (error) {
+						deferred.reject(error);
+					});
+					return deferred.promise;
+				}, 
+				categoryEvents: function(category) {
+					var deferred = $q.defer();
+					$http.get('/api/categories/category')
+					.success(function (response) {
+						$window.categoryEvents = response;
 						deferred.resolve(response);
 					})
 					.error(function (error) {

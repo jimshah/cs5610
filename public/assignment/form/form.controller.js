@@ -16,6 +16,7 @@
 	function FormController($scope, $location, $rootScope, FormService){
 		$scope.$location = $location;
 		$scope.user = $rootScope.user;
+		console.log($scope);
 
 		var initForms = function(){
 			if ($scope.user){

@@ -2,9 +2,13 @@
 var http = require('http');
 
 module.exports = function(app) {
-	// var apiController = require('../controllers/api.server.controller');
+	var apiController = require('../controllers/api.server.controller')();
+	
+	app.route("/api/categories").get(apiController.getCategories);
+	app.route("/api/categories/:category").get(apiController.getCategoryEvents);
+	app.route("/api/event/:eventId").get(apiController.getEvent);
 
-	app.route("/api/categories").get(function(req, res){
+	/*app.route("/api/categories").get(function(req, res){
 
 
 		var options = {
@@ -28,5 +32,5 @@ module.exports = function(app) {
 
 		http.request(options, callback).end();
 
-	});
+	});*/
 };

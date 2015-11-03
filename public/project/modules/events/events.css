@@ -2,3 +2,13 @@
 	background-color: transparent;
 	border: none;
 }
+
+.category-events li.event {
+	background-color: rgba(31, 8, 8, 0.46);
+}
+
+.category-events li.event a {
+	/*text-shadow: 0 0 #EC6952, 0 0 #EC6952, 0 0 #EC6952, 0 0 #EC6952;*/
+	color: white;
+	font-weight: bold;
+}

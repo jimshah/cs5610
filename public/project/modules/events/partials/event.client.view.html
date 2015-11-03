@@ -1,0 +1,15 @@
+<div class="category-events">
+	<ul class="event-categories list-group">
+		<li class="event list-group-item" ng-repeat="event in categoryEvents">
+			<a href="{{event.url}}">
+				<div class="row">
+					<div class="col-sm-1">
+						<img src="{{event.image.url}}" alt="{{event.image.caption}}">
+					</div>
+					<div class="col-sm-5">{{event.title}}</div>
+					<div class="col-sm-6">{{event.venue_address}} {{event.city_name}},{{event.region_name}}</div>
+				</div>
+			</a>
+		</li>
+	</ul>
+</div>
