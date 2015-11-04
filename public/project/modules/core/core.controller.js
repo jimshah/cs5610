@@ -45,6 +45,7 @@
 
 			$scope.logout = function(){
 				$scope.user = $rootScope.user = null;
+				$scope.events = $rootScope.events = null;
 				//Navigate to home
 				$location.path( "/home" );
 			};

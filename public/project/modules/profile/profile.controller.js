@@ -22,13 +22,12 @@
 			$rootScope.$on("auth", function(event, user){
 				$scope.error = $scope.success = "";
 				$scope.user = $rootScope.user = user;
-				EventService.getUserEventsById($scope.user.id, function(error, events){
-					if (error || events && events.length === 0){
-						$scope.error = error || "no user events found";
-					} else {
-						$scope.events = $rootScope.events = events;
-					}
-				});
+			});
+			//listen for login/sigin to grab logged in user
+			$rootScope.$on("userEvents", function(event, events){
+				console.log("on auth");
+				$scope.error = $scope.success = "";
+				$scope.events = $rootScope.events = events;
 			});
 
 			//Update button to update user profile

@@ -10,8 +10,8 @@
 	//Defining header controller
 	angular
 	.module(moduleName)
-	.controller("RegisterController", ['$scope', '$rootScope', '$location', '$window', 'UserService', 
-		function($scope, $rootScope, $location, $window, UserService) {
+	.controller("RegisterController", ['$scope', '$rootScope', '$location', '$window', 'UserService', 'EventService', 
+		function($scope, $rootScope, $location, $window, UserService, EventService) {
 			$scope.success= $scope.error = "";
 			$scope.user = {
 				fname: "",
@@ -56,11 +56,21 @@
 									}
 									UserService.createUser(newUserObject, function(err, newlyCreatedUser){
 									//update rootscope user 
-									$rootScope.user = newlyCreatedUser;
+									$scope.user = $rootScope.user = newlyCreatedUser;
 									//broadcast login auth event for listeners to update loggedin user 
 									$rootScope.$broadcast('auth', newlyCreatedUser);
 									//Navigate to profile
 									$location.path( "/home" );
+									//Retrieve User Events
+									EventService.getUserEventsById($scope.user.id, function(error, events){
+										if (error || events && events.length === 0){
+											console.log(error || "no user events found");
+										} else {
+											$scope.events = $rootScope.events = events;
+											//Braodcast userEvents
+											$rootScope.$broadcast('userEvents', events);
+										}
+									});
 								});
 								}
 							}
