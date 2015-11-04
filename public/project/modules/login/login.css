@@ -1,0 +1,7 @@
+.login {
+	background-color: rgba(31, 8, 8, 0.46);
+	padding: 40px;
+}
+.login .register {
+	background-color: transparent;
+}

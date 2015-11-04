@@ -49,10 +49,10 @@
 									$scope.error = "User already exists with that email";
 								} else {
 									var newUserObject = {
-										fname: $scope.fname,
-										lname: $scope.lname,
-										password: $scope.password,
-										email: $scope.email
+										fname: $scope.user.fname,
+										lname: $scope.user.lname,
+										password: $scope.user.password,
+										email: $scope.user.email
 									}
 									UserService.createUser(newUserObject, function(err, newlyCreatedUser){
 									//update rootscope user 

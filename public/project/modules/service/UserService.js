@@ -25,17 +25,17 @@
 		}];
 
 		/**
-		 * [Looks up for the user identified by (username,password) ]
-		 * @param  {[type]}   username [username]
+		 * [Looks up for the user identified by (email,password) ]
+		 * @param  {[type]}   email [email]
 		 * @param  {[type]}   password [password]
 		 * @param  {Function} callback [callback function]
 		 * @return {user}            [logged in user object]
 		 */
-		 function findUserByUsernameAndPassword(username, password, callback){
+		 function findUserByEmail(email, callback){
 		 	var currentUser, currentIndex;
 		 	try {
 		 		users.forEach(function(user, index){
-		 			if (user && user.username===username && user.password===password)
+		 			if (user && user.email===email)
 		 			{
 		 				currentUser = user;
 		 				currentIndex = index;
@@ -44,10 +44,10 @@
 		 		if (currentUser){
 		 			return callback(null, currentUser);
 		 		} else {
-		 			return callback("No User with (username,password) : ("+username+","+password+") Found", null);
+		 			return callback("No User with (email) : ("+email+") Found", null);
 		 		}
 		 	} catch (error){
-		 		console.log("catched an Exception in 'findUserByUsernameAndPassword' method", error);
+		 		console.log("catched an Exception in 'findUserByEmail' method", error);
 		 		return callback(error);
 		 	}
 		 };
@@ -163,7 +163,7 @@
 
 		//Creating a UserService
 		var userService = {
-			findUserByUsernameAndPassword: findUserByUsernameAndPassword,
+			findUserByEmail: findUserByEmail,
 			findAllUsers: findAllUsers,
 			createUser: createUser,
 			deleteUserById: deleteUserById,
