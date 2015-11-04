@@ -31,6 +31,9 @@
 		.when("/profile", {
 			templateUrl : "/project/modules/profile/profile.client.view.html" 
 		})
+		.when("/create/event", {
+			templateUrl : "/project/modules/events/event.create.client.view.html" 
+		})
 		.otherwise({
 			redirectTo : "/" 
 		})

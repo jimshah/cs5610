@@ -1,0 +1,85 @@
+<div class="container create-event" ng-controller="CreateEventController">
+
+	<div ng-if="user">
+		<div class="row title">
+			<h2>Create Your Event People</h2>
+		</div>
+		<div class="row">
+			<!-- FORM STARTS -->
+			<form class="form-horizontal">
+
+				<div class="form-group">
+					<label for="event-name" class="col-sm-2">Event Name:</label>
+					<div class="col-sm-5">
+						<input type="text" data-ng-model="newEvent.title" class="form-control" id="event-name" placeholder="Event Name" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="event-description" class="col-sm-2">Event Description:</label>
+					<div class="col-sm-5">
+						<textarea  rows="6" type="text" data-ng-model="newEvent.description" class="form-control" id="event-description" placeholder="Post your event description ..." required></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="event-date" class="col-sm-2">Event Date:</label>
+					<div class="col-sm-5">
+						<input type="date" data-ng-model="newEvent.date" class="form-control" id="event-date" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="event-start-time" class="col-sm-2">From:</label>
+					<div class="col-sm-5">
+						<input type="time" data-ng-model="newEvent.start_time" class="form-control" id="event-start-time" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="event-stop-time" class="col-sm-2">Till:</label>
+					<div class="col-sm-5">
+						<input type="time" data-ng-model="newEvent.stop_time" class="form-control" id="event-stop-time" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="event-venue-address" class="col-sm-2">Street:</label>
+					<div class="col-sm-5">
+						<input type="text" data-ng-model="newEvent.venue_address" class="form-control" id="event-venue-address" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="event-city-name" class="col-sm-2">City:</label>
+					<div class="col-sm-5">
+						<input type="text" data-ng-model="newEvent.city_name" class="form-control" id="event-city-name" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="event-region-name" class="col-sm-2">State:</label>
+					<div class="col-sm-5">
+						<input type="text" data-ng-model="newEvent.region_name" class="form-control" id="event-region-name" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="event-country-name" class="col-sm-2">Country:</label>
+					<div class="col-sm-5">
+						<input type="text" data-ng-model="newEvent.country_name" class="form-control" id="event-country-name" required>
+					</div>
+				</div>
+
+				<div class="error not-found" ng-if="error">
+					<span>{{error}}</span>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-5">
+						<button type="submit" ng-click="create()" class="btn btn-default">Create</button>
+					</div>
+				</div>
+				<div class="success updated" ng-if="success">
+					<span>{{success}}</span>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div ng-if="!user">
+		<h3>Please <a href="#/login">Login</a> to access this page.</h3>
+	</div>
+	
+</div>

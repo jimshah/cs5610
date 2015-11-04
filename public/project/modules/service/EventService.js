@@ -25,7 +25,8 @@
 			created:"2015-09-17 13:06:17",
 			modified: "2015-09-17 13:06:17",
 			description: "Since Google first published the seminal paper on Big Table in 2006, other organizations have developed their own scalable databases and offered them open sourced or commercially Cassandra, Accumulo, Voldemort, Dynamo, and HBase are all based on Big Tables scalable infrastructure.   Big Table, itself, was not available until earlier this year, when Google announced that they were offering a hosted version for their cloud infrastructure. Setting up and managing infrastructures has been an enormous time sink for many data scientists.  Many hosted solutions are priced well out of the range of smaller startups (and grad students).  Even with funding, moving data between servers remains a bottleneck. Google offers incredible scalability with a low cost to entry.  Data is distributed to all clusters quickly and easily removing unnecessary delay. Ruth Stern will present on getting up and running on the google stack quickly and affordably, so the focus is on the data science and not the infrastructure or cost.  With step-by-step examples it will provide a tour of the Google Cloud, so participants can go out and build their out own Google stack and start their own experiments. Seattle Data Science is a Meetup group powered by Galvanize Seattle, a modern urban campus located in Pioneer Square that offers educational programming, community workspace, tech-related events, and venture capital. For more information on how you can level up yourself or your company, visit us at galvanize.com. ",
-			title: "event title"
+			title: "event title",
+			date: "2015-12-17"
 		}];
 
 		/**
@@ -49,16 +50,16 @@
 		 	}
 		 }
 
-		 function createEvent(event, callback){
+		 function createEvent(eventObject, callback){
 		 	try {
-		 		if (!event || typeof event !== 'object'){
+		 		if (!eventObject || typeof eventObject !== 'object'){
 		 			return callback("Please provide a proper event object");
 		 		} else {
-		 			event.id = guid();
-		 			event.created = event.modified = formatDate(new Date());
-		 			event.type="local";
-		 			events.push(event);
-		 			return getUserEventsById(event.userId, callback);
+		 			eventObject.id = guid();
+		 			eventObject.created = eventObject.modified = formatDate(new Date());
+		 			eventObject.type="local";
+		 			events.push(eventObject);
+		 			return getUserEventsById(eventObject.userId, callback);
 		 		}
 		 	} catch(error){
 		 		console.log("catched an Exception in 'createUserEvent' method", error);
