@@ -10,15 +10,25 @@
 	//Defining header controller
 	angular
 	.module(moduleName)
-	.controller("ProfileController", ['$scope', '$rootScope', '$location', '$window', 'UserService', 
-		function($scope, $rootScope, $location, $window, UserService) {
+	.controller("ProfileController", ['$scope', '$rootScope', '$location', '$window', 'UserService', 'EventService',  
+		function($scope, $rootScope, $location, $window, UserService, EventService) {
 			$scope.success= $scope.error = "";
 
 			$scope.user = $rootScope.user;
+			$scope.events = $rootScope.events;
+			$window.profile = $scope;
 
 			//listen for login/sigin to grab logged in user
 			$rootScope.$on("auth", function(event, user){
+				$scope.error = $scope.success = "";
 				$scope.user = $rootScope.user = user;
+				EventService.getUserEventsById($scope.user.id, function(error, events){
+					if (error || events && events.length === 0){
+						$scope.error = error || "no user events found";
+					} else {
+						$scope.events = $rootScope.events = events;
+					}
+				});
 			});
 
 			//Update button to update user profile
@@ -34,6 +44,8 @@
 					}
 				});
 			};
+
+
 
 		}
 		]);

@@ -1,7 +1,5 @@
 <div class="container profile" ng-controller="ProfileController">
 	<div class="row">
-		
-		
 
 		<div ng-if="user" class="">
 			<div class="col-xs-3">
@@ -58,7 +56,23 @@
 					</form>
 				</div>
 				<div id="events" class="tab-pane">
-					User's Events
+					<div class="user-events">
+						<ul class="list-group">
+							<li class="list-group-item" ng-repeat="event in events">
+								<div class="text-center">
+									<div class="row evemt-title"><h2>{{event.title}}</h2></div>
+									<div class="row event-description">{{event.description}}</div>
+									<div class="row event-address">{{event.venue_address}} {{event.city_name}} {{event.region_name}} {{event.country_name}}</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="error not-found">
+						{{error}}
+					</div>
+					<div class="create-event">
+						<button typpe="button" class="btn btn-primary btn-md">Create Event</button>
+					</div>
 				</div>
 			</div>
 		</div>
