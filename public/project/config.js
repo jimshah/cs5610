@@ -28,6 +28,9 @@
 		.when("/login", {
 			templateUrl : "/project/modules/login/login.client.view.html" 
 		})
+		.when("/profile", {
+			templateUrl : "/project/modules/profile/profile.client.view.html" 
+		})
 		.otherwise({
 			redirectTo : "/" 
 		})

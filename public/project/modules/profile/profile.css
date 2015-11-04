@@ -1,0 +1,35 @@
+.profile .vertical-tabs .anti-rotate{
+	webkit-transform: rotate(-90deg);
+	-moz-transform: rotate(-90deg);
+	-ms-transform: rotate(-90deg);
+	-o-transform: rotate(-90deg);
+	transform: rotate(-90deg);
+	/* margin-bottom: 100px; */
+	height: 30px;
+	width: 160px;
+	margin-bottom: 140px;
+	background-color: rgba(31, 8, 8, 0.46);
+	border: 0;
+	color: white;
+	padding-bottom: 30px;
+	border: 1px solid rgb(110, 63, 12);
+}
+
+.profile .vertical-tabs .anti-rotate:hover{
+	background-color: rgb(110, 63, 12);
+}
+
+.profile .vertical-tabs .anti-rotate a{
+	color: white;
+	letter-spacing: 1.5px;
+}
+
+.profile .vertical-tabs .anti-rotate a:hover{
+	text-decoration: none;
+	color: white;
+}
+
+.profile .vertical-tabs ul {
+	margin-top: 60px;
+	margin-left: -55px;
+}
