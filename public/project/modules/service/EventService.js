@@ -126,6 +126,25 @@
 			}
 		}
 
+		function getEventById(eventId, callback){
+			try {
+				var eventToReturn;
+				events.forEach(function(event, index){
+					if (event.id === eventId){
+						eventToReturn = event;
+					}
+				});
+				if (eventToReturn){
+					return callback(null, eventToReturn);
+				} else {
+					return callback("No event found with eventId "+eventId);
+				}
+			} catch(error){
+				console.log("catched an Exception in 'getEventById' method", error);
+				return callback(error);
+			}
+		}
+
 
 		/**
 		 * [guid generates a unique id]
@@ -164,7 +183,8 @@
 			getUserEventsById: getUserEventsById ,
 			createEvent: createEvent,
 			registerEvent: registerEvent,
-			getUserRegisteredEvents: getUserRegisteredEvents
+			getUserRegisteredEvents: getUserRegisteredEvents,
+			getEventById: getEventById
 		};
 		return eventService;		
 	};

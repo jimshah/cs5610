@@ -53,6 +53,14 @@
 			$scope.create = function(){
 				$location.path( "/create/event" );
 			};
+
+			$scope.gotoEventPage = function(event){
+				if (event && event.type==="local"){
+					$location.path("/event/local/"+event.id);
+				} else {
+					$location.path("/event/"+event.id);
+				}
+			};
 		}
 		]);
 

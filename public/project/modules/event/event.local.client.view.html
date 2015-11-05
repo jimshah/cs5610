@@ -1,0 +1,18 @@
+<div class="container individual-event" ng-controller="LocalEventController">
+	<div class="row event-description text-center main-text">
+		<h1 class="event-title">{{event.title}}</h1>
+		<!-- <h4 class="venue">Venue: {{event.venue_name}} {{event.venue_type}}</h4> -->
+		<h4 class="address">Address: {{event.venue_address}} {{event.city_name}} {{event.region_name}} {{event.country_name}}</h4>
+		<h4 class="time">time: {{event.start_time}}</h4>
+		<p class="description">{{event.description}}</p>
+	</div>
+	<!-- <div class="register-event">
+		<button type="submit" ng-click="register()" class="btn btn-default">Register</button>
+	</div> -->
+	<div ng-if="error" class="error not-found">
+		{{error}}
+	</div>
+	<div ng-if="success" class="success">
+		{{success}}
+	</div>
+</div>

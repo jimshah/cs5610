@@ -53,6 +53,9 @@
 	background-color: rgba(31, 8, 8, 0.46);
 	border: 1px solid rgb(110, 63, 12);
 }
+.profile .tab-content .user-events,.user-registered-events li:hover{
+	cursor: pointer;
+}
 .profile .tab-content .user-events .event-description{
 	overflow: hidden;
 	text-overflow: ellipsis;
