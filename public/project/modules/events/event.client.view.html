@@ -6,4 +6,13 @@
 		<h4 class="time">time: {{event.start_time}}</h4>
 		<p class="description">{{event.description}}</p>
 	</div>
+	<div class="register-event">
+		<button type="submit" ng-click="register()" class="btn btn-default">Register</button>
+	</div>
+	<div ng-if="error" class="error not-found">
+		{{error}}
+	</div>
+	<div ng-if="success" class="success">
+		{{success}}
+	</div>
 </div>

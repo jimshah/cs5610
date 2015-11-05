@@ -26,7 +26,9 @@
 			modified: "2015-09-17 13:06:17",
 			description: "Since Google first published the seminal paper on Big Table in 2006, other organizations have developed their own scalable databases and offered them open sourced or commercially Cassandra, Accumulo, Voldemort, Dynamo, and HBase are all based on Big Tables scalable infrastructure.   Big Table, itself, was not available until earlier this year, when Google announced that they were offering a hosted version for their cloud infrastructure. Setting up and managing infrastructures has been an enormous time sink for many data scientists.  Many hosted solutions are priced well out of the range of smaller startups (and grad students).  Even with funding, moving data between servers remains a bottleneck. Google offers incredible scalability with a low cost to entry.  Data is distributed to all clusters quickly and easily removing unnecessary delay. Ruth Stern will present on getting up and running on the google stack quickly and affordably, so the focus is on the data science and not the infrastructure or cost.  With step-by-step examples it will provide a tour of the Google Cloud, so participants can go out and build their out own Google stack and start their own experiments. Seattle Data Science is a Meetup group powered by Galvanize Seattle, a modern urban campus located in Pioneer Square that offers educational programming, community workspace, tech-related events, and venture capital. For more information on how you can level up yourself or your company, visit us at galvanize.com. ",
 			title: "event title",
-			date: "2015-12-17"
+			date: "2015-12-17",
+
+			attendees: []
 		}];
 
 		/**
@@ -67,6 +69,60 @@
 		 	}
 		 }
 
+		 function getUserRegisteredEvents(userId, callback){
+		 	try {
+		 		if (!userId){
+		 			return callback("Please provide a valid userId");
+		 		} else {
+		 			var registeredEvents = [];
+		 			events.forEach(function(event){
+		 				if(event.attendees && event.attendees.indexOf(userId) > -1){
+		 					registeredEvents.push(event);
+		 				}
+		 			});
+		 			return callback(null, registeredEvents);
+		 		}
+		 	} catch(error){
+		 		console.log("catched an Exception in 'getUserRegisteredEvents' method", error);
+		 		return callback(error);
+		 	}
+		 }
+
+		 function registerEvent(userId, givenEvent, callback){
+		 	try {
+		 		if (!userId){
+		 			return callback("Please supply proper userId");
+		 		} else if (!givenEvent){
+		 			return callback("Please supply proper givenEvent");
+		 		} else {
+		 			var eventInContext;
+		 			var duplicate = false;
+		 			events.forEach(function(event, index){
+		 				if (event.id === givenEvent.id){
+		 					eventInContext = event;
+		 					if (event && event.attendees && event.attendees.indexOf(userId) >-1){
+		 						duplicate = true;
+		 					}
+		 				}
+		 			});
+		 			if (duplicate){
+		 				return callback("You have already registered for this event");
+		 			} else {
+		 				if (!eventInContext){
+		 					eventInContext = givenEvent;
+		 					events.push(givenEvent);
+		 				}
+		 				eventInContext.attendees = eventInContext.attendees || [];
+		 				eventInContext.attendees.push(userId);
+		 				return getUserRegisteredEvents(userId, callback);	 			
+		 			}
+		 		}
+		 	} catch(error){
+		 		console.log("catched an Exception in 'registerEvent' method", error);
+		 		return callback(error);
+		 	}
+		 }
+
 
 		/**
 		 * [guid generates a unique id]
@@ -103,7 +159,9 @@
 		//Creating a UserService
 		var eventService = {
 			getUserEventsById: getUserEventsById ,
-			createEvent: createEvent
+			createEvent: createEvent,
+			registerEvent: registerEvent,
+			getUserRegisteredEvents: getUserRegisteredEvents
 		};
 		return eventService;		
 	};
