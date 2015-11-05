@@ -62,6 +62,31 @@
 						<input type="text" data-ng-model="newEvent.country_name" class="form-control" id="event-country-name" required>
 					</div>
 				</div>
+				<br>
+
+				<div class="form-group">
+					<label class="col-sm-2">Event Privacy:</label>
+					<div class="radio radio-inline">
+						<label><input data-ng-model="newEvent.privacy" type="radio" name="privacy" value="public">Public</label>
+					</div>
+					<div class="radio radio-inline">
+						<label><input data-ng-model="newEvent.privacy" type="radio" name="privacy" value="private">Private</label>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="event-notification-message" class="col-sm-2">Event Notification Message:</label>
+					<div class="col-sm-5">
+						<textarea  rows="4" type="text" data-ng-model="newEvent.notification.message" class="form-control" id="event-notification-message" placeholder="This message goes in the event reminder ..."></textarea>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="event-guest" class="col-sm-2">Invite Event Guests:</label>
+					<div class="col-sm-5">
+						<textarea  rows="4" type="text" data-ng-model="newEvent.guest" class="form-control" id="event-guest" placeholder="Comma separated list of email addresses for guests..."></textarea>
+					</div>
+				</div>
 
 				<div class="error not-found" ng-if="error">
 					<span>{{error}}</span>

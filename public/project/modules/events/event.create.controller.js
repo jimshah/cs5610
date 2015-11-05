@@ -35,7 +35,9 @@
 				$scope.error =$scope.success = "";
 				$scope.newEvent.userId = $scope.user.id;
 				$scope.newEvent.type = "local";
-				EventService.createEvent($scope.newEvent, function(error, userEvents){
+				if ($scope.newEvent && $scope.newEvent.title && $scope.newEvent.description && $scope.newEvent.date && 
+					$scope.newEvent.start_time && $scope.newEvent.venue_address && $scope.newEvent.privacy){
+					EventService.createEvent($scope.newEvent, function(error, userEvents){
 					if (error){
 						$scope.error = error;
 					} else {
@@ -44,6 +46,9 @@
 						$location.path( "/profile" );
 					}
 				});
+				} else {
+					$scope.error = "please fill out all of the details";
+				}
 			};
 		}
 		]);

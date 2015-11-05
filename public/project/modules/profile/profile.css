@@ -1,3 +1,6 @@
+.profile {
+	color: white;
+}
 .profile .vertical-tabs .anti-rotate{
 	webkit-transform: rotate(-90deg);
 	-moz-transform: rotate(-90deg);
