@@ -8,10 +8,10 @@
 	function AppRoutes($routeProvider){
 		$routeProvider
 		.when("/", {
-			templateUrl : "/project/modules/home/home.html" 
+			templateUrl : "/project/modules/home/home.view.html" 
 		})
 		.when("/home", {
-			templateUrl : "/project/modules/home/home.html" 
+			templateUrl : "/project/modules/home/home.view.html" 
 		})
 		.when("/events/:categoryId", {
 			templateUrl : "/project/modules/events/events.view.html" 

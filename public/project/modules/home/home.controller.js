@@ -10,13 +10,17 @@
 	//Defining home controller
 	angular
 	.module(moduleName)
-	.controller("HomeController", ['$scope', function($scope){
+	.controller("HomeController", ['$scope', '$location', function($scope, $location){
 		$scope.hello = "Hello Jainam..!!";
 		$scope.courseName = "WebDev CS5610";
 		$scope.user = {
 			fname : "jnam",
 			lname : "shah"
 		};
+
+		$scope.createEvent = function(){
+			$location.path("/create/event");
+		}
 	}]);
 
 	//Defining home controller
