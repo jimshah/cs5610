@@ -16,6 +16,7 @@
 
 			$scope.user = $rootScope.user;
 			$scope.events = $rootScope.events;
+			$scope.registeredEvents = $rootScope.registeredEvents;
 			$window.profile = $scope;
 
 			//listen for login/sigin to grab logged in user
@@ -25,9 +26,14 @@
 			});
 			//listen for login/sigin to grab logged in user
 			$rootScope.$on("userEvents", function(event, events){
-				console.log("on auth");
 				$scope.error = $scope.success = "";
 				$scope.events = $rootScope.events = events;
+			});
+
+			//listen for login/sigin to grab logged in user
+			$rootScope.$on("userRegisteredEvents", function(event, events){
+				$scope.error = $scope.success = "";
+				$scope.registeredEvents = $rootScope.registeredEvents = events;
 			});
 
 			//Update button to update user profile
@@ -47,9 +53,6 @@
 			$scope.create = function(){
 				$location.path( "/create/event" );
 			};
-
-
-
 		}
 		]);
 

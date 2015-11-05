@@ -41,15 +41,25 @@
 									$scope.events = $rootScope.events = events;
 									//Braodcast userEvents
 									$rootScope.$broadcast('userEvents', events);
+
+									EventService.getUserRegisteredEvents($scope.user.id, function(error, userRegisteredEvents){
+										if (error){
+											console.log(error);
+										} else {
+											$scope.registeredEvents = $rootScope.registeredEvents;
+											//Braodcast userEvents
+											$rootScope.$broadcast('userRegisteredEvents', userRegisteredEvents);
+										}
+									})
 								}
 							});
 						}
 					});
-				}
-			};
+}
+};
 
 
-		}
-		]);
+}
+]);
 
 })();

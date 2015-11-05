@@ -80,48 +80,51 @@
 		 					registeredEvents.push(event);
 		 				}
 		 			});
-		 			return callback(null, registeredEvents);
-		 		}
-		 	} catch(error){
-		 		console.log("catched an Exception in 'getUserRegisteredEvents' method", error);
-		 		return callback(error);
-		 	}
-		 }
+		 			$rootScope.registeredEvents = registeredEvents;
+					//Braodcast userEvents
+					$rootScope.$broadcast('userRegisteredEvents', registeredEvents);
+					return callback(null, registeredEvents);
+				}
+			} catch(error){
+				console.log("catched an Exception in 'getUserRegisteredEvents' method", error);
+				return callback(error);
+			}
+		}
 
-		 function registerEvent(userId, givenEvent, callback){
-		 	try {
-		 		if (!userId){
-		 			return callback("Please supply proper userId");
-		 		} else if (!givenEvent){
-		 			return callback("Please supply proper givenEvent");
-		 		} else {
-		 			var eventInContext;
-		 			var duplicate = false;
-		 			events.forEach(function(event, index){
-		 				if (event.id === givenEvent.id){
-		 					eventInContext = event;
-		 					if (event && event.attendees && event.attendees.indexOf(userId) >-1){
-		 						duplicate = true;
-		 					}
-		 				}
-		 			});
-		 			if (duplicate){
-		 				return callback("You have already registered for this event");
-		 			} else {
-		 				if (!eventInContext){
-		 					eventInContext = givenEvent;
-		 					events.push(givenEvent);
-		 				}
-		 				eventInContext.attendees = eventInContext.attendees || [];
-		 				eventInContext.attendees.push(userId);
-		 				return getUserRegisteredEvents(userId, callback);	 			
-		 			}
-		 		}
-		 	} catch(error){
-		 		console.log("catched an Exception in 'registerEvent' method", error);
-		 		return callback(error);
-		 	}
-		 }
+		function registerEvent(userId, givenEvent, callback){
+			try {
+				if (!userId){
+					return callback("Please supply proper userId");
+				} else if (!givenEvent){
+					return callback("Please supply proper givenEvent");
+				} else {
+					var eventInContext;
+					var duplicate = false;
+					events.forEach(function(event, index){
+						if (event.id === givenEvent.id){
+							eventInContext = event;
+							if (event && event.attendees && event.attendees.indexOf(userId) >-1){
+								duplicate = true;
+							}
+						}
+					});
+					if (duplicate){
+						return callback("You have already registered for this event");
+					} else {
+						if (!eventInContext){
+							eventInContext = givenEvent;
+							events.push(givenEvent);
+						}
+						eventInContext.attendees = eventInContext.attendees || [];
+						eventInContext.attendees.push(userId);
+						return getUserRegisteredEvents(userId, callback);	 			
+					}
+				}
+			} catch(error){
+				console.log("catched an Exception in 'registerEvent' method", error);
+				return callback(error);
+			}
+		}
 
 
 		/**
