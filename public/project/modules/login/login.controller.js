@@ -50,7 +50,7 @@
 											//Braodcast userEvents
 											$rootScope.$broadcast('userRegisteredEvents', userRegisteredEvents);
 										}
-									})
+									});
 								}
 							});
 						}
