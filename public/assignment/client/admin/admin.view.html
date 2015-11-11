@@ -1,0 +1,54 @@
+<div class="home-main" ng-controller="AdminController">
+	<h1 class="page-header">Admin</h1>
+
+	<h2 class="sub-header">Users</h2>
+	<div class="table-responsive">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>Username</th>
+					<th><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>Password</th>
+					<th><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>Role</th>
+					<th><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<input type="text" class="form-control" id="searchUsername" placeholder="username">
+					</td>
+					<td>
+						<input type="text" class="form-control" id="searchPassword" placeholder="password">
+					</td>
+					<td>
+						<input type="text" class="form-control" id="searchRole" placeholder="role">
+					</td>
+					<td>
+						<a href="">
+							<span class="glyphicon glyphicon-plus" id="addUser" aria-hidden="true"></span>
+						</a>
+						<a href="">
+							<span class="glyphicon glyphicon-ok" id="updateUser" aria-hidden="true"></span>
+						</a>
+					</td>
+				</tr>
+				<tr ng-repeat="u in allUsers">
+					<td>{{u.username}}</td>
+					<td></td>
+					<td>{{u.role}}</td>
+					<td>
+						<a href="">
+							<span class="glyphicon glyphicon-plus" id="addUser" aria-hidden="true"></span>
+						</a>
+						<a href="">
+							<span class="glyphicon glyphicon-ok" id="updateUser" aria-hidden="true"></span>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<span ng-if="error" class="error">{{error}}
+		</span>
+	</div>
+
+</div>
