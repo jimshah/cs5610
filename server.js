@@ -12,9 +12,15 @@ var port      = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser());
 app.use(morgan("dev"));
+//JSONIFY ERROR
+require("./helpers/jsonify-error.js");
 
 //Load Routes
 require("./app/routes")(app);
+
+
+//Load Assignment Server App
+require("./public/assignment/server/app.js")(app);
 
 // Handle 404
 /*app.use(function(req, res) {

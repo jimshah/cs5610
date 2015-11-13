@@ -10,3 +10,7 @@
 	color: #fff;
     background-color: #428bca;
 }
+
+.form-body .error {
+	color: #FF0000;
+}

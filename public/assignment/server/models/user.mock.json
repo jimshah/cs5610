@@ -1,0 +1,12 @@
+{
+	"users": [
+	{"id": 123, "firstName": "Alice", 	"lastName": "Wonderland",	"username": "alice", 	"password": "alice"},
+	{"id": 234, "firstName": "Bob",	"lastName": "Hope", 		"username": "bob", 	"password": "bob"},
+	{"id": 345, "firstName": "Charlie",	"lastName": "Brown", 		"username": "charlie", "password": "charlie"},
+	{"id": 456, "firstName": "Dan",	"lastName": "Craig", 		"username": "dan", 	"password": "dan"},
+	{"id": 567, "firstName": "Edward",	"lastName": "Norton", 		"username": "ed",	"password": "ed"},
+	{"id": "4543473b-d068-1048-e846-f68e04ea5c61","username": "aa","password": "aa", "firstName": "aa","lastName": "aa","email": "aa@aa.com","role": []},
+	{"id": "4543473b-d068-1048-e846-f68e04ea5c62","username": "zz","password": "zz", "firstName": "zz","lastName": "zz","email": "zz@zz.com","role": []}
+	]
+
+}

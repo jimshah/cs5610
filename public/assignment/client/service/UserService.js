@@ -7,27 +7,6 @@
 	//UserService  function
 	function UserService ($window, $http, $q, $rootScope){
 
-		//Local Empty Array of Users
-		var users = [
-		{
-			id: "4543473b-d068-1048-e846-f68e04ea5c61",
-			username: "aa",
-			password: "aa",
-			fname: "aa",
-			lname: "aa",
-			email: "aa@aa.com",
-			role: []
-		},
-		{
-			id: "4543473b-d068-1048-e846-f68e04ea5c62",
-			username: "zz",
-			password: "zz",
-			fname: "zz",
-			lname: "zz",
-			email: "zz@zz.com",
-			role: []
-		}];
-
 		/**
 		 * [Looks up for the user identified by (username,password) ]
 		 * @param  {[type]}   username [username]
@@ -35,25 +14,21 @@
 		 * @param  {Function} callback [callback function]
 		 * @return {user}            [logged in user object]
 		 */
-		 function findUserByUsernameAndPassword(username, password, callback){
-		 	var currentUser, currentIndex;
-		 	try {
-		 		users.forEach(function(user, index){
-		 			if (user && user.username===username && user.password===password)
-		 			{
-		 				currentUser = user;
-		 				currentIndex = index;
-		 			}
-		 		});
-		 		if (currentUser){
-		 			return callback(null, currentUser);
-		 		} else {
-		 			return callback("No User with (username,password) : ("+username+","+password+") Found", null);
+		 function findUserByUsernameAndPassword(username, password){
+		 	var deferred = $q.defer();
+
+		 	$http.get("/api/assignment/user/"+username+"/"+password)
+		 	.success(function(user){
+		 		deferred.resolve(user);
+		 	})
+		 	.error(function(error){
+		 		if (error && error.message){
+		 			deferred.reject(error.message);	
+		 		} else{
+		 			deferred.reject(error);
 		 		}
-		 	} catch (error){
-		 		console.log("catched an Exception in 'findUserByUsernameAndPassword' method", error);
-		 		return callback(error);
-		 	}
+		 	});
+		 	return deferred.promise;
 		 };
 
 		 /**
@@ -61,13 +36,21 @@
 		  * @param  {Function} callback [a callback function]
 		  * @return {[users]}            [array of all users]
 		  */
-		  function findAllUsers(callback){
-		  	try {
-		  		return callback(null, users);
-		  	} catch(error){
-		  		console.log("catched an Exception in 'findAllUsers' method", error);
-		  		return callback(error);
-		  	}
+		  function findAllUsers(){
+		  	var deferred = $q.defer();
+
+		  	$http.get("/api/assignment/user")
+		  	.success(function(users){
+		  		deferred.resolve(users);
+		  	})
+		  	.error(function(error){
+		  		if (error && error.message){
+		  			deferred.reject(error.message);	
+		  		} else{
+		  			deferred.reject(error);
+		  		}
+		  	});
+		  	return deferred.promise;
 		  };
 
 		/**
@@ -76,20 +59,23 @@
 		 * @param  {Function} callback [a callback function]
 		 * @return {[type]}            [Calls back with newly created user]
 		 */
-		 function createUser(user, callback){
-		 	try {
-		 		if (!user || typeof user !== 'object'){
-		 			return callback("please provide a valid user object");
-		 		} else {
-		 			user.id = guid();
-		 			user.role = [];
-		 			users.push(user);
-		 			return callback(null, user);
+		 function createUser(user){
+		 	var deferred = $q.defer();
+
+		 	$http.post("/api/assignment/user", user)
+		 	.success(function(newUser){
+		 		deferred.resolve(newUser);
+		 	})
+		 	.error(function(error){
+		 		if (error && error.message){
+		 			deferred.reject(error.message);	
+		 		} else{
+		 			deferred.reject(error);
 		 		}
-		 	} catch(error){
-		 		console.log("catched an Exception in 'createUser' method", error);
-		 		return callback(error);
-		 	}
+		 	});
+
+		 	return deferred.promise;
+
 		 };
 
 		 /**
@@ -99,22 +85,20 @@
 		  * @return {[user]}            [array of remaining all users]
 		  */
 		  function deleteUserById(userId, callback){
-		  	try {
-		  		if (!userId || typeof userId !== 'string'){
-		  			return callback("please provide a valid userId String");
-		  		} else {
-		  			users.forEach(function(user, index){
-		  				if (user.id === userId){
-		  					console.log("User succesfully deleted");
-		  					users.splice(index, 1);
-		  				}
-		  			});
-		  			return callback(null, users);
+		  	var deferred = $q.defer();
+
+		  	$http.put("/api/assignment/user/"+userId, updatedUser)
+		  	.success(function(newUser){
+		  		deferred.resolve(newUser);
+		  	})
+		  	.error(function(error){
+		  		if (error && error.message){
+		  			deferred.reject(error.message);	
+		  		} else{
+		  			deferred.reject(error);
 		  		}
-		  	} catch(error){
-		  		console.log("catched an Exception in 'deleteUserById' method", error);
-		  		return callback(error);
-		  	}
+		  	});
+		  	return deferred.promise;
 		  };
 
 		  /**
@@ -124,32 +108,21 @@
 		   * @param  {Function} callback [a callback function]
 		   * @return {[type]}            [an updated user object]
 		   */
-		   function updateUser(userId, updatedUser, callback){
-		   	try {
-		   		var found = false;
-		   		var userAfterUpdate;
-		   		users.forEach(function(user){
-		   			if (user && user.id===userId){
-		   				found = true;
-		  				//Updating only newly properties from the input updatedUser object
-		  				for(var prop in user){
-		  					if (updatedUser[prop]){
-		  						user[prop] = updatedUser[prop];
-		  					}
-		  				}
-		  				user.id = userId;
-		  				userAfterUpdate = user;
-		  			}
-		  		});
-		  		if (found){
-		  			return callback(null, userAfterUpdate);
-		  		} else {
-		  			return callback("Error finding user with id : "+userId, null);
-		  		}
-		   	} catch(error){
-		   		console.log("catched an Exception in 'updateUser' method", error);
-		   		return callback(error);
-		   	}
+		   function updateUser(userId, updatedUser){
+		   	var deferred = $q.defer();
+
+		   	$http.put("/api/assignment/user/"+userId, updatedUser)
+		   	.success(function(newUser){
+		   		deferred.resolve(newUser);
+		   	})
+		   	.error(function(error){
+		   		if (error && error.message){
+		   			deferred.reject(error.message);	
+		   		} else{
+		   			deferred.reject(error);
+		   		}
+		   	});
+		   	return deferred.promise;
 		   };
 
 		/**

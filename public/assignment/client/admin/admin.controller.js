@@ -25,9 +25,16 @@
 		var init = function(){
 			$scope.error = null;
 			if ($scope.user){
-				UserService.findAllUsers(function(error, allUsers){
+				/*UserService.findAllUsers(function(error, allUsers){
 					$scope.allUsers = allUsers;
-				});
+				});*/
+				UserService.findAllUsers()
+				.then(function(allUsers){
+					$scope.allUsers = allUsers;
+				})
+				.catch(function(error){
+					$scope.error = error;
+				})
 			} else {
 				$scope.error = "please login to view this content";
 			}

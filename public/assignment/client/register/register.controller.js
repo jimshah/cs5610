@@ -10,10 +10,10 @@
 	//Defining header controller
 	angular
 	.module(moduleName)
-	.controller("RegisterController", ['$scope', '$location', '$rootScope', 'UserService', RegisterController]);
+	.controller("RegisterController", ['$scope', '$location', '$rootScope', '$q', 'UserService', RegisterController]);
 	
 	//HeaderController function
-	function RegisterController($scope, $location, $rootScope, UserService ){
+	function RegisterController($scope, $location, $rootScope, $q, UserService ){
 		$scope.$location = $location;
 
 		//register function : registering a user
@@ -49,14 +49,18 @@
 									password: $scope.password,
 									email: $scope.email
 								}
-								UserService.createUser(newUserObject, function(err, newlyCreatedUser){
+								UserService.createUser(newUserObject)
+								.then(function(newlyCreatedUser){
 									//update rootscope user 
 									$rootScope.user = newlyCreatedUser;
 									//broadcast login auth event for listeners to update loggedin user 
 									$rootScope.$broadcast('auth', newlyCreatedUser);
 									//Navigate to profile
 									$location.path( "/profile" );
-								});
+								})
+								.catch(function(error){
+									$scope.error = error;
+								})
 							}
 						}
 					}
