@@ -18,21 +18,20 @@
 		 * @return {[type]} [newly created form]
 		 */
 		 function createFormForUser(userId, form, callback){
-		 	try {
-		 		if (!userId || typeof userId !== "string"){
-		 			return callback("please provide a valid userid string");
-		 		} else if (!form || typeof form !== "object") {
-		 			return callback("please provide a valid form object");
-		 		} else {
-		 			form.id = guid();
-		 			form.userid = userId;
-		 			forms.push(form);
-		 			return callback(null, form);
+		 	var deferred = $q.defer();
+
+		 	$http.post("/api/assignment/user/"+userId+"/form",form)
+		 	.success(function(newForm){
+		 		deferred.resolve(newForm);
+		 	})
+		 	.error(function(error){
+		 		if (error && error.message){
+		 			deferred.reject(error.message);	
+		 		} else{
+		 			deferred.reject(error);
 		 		}
-		 	} catch(error){
-		 		console.log("catched an Exception in 'createFormForUser' method", error);
-		 		return callback(error);
-		 	}
+		 	});
+		 	return deferred.promise;
 		 };
 
 		/**
@@ -42,22 +41,20 @@
 		 * @return {[form]} [a list of forms for a particular userId]
 		 */
 		 function findAllFormsForUser(userId, callback){
-		 	try {
-		 		if (!userId || typeof userId !== "string"){
-		 			return callback("please provide a valid userid string");
-		 		} else {
-		 			var userForms = [];
-		 			forms.forEach(function(form, index){
-		 				if (form.userid === userId){
-		 					userForms.push(form);
-		 				}
-		 			});
-		 			return callback(null, userForms);
+		 	var deferred = $q.defer();
+
+		 	$http.get("/api/assignment/form/user/"+userId)
+		 	.success(function(userForms){
+		 		deferred.resolve(userForms);
+		 	})
+		 	.error(function(error){
+		 		if (error && error.message){
+		 			deferred.reject(error.message);	
+		 		} else{
+		 			deferred.reject(error);
 		 		}
-		 	} catch(error){
-		 		console.log("catched an Exception in 'findAllFormsForUser' method", error);
-		 		return callback(error);
-		 	}
+		 	});
+		 	return deferred.promise;
 		 };
 
 		/**
@@ -67,35 +64,20 @@
 		 * @return {[type]}            [list of remaining forms]
 		 */
 		 function deleteFormById(formId, callback){
-		 	try {
-		 		if (!formId || typeof formId !== "string"){
-		 			return callback("please provide a valid formId string");
-		 		} else {
-		 			var found = false;
-		 			var userId ;
-		 			forms.forEach(function(form, index){
-		 				if (form && form.id === formId){
-		 					found = true;
-		 					userId = form.userid;
-		 					forms.splice(index, 1);
-		 				}
-		 			});
-		 			if (found){
-		 				var remaningForms = [];
-		 				forms.forEach(function(form, index){
-		 					if (form && form.userid === userId){
-		 						remaningForms.push(form);
-		 					}
-		 				})
-		 				return callback(null, remaningForms);
-		 			} else {
-		 				return callback("No form found with formId : "+formId);
-		 			}
+		 	var deferred = $q.defer();
+
+		 	$http.delete("/api/assignment/form/"+formId)
+		 	.success(function(userForms){
+		 		deferred.resolve(userForms);
+		 	})
+		 	.error(function(error){
+		 		if (error && error.message){
+		 			deferred.reject(error.message);	
+		 		} else{
+		 			deferred.reject(error);
 		 		}
-		 	} catch(error){
-		 		console.log("catched an Exception in 'deleteFormById' method", error);
-		 		return callback(error);
-		 	}
+		 	});
+		 	return deferred.promise;
 		 };
 
 		/**
@@ -106,31 +88,20 @@
 		 * @return {[type]}            [description]
 		 */
 		 function updateFormById(formId, newForm, callback){
-		 	try {
-		 		var found = false;
-		 		var formAfterUpdate;
-		 		forms.forEach(function(form){
-		 			if (form && form.id===formId){
-		 				found = true;
-		  				//Updating only newly properties from the input updatedUser object
-		  				for(var prop in form){
-		  					if (newForm[prop]){
-		  						form[prop] = newForm[prop];
-		  					}
-		  				}
-		  				form.id = formId;
-		  				formAfterUpdate = form;
-		  			}
-		  		});
-		 		if (found){
-		 			return callback(null, formAfterUpdate);
-		 		} else {
-		 			return callback("Error finding form with id : "+formId, null);
+		 	var deferred = $q.defer();
+
+		 	$http.put("/api/assignment/form/"+formId)
+		 	.success(function(formAfterUpdate){
+		 		deferred.resolve(formAfterUpdate);
+		 	})
+		 	.error(function(error){
+		 		if (error && error.message){
+		 			deferred.reject(error.message);	
+		 		} else{
+		 			deferred.reject(error);
 		 		}
-		 	} catch(error){
-		 		console.log("catched an Exception in 'updateFormById' method", error);
-		 		return callback(error);
-		 	}
+		 	});
+		 	return deferred.promise;
 		 };
 
 		/**
