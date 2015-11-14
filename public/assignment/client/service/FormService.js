@@ -7,9 +7,6 @@
 	//UserService  function
 	function FormService ($window, $http, $q, $rootScope){
 
-		//Local Empty Array of Users
-		var forms = [];
-
 		/**
 		 * [createFormForUser creates a new form for the user]
 		 * @param {id} [userId] [id of a user]
@@ -17,7 +14,7 @@
 		 * @param  {Function} callback [a callback function]
 		 * @return {[type]} [newly created form]
 		 */
-		 function createFormForUser(userId, form, callback){
+		 function createFormForUser(userId, form){
 		 	var deferred = $q.defer();
 
 		 	$http.post("/api/assignment/user/"+userId+"/form",form)
@@ -40,7 +37,7 @@
 		 * @param  {Function} callback [a callback function]
 		 * @return {[form]} [a list of forms for a particular userId]
 		 */
-		 function findAllFormsForUser(userId, callback){
+		 function findAllFormsForUser(userId){
 		 	var deferred = $q.defer();
 
 		 	$http.get("/api/assignment/form/user/"+userId)
@@ -63,7 +60,7 @@
 		 * @param  {Function} callback [a callback function]
 		 * @return {[type]}            [list of remaining forms]
 		 */
-		 function deleteFormById(formId, callback){
+		 function deleteFormById(formId){
 		 	var deferred = $q.defer();
 
 		 	$http.delete("/api/assignment/form/"+formId)
@@ -87,7 +84,7 @@
 		 * @param  {Function} callback [description]
 		 * @return {[type]}            [description]
 		 */
-		 function updateFormById(formId, newForm, callback){
+		 function updateFormById(formId, newForm){
 		 	var deferred = $q.defer();
 
 		 	$http.put("/api/assignment/form/"+formId)
