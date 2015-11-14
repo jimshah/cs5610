@@ -31,6 +31,9 @@
 		.when("/admin", {
 			templateUrl : "/assignment/client/admin/admin.view.html" 
 		})
+		.when("/user", {
+			templateUrl : "/assignment/client/field/field.view.html" 
+		})
 		.otherwise({
 			redirectTo : "/" 
 		})
