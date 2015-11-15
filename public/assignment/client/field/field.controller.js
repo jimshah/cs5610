@@ -10,54 +10,60 @@
 	//Defining header controller
 	angular
 	.module(moduleName)
-	.controller("FieldController", ['$scope', '$location', '$rootScope', 'FormService', FieldController]);
+	.controller("FieldController", ['$scope', '$location', '$rootScope', 'FormService', 'FieldService', FieldController]);
 	
 	//FieldController function
-	function FieldController($scope, $location, $rootScope, FormService){
+	function FieldController($scope, $location, $rootScope, FormService, FieldService){
 		$scope.$location = $location;
 		$scope.user = $rootScope.user;
 		$scope.fields = [];
 		$scope.newFieldType = "";
 
 		var slt = {
-				"id": null, 
-				"label": "New Text Field", 
-				"type": "TEXT", 
-				"placeholder": "New Field"
-			},
-			mltf = {
-				"id": null, 
-				"label": "New Text Field", 
-				"type": "TEXTAREA", 
-				"placeholder": "New Field"
-			},
-			date = {
-				"id": null, 
-				"label": "New Date Field", 
-				"type": "DATE"
-			},
-			dropdown = {
-				"id": null, 
-				"label": "New Dropdown", 
-				"type": "OPTIONS", 
-				"options": []
-			},
-			checkboxes = {
-				"id": null, 
-				"label": "New Checkboxes", 
-				"type": "CHECKBOXES", 
-				"options": []
-			},
-			radio = {
-				"id": null, 
-				"label": "New Radio Buttons", 
-				"type": "RADIOS", 
-				"options": []
-			},
-			options = {
-				"label": "", 
-				"value": ""
-			};
+			"id": null, 
+			"label": "New Text Field", 
+			"type": "TEXT", 
+			"placeholder": "New Field"
+		},
+		mltf = {
+			"id": null, 
+			"label": "New Text Field", 
+			"type": "TEXTAREA", 
+			"placeholder": "New Field"
+		},
+		date = {
+			"id": null, 
+			"label": "New Date Field", 
+			"type": "DATE"
+		},
+		dropdown = {
+			"id": null, 
+			"label": "New Dropdown", 
+			"type": "OPTIONS", 
+			"options": []
+		},
+		checkboxes = {
+			"id": null, 
+			"label": "New Checkboxes", 
+			"type": "CHECKBOXES", 
+			"options": []
+		},
+		radio = {
+			"id": null, 
+			"label": "New Radio Buttons", 
+			"type": "RADIOS", 
+			"options": []
+		},
+		email = {
+			"id": null,
+			"label": "New Email Field",
+			"type": "email",
+			"placeholder": "New Field"
+		},
+		options = {
+			"label": "", 
+			"value": ""
+		};
 
 		$scope.newField = {
 			"type": $scope.newFieldType,
@@ -66,8 +72,9 @@
 			"date": clone(date),
 			"dropdown": clone(dropdown),
 			"checkboxes": clone(checkboxes),
-			"radio": clone(radio)
-			};
+			"radio": clone(radio),
+			"email": clone(email)
+		};
 
 		function clone(source){
 			if (source && typeof source === "object"){
@@ -76,6 +83,19 @@
 				return null;
 			}
 		}
+
+		var initForms = function(){
+			if ($scope.selectedForm){
+				FieldService.getFieldsForForm($scope.selectedForm.id)
+				.then(function(fields){
+					$scope.fields = fields;
+				})
+				.catch(function(error){
+					$scope.error = error;
+				});
+			}
+		};
+		initForms();
 
 		/*$scope.newField = {
 			"options": ["No Fields Selected","Single Line Text Field","Multi Line Text Field","Date Field",
@@ -89,7 +109,15 @@
 				$scope.newField.type = fieldType;
 				var newFieldObject = clone($scope.newField[fieldType]);
 				$scope.fields.push(newFieldObject);
-				console.log("$scope.fields", $scope.fields);
+
+				FieldService.createFieldForForm($scope.selectedForm.id, newFieldObject)
+				.then(function(fields){
+					$scope.fields = fields;
+					console.log("$scope.fields", $scope.fields);
+				})
+				.catch(function(error){
+					$scope.error = error;
+				});
 			} else {
 				$scope.error = "Please select a field type to add";
 			}
@@ -99,18 +127,18 @@
 		$rootScope.$on("auth", function(event, user){
 			$scope.error = null;
 			$scope.user = $rootScope.user = user;
+		});
 
-			
-			/*if ($scope.user){
-				FormService.findAllFormsForUser($scope.user.id)
-				.then(function(userForms){
-					$scope.forms = userForms;
-				})
-				.catch(function(error){
-					$scope.error = error;
-				});
-	}*/
-});
+		//listen for selectedForm to grab selectedFrom
+		$rootScope.$on("selectedForm", function(event, form){
+			$scope.error = null;
+			$scope.selectedForm = $rootScope.selectedForm = form;
+		});
+
+		// On scope destroy, delete the selectedForm
+		$scope.$on("$destroy", function() {
+			$scope.selectedForm = $rootScope.selectedForm = null;
+		});
 		
 	};
 

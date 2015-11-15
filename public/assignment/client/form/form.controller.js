@@ -70,10 +70,10 @@
 			}
 		};
 
-		$scope.updateForm = function(formId){
+		$scope.updateForm = function(index){
 			$scope.error = "";
-			if (typeof formId === "undefined"){
-				$scope.error = "Please provide an formId to select";
+			if (typeof index === "undefined"){
+				$scope.error = "Please provide an index to select";
 			} else {
 				var selectedForm = $scope.forms[index];
 				alert(selectedForm.name + " has to be updated in next assignment");
@@ -112,6 +112,15 @@
 					$scope.error = "no form found with name " + formName;
 				}
 			}			
+		};
+
+		$scope.gotoFormFields = function(form){
+			//update rootscope user 
+			$scope.selectedForm = $rootScope.selectedForm = form;
+			//broadcast login auth event for listeners to update loggedin user 
+			$rootScope.$broadcast('selectedForm', form);
+			//Navigate to profile
+			$location.path( "/user" );
 		};
 
 		//listen for login/sigin to grab logged in user
