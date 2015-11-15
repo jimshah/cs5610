@@ -10,14 +10,16 @@
 	//Defining header controller
 	angular
 	.module(moduleName)
-	.controller("FieldController", ['$scope', '$location', '$rootScope', 'FormService', 'FieldService', FieldController]);
+	.controller("FieldController", ['$scope', '$routeParams', '$location', '$rootScope', 'FormService', 'FieldService', FieldController]);
 	
 	//FieldController function
-	function FieldController($scope, $location, $rootScope, FormService, FieldService){
+	function FieldController($scope, $routeParams, $location, $rootScope, FormService, FieldService){
 		$scope.$location = $location;
 		$scope.user = $rootScope.user;
 		$scope.fields = [];
 		$scope.newFieldType = "";
+		$scope.formID = $routeParams.formId || "";
+		$scope.userID = $routeParams.userId || "";
 
 		var options = {
 			"label": "o1", 
