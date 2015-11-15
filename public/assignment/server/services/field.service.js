@@ -5,6 +5,7 @@ module.exports = function(app, formModel, db){
 	app.get("/api/assignment/form/:formId/field/:fieldId", getFieldById);
 	app.delete("/api/assignment/form/:formId/field/:fieldId", deleteFieldById);
 	app.post("/api/assignment/form/:formId/field", createField);
+	app.post("/api/assignment/form/:formId/field/:index", cloneField);
 	app.put("/api/assignment/form/:formId/field/:fieldId", updateField);
 
 	function updateField(req, res, next){
@@ -23,6 +24,25 @@ module.exports = function(app, formModel, db){
 			formModel.updateForm(formId, requiredForm)
 			.then(function(updatedForm){
 				res.json(inputField);
+			});
+		})
+		.catch(function(error){
+			console.log('updateForm error', JSON.stringify(error));
+			res.status(400).send(JSON.stringify(error));
+		});
+	}
+
+	function cloneField(req, res, next){
+		var clonedField = req.body || {};
+		clonedField.id = guid();
+		var index = req.params.index, formId = req.params.formId;
+		formModel.findFormById(formId)
+		.then(function(form){
+			var fields = form.fields;
+			fields.splice(index, 0, clonedField); 
+			formModel.updateForm(formId, form)
+			.then(function(updatedForm){
+				res.json(updatedForm.fields);
 			});
 		})
 		.catch(function(error){

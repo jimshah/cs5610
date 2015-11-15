@@ -136,6 +136,17 @@
 			}
 		};
 
+		$scope.cloneField = function(field, index){
+			var clonedField = clone(field);
+			FieldService.cloneField(clonedField, index, $scope.selectedForm.id)
+				.then(function(fields){
+					$scope.fields = fields;
+				})
+				.catch(function(error){
+					$scope.error = error;
+				});
+		}
+
 		//listen for login/sigin to grab logged in user
 		$rootScope.$on("auth", function(event, user){
 			$scope.error = null;

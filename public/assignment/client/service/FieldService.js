@@ -93,6 +93,23 @@
 		 	return deferred.promise;
 		 }
 
+		 function cloneField(clonedField, index, formId){
+		 	var deferred = $q.defer();
+
+		 	$http.post("/api/assignment/form/"+formId+"/field/"+index, clonedField)
+		 	.success(function(fields){
+		 		deferred.resolve(fields);
+		 	})
+		 	.error(function(error){
+		 		if (error && error.message){
+		 			deferred.reject(error.message);	
+		 		} else{
+		 			deferred.reject(error);
+		 		}
+		 	});
+		 	return deferred.promise;
+		 }
+
 		/**
 		 * [guid generates a unique id]
 		 * @return String [a unique id]
@@ -113,7 +130,8 @@
 			"getFieldsForForm": getFieldsForForm,
 			"getFieldForForm": getFieldForForm,
 			"deleteFieldFromForm": deleteFieldFromForm,
-			"updateField": updateField
+			"updateField": updateField,
+			"cloneField": cloneField
 		};
 
 		return fieldService;
