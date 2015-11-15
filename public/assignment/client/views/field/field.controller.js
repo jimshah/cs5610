@@ -57,8 +57,8 @@
 		email = {
 			"id": null,
 			"label": "New Email Field",
-			"type": "email",
-			"placeholder": "New Field"
+			"type": "EMAIL",
+			"placeholder": "New Email Field"
 		},
 		options = {
 			"label": "", 
