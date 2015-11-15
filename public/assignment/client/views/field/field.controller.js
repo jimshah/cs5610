@@ -19,6 +19,11 @@
 		$scope.fields = [];
 		$scope.newFieldType = "";
 
+		var options = {
+			"label": "o1", 
+			"value": "o1"
+		};
+
 		var slt = {
 			"id": null, 
 			"label": "New Text Field", 
@@ -40,29 +45,25 @@
 			"id": null, 
 			"label": "New Dropdown", 
 			"type": "OPTIONS", 
-			"options": []
+			"options": [{"label": "Option 1", "value": "OPTION_1"}, {"label": "Option 2", "value": "OPTION_2"}, {"label": "Option 3", "value": "OPTION_3"}]
 		},
 		checkboxes = {
 			"id": null, 
 			"label": "New Checkboxes", 
 			"type": "CHECKBOXES", 
-			"options": []
+			"options": [{"label": "Option 1", "value": "OPTION_1"}, {"label": "Option 2", "value": "OPTION_2"}, {"label": "Option 3", "value": "OPTION_3"}]
 		},
 		radio = {
 			"id": null, 
 			"label": "New Radio Buttons", 
 			"type": "RADIOS", 
-			"options": []
+			"options": [{"label": "Option 1", "value": "OPTION_1"}, {"label": "Option 2", "value": "OPTION_2"}, {"label": "Option 3", "value": "OPTION_3"}]
 		},
 		email = {
 			"id": null,
 			"label": "New Email Field",
 			"type": "EMAIL",
 			"placeholder": "New Email Field"
-		},
-		options = {
-			"label": "", 
-			"value": ""
 		};
 
 		$scope.newField = {

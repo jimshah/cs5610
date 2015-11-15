@@ -23,59 +23,37 @@
 									<label for="{{field.id}}">{{field.label}}</label>
 									<!-- <input class="form-control" type="{{field.type}}" id="{{field.id}}"> -->
 									<div ng-switch on="field.type">
-										<div class="animate-switch" ng-switch-when="TEXT" id="{{field.id}}">
+										<div class="" ng-switch-when="TEXT" id="{{field.id}}">
 											<input class="form-control" type="{{field.type}}"  placeholder="{{field.placeholder}}">
 										</div>
-										<div class="animate-switch" ng-switch-when="TEXTAREA">
+										<div class="" ng-switch-when="TEXTAREA">
 											<textarea rows="6"></textarea>
 										</div>
-										<div class="animate-switch" ng-switch-when="DATE">
+										<div class="" ng-switch-when="DATE">
 											<input class="form-control" type="date" placeholder="{{field.placeholder}}">
 										</div> 
-										<div class="animate-switch" ng-switch-when="OPTIONS">
-											<select class="col-xs-1 form-control" ng-options="option.label for option in field.options">
-									            <!-- <option value="OPTION_1">Option 1</option>
-									            <option value="OPTION_2">Option 2</option>
-									            <option value="OPTION_3">Option 3</option>-->
-									        </select>
-									    </div>
-									    <div class="animate-switch" ng-switch-when="CHECKBOXES">
-									    	<div class="checkbox">
-									    		<label>
-									    			<input type="checkbox"> OPTION A
-									    		</label>
-									    	</div>
-									    	<div class="checkbox">
-									    		<label>
-									    			<input type="checkbox"> OPTION B
-									    		</label>
-									    	</div>
-									    	<div class="checkbox">
-									    		<label>
-									    			<input type="checkbox"> OPTION C
-									    		</label>
-									    	</div>
-									    </div>
-									    <div class="animate-switch" ng-switch-when="RADIOS">
-									    	<div class="radio">
-									    		<label>
-									    			<input type="radio" name="choice" value="OPTION_X"> OPTION X
-									    		</label>
-									    	</div>
-									    	<div class="radio">
-									    		<label>
-									    			<input type="radio" name="OPTION_Y"> OPTION Y
-									    		</label>
-									    	</div>
-									    	<div class="radio">
-									    		<label>
-									    			<input type="radio" name="OPTION_Z"> OPTION Z
-									    		</label>
-									    	</div>
-									    </div>
-									    <div class="animate-switch" ng-switch-when="EMAIL">
-									    	<input type="email" class="form-control" id="inputEmail" placeholder="{{field.placeholder}}"/>
-									    </div>
+										<div class="" ng-switch-when="OPTIONS">
+											<select class="col-xs-1 form-control">
+												<option ng-repeat="option in field.options" value="option.value">{{option.label}}</option>
+											</select>
+										</div>
+										<div class="" ng-switch-when="CHECKBOXES">
+											<div class="checkbox" ng-repeat="option in field.options" value="option.value">
+												<label>
+													<input type="checkbox"> {{option.label}}
+												</label>
+											</div>
+										</div>
+										<div class="" ng-switch-when="RADIOS">
+											<div class="radio" ng-repeat="option in field.options" value="option.value">
+												<label>
+													<input type="radio" name="choice" value="option.value"> {{option.label}}
+												</label>
+											</div>
+										</div>
+										<div class="" ng-switch-when="EMAIL">
+											<input type="email" class="form-control" id="inputEmail" placeholder="{{field.placeholder}}"/>
+										</div>
 									</div>
 								</div>
 								<div class="col-sm-3 col-sm-push-2">
