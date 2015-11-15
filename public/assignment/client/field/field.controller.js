@@ -105,7 +105,6 @@
 		$scope.addField = function(fieldType){
 			$scope.error = "";
 			if (fieldType){
-				console.log("fieldType",fieldType);
 				$scope.newField.type = fieldType;
 				var newFieldObject = clone($scope.newField[fieldType]);
 				$scope.fields.push(newFieldObject);
@@ -113,13 +112,27 @@
 				FieldService.createFieldForForm($scope.selectedForm.id, newFieldObject)
 				.then(function(fields){
 					$scope.fields = fields;
-					console.log("$scope.fields", $scope.fields);
 				})
 				.catch(function(error){
 					$scope.error = error;
 				});
 			} else {
 				$scope.error = "Please select a field type to add";
+			}
+		};
+
+		$scope.deleteField = function(field){
+			$scope.error = "";
+			if (field){
+				FieldService.deleteFieldFromForm($scope.selectedForm.id, field.id)
+				.then(function(remainingFields){
+					$scope.fields = remainingFields;
+				})
+				.catch(function(error){
+					$scope.error = error;
+				});
+			} else {
+				$scope.error = "Please select a field type to delete";
 			}
 		};
 

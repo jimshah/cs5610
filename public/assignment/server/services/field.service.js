@@ -44,7 +44,6 @@ module.exports = function(app, formModel, db){
 			formModel.updateForm(formId, requiredForm)
 			.then(function(updatedForm){
 				var newFields = updatedForm.fields || [];
-				console.log(newFields);
 				res.json(newFields);
 			});
 		})
@@ -64,14 +63,11 @@ module.exports = function(app, formModel, db){
 			fields.forEach(function(field, index){
 				if (fieldId == field.id){
 					fields.splice(index, 1);
-				} else {
-					remainingFields.push(field);
 				}
 			});
-			requiredForm.fields = remainingFields;
 			formModel.updateForm(formId, requiredForm)
 			.then(function(updatedForm){
-				res.json(remainingFields);
+				res.json(requiredForm.fields);
 			});
 		})
 		.catch(function(error){

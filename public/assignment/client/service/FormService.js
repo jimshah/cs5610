@@ -87,7 +87,7 @@
 		 function updateFormById(formId, newForm){
 		 	var deferred = $q.defer();
 
-		 	$http.put("/api/assignment/form/"+formId)
+		 	$http.put("/api/assignment/form/"+formId, newForm)
 		 	.success(function(formAfterUpdate){
 		 		deferred.resolve(formAfterUpdate);
 		 	})

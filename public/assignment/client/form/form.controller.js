@@ -10,13 +10,17 @@
 	//Defining header controller
 	angular
 	.module(moduleName)
-	.controller("FormController", ['$scope', '$location', '$rootScope', 'FormService', FormController]);
+	.controller("FormController", ['$scope', '$location', '$document', '$rootScope', 'FormService', FormController]);
 	
 	//FormController function
-	function FormController($scope, $location, $rootScope, FormService){
+	function FormController($scope, $location, $document, $rootScope, FormService){
 		$scope.$location = $location;
 		$scope.user = $rootScope.user;
-		console.log($scope);
+		$scope.tableInput = {
+
+		}
+		//$scope.formName = "";
+		//console.log("$scope", $scope);
 
 		var initForms = function(){
 			if ($scope.user){
@@ -32,6 +36,8 @@
 		initForms();
 		
 		$scope.addForm = function(formName){
+			console.log("$scope", $scope);
+			console.log("$scope.formName", $scope.formName);
 			var _this = this;
 			$scope.error = null;
 			if (!formName){
@@ -42,7 +48,7 @@
 					$scope.forms = userForms;
 					var exists = false;
 					userForms.forEach(function(form, index){
-						if (form.name === formName){
+						if (form.title === formName){
 							exists = true;
 						}
 					});
@@ -50,7 +56,7 @@
 						$scope.error = "The entered form name for given user already exists. Please enter a different name";
 					} else {
 						var newFormObject = {
-							name: formName
+							title: formName
 						}
 						FormService.createFormForUser($scope.user.id, newFormObject)
 						.then(function(newlyCreatedForm){
@@ -70,13 +76,29 @@
 			}
 		};
 
-		$scope.updateForm = function(index){
-			$scope.error = "";
-			if (typeof index === "undefined"){
-				$scope.error = "Please provide an index to select";
+		$scope.updateForm = function(formName){
+			$scope.error = $scope.success = "";
+			var inputElement = document.getElementById("searchName");
+			formName = inputElement.value;
+			if (typeof formName === "undefined" || !formName){
+				$scope.error = "Please provide a formName";
+				$scope.formToUpdate = null;
 			} else {
-				var selectedForm = $scope.forms[index];
-				alert(selectedForm.name + " has to be updated in next assignment");
+				if ($scope.formToUpdate){
+					$scope.formToUpdate.title = formName;
+					FormService.updateFormById($scope.formToUpdate.id, $scope.formToUpdate)
+					.then(function(updatedForm){
+						$scope.success = "Form updated successfully";
+						$scope.formToUpdate = null;
+						inputElement.value = "";
+					})
+					.catch(function(error){
+						$scope.error = error;
+						$scope.formToUpdate = null;
+					});
+				} else {
+					$scope.error = "Please select a form first";
+				}
 			}
 		};
 
@@ -95,19 +117,23 @@
 			}
 		};
 
-		$scope.selectForm = function(formName){
+		$scope.selectForm = function(form){
+			var _this = this;
+			$scope.formToUpdate = null;
 			$scope.error = "";
-			if (!formName){
-				$scope.error = "Please provide a formname for selecting";
+			if (!form){
+				$scope.error = "Please provide a form for selecting";
 			} else {
 				var selectedForm;
-				$scope.forms.forEach(function(form, index){
-					if (form.name === formName){
-						selectedForm = form;
+				$scope.forms.forEach(function(f, index){
+					if (f.title == form.title){
+						selectedForm = f;
 					}
 				});
 				if (selectedForm){
-					alert("Form Selected : " + JSON.stringify(selectedForm));
+					var inputElement = document.getElementById("searchName");
+					inputElement.value = selectedForm.title;
+					$scope.formToUpdate = selectedForm;
 				} else {
 					$scope.error = "no form found with name " + formName;
 				}
