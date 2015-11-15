@@ -2,12 +2,27 @@
 
 module.exports = function(app, userModel, db){
 	app.post("/api/assignment/user", createUser);
-	app.get("/api/assignment/user", getUsers);
+
+	//		 /api/assignment/user
+	
+	app.get("/api/assignment/user", handleGetUserRequets);
+	// app.get("/api/assignment/user", getUsers);
+	// app.get("/api/assignment/user/:username", getUserByUsername);
+	// app.get("/api/assignment/user/:username/:password", getUserByUsernameAndPassword);
+	
 	app.get("/api/assignment/user/id/:id", getUserById);
-	app.get("/api/assignment/user/:username", getUserByUsername);
-	app.get("/api/assignment/user/:username/:password", getUserByUsernameAndPassword);
 	app.put("/api/assignment/user/:id", updateUser);
 	app.delete("/api/assignment/user/:id", deleteUserById);
+
+	function handleGetUserRequets(req, res, next){
+		if (req && req.query && req.query.username && req.query.password){
+			return getUserByUsernameAndPassword(req,res,next);
+		} else if (req && req.query && req.query.username){
+			return getUserByUsername(req,res,next);
+		} else {
+			return getUsers(req,res,next);
+		}
+	}
 
 
 	function createUser(req, res, next){
@@ -49,7 +64,8 @@ module.exports = function(app, userModel, db){
 	}
 
 	function getUserByUsernameAndPassword(req, res, next){
-		var username = req.params.username, password = req.params.password;
+		//var username = req.params.username, password = req.params.password;
+		var username = req.query.username, password = req.query.password;
 		if (!username){
 			res.status(400).send("Please supply a username");
 		} else if(!password){
@@ -71,7 +87,8 @@ module.exports = function(app, userModel, db){
 	}
 
 	function getUserByUsername(req, res, next){
-		var username = req.params.username;
+		//var username = req.params.username;
+		var username = req.query.username;
 		if (!username){
 			res.status(400).send("Please supply a username");
 		} else {

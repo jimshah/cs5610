@@ -40,7 +40,7 @@
 		 function findAllFormsForUser(userId){
 		 	var deferred = $q.defer();
 
-		 	$http.get("/api/assignment/form/user/"+userId)
+		 	$http.get("/api/assignment/user/"+userId+"/form")
 		 	.success(function(userForms){
 		 		deferred.resolve(userForms);
 		 	})

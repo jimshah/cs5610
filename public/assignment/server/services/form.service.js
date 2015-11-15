@@ -1,7 +1,9 @@
 "use strict";
 
 module.exports = function(app, formModel, db){
-	app.get("/api/assignment/form/user/:userId", getUserForms);
+
+	//  	 /api/assignment/user/:userId/form
+	app.get("/api/assignment/user/:userId/form", getUserForms);
 	app.get(" /api/assignment/form/:formId", getFormById);
 	app.delete("/api/assignment/form/:formId", deleteFormById);
 	app.post("/api/assignment/user/:userId/form", createForm);
