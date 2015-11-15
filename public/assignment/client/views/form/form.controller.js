@@ -23,6 +23,7 @@
 		//console.log("$scope", $scope);
 
 		var initForms = function(){
+			$scope.error = $scope.success = "";
 			if ($scope.user){
 				FormService.findAllFormsForUser($scope.user.id)
 				.then(function(userForms){
@@ -36,8 +37,9 @@
 		initForms();
 		
 		$scope.addForm = function(formName){
-			console.log("$scope", $scope);
-			console.log("$scope.formName", $scope.formName);
+			$scope.error = $scope.success = "";
+			//console.log("$scope", $scope);
+			//console.log("$scope.formName", $scope.formName);
 			var _this = this;
 			$scope.error = null;
 			if (!formName){
@@ -103,6 +105,7 @@
 		};
 
 		$scope.deleteForm = function(formId){
+			$scope.error = $scope.success = "";
 			$scope.error = "";
 			if (typeof formId === "undefined"){
 				$scope.error = "Please provide an formId to delete";
@@ -118,6 +121,7 @@
 		};
 
 		$scope.selectForm = function(form){
+			$scope.error = $scope.success = "";
 			var _this = this;
 			$scope.formToUpdate = null;
 			$scope.error = "";
@@ -141,6 +145,7 @@
 		};
 
 		$scope.gotoFormFields = function(form){
+			$scope.error = $scope.success = "";
 			//update rootscope user 
 			$scope.selectedForm = $rootScope.selectedForm = form;
 			//broadcast login auth event for listeners to update loggedin user 
@@ -151,6 +156,7 @@
 
 		//listen for login/sigin to grab logged in user
 		$rootScope.$on("auth", function(event, user){
+			$scope.error = $scope.success = "";
 			$scope.error = null;
 			$scope.user = $rootScope.user = user;
 			if ($scope.user){

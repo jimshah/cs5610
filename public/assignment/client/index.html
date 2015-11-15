@@ -25,26 +25,26 @@
   <!-- Loading Custom JS files -->
   <script src="app.js"></script>
   <script src="config.js"></script>
-  <script src="header/header.controller.js"></script>
-  <script src="sidebar/sidebar.controller.js"></script>
-  <script src="login/login.controller.js"></script>
-  <script src="register/register.controller.js"></script>
-  <script src="profile/profile.controller.js"></script>
-  <script src="form/form.controller.js"></script>
-  <script src="admin/admin.controller.js"></script>
-  <script src="field/field.controller.js"></script>
-  <script src="service/UserService.js"></script>
-  <script src="service/FormService.js"></script>
-  <script src="service/FieldService.js"></script>
+  <script src="views/header/header.controller.js"></script>
+  <script src="views/sidebar/sidebar.controller.js"></script>
+  <script src="views/login/login.controller.js"></script>
+  <script src="views/register/register.controller.js"></script>
+  <script src="views/profile/profile.controller.js"></script>
+  <script src="views/form/form.controller.js"></script>
+  <script src="views/admin/admin.controller.js"></script>
+  <script src="views/field/field.controller.js"></script>
+  <script src="services/UserService.js"></script>
+  <script src="services/FormService.js"></script>
+  <script src="services/FieldService.js"></script>
 
 </head>
 
 <body class="form-body">
-  <header ng-include="'/assignment/client/header/header.view.html'"></header>
+  <header ng-include="'/assignment/client/views/header/header.view.html'"></header>
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-2">
-        <section ng-include="'/assignment/client/sidebar/sidebar.view.html'"></section>
+        <section ng-include="'/assignment/client/views/sidebar/sidebar.view.html'"></section>
       </div>
       <div class="col-sm-10">
         <!-- <section ng-include="'/assignment/home/home.view.html'"></section> -->        
