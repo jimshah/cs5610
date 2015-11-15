@@ -150,8 +150,10 @@
 			$scope.selectedForm = $rootScope.selectedForm = form;
 			//broadcast login auth event for listeners to update loggedin user 
 			$rootScope.$broadcast('selectedForm', form);
-			//Navigate to profile
-			$location.path( "/user" );
+			var target = "/user/"+$scope.user.id+"/form/"+form.id+"/fields";
+			//Navigate to profile : user/:userId/form/:formId/fields
+			$location.path( target );
+			//$location.path( "/user" );
 		};
 
 		//listen for login/sigin to grab logged in user
