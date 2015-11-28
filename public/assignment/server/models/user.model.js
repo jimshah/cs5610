@@ -5,6 +5,10 @@ Promise = require('bluebird');
 
 module.exports = function(app, formBuilderDb){
 
+	// Defining UserModel 
+	var UserSchema = require('./user.schema.js'),
+		UserModel = formBuilderDb.model('UserModel', UserSchema);
+	
 	//Local Empty Array of Users
 	var users = require("./user.mock.json").users;
 

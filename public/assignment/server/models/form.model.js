@@ -5,6 +5,10 @@ Promise = require('bluebird');
 
 module.exports = function(app, formBuilderDb){
 
+	// Defining UserModel 
+	var FormSchema = require('./form.schema.js'),
+		FormModel = formBuilderDb.model('FormModel', FormSchema);
+
 	var forms = require("./form.mock.json").forms;
 
 	//TODO: Add form title duplication check, mebbe later on 
