@@ -1,8 +1,14 @@
 var express = require('express'),
-app = express(),
-bodyParser = require('body-parser'),
-morgan = require("morgan");
+	app = express(),
+	bodyParser = require('body-parser'),
+	morgan = require("morgan");
 
+// Load app configs
+var config          = require('./config')();            // load configuration
+//console.log("Config is ", config);
+
+var formBuilderDb = (require('./database/mongo.js')(config.db.mongodb)).connect("form_builder");
+//console.log("formBuilderDb", formBuilderDb);
 
 //  Set the environment variables we need.
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
@@ -20,7 +26,7 @@ require("./app/routes")(app);
 
 
 //Load Assignment Server App
-require("./public/assignment/server/app.js")(app);
+require("./public/assignment/server/app.js")(app, formBuilderDb);
 
 // Handle 404
 /*app.use(function(req, res) {

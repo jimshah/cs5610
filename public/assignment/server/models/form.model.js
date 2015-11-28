@@ -3,7 +3,7 @@
 var q = require("q"),
 Promise = require('bluebird');
 
-module.exports = function(app){
+module.exports = function(app, formBuilderDb){
 
 	var forms = require("./form.mock.json").forms;
 
