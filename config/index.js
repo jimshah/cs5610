@@ -15,7 +15,8 @@
     				"pass": process.env.OPENSHIFT_MONGODB_DB_PASSWORD,
     				"port": process.env.OPENSHIFT_MONGODB_DB_PORT,
     				"databases": {
-    					"form_builder": "form_builder"
+    					"form_builder": "form_builder",
+                        "cs5610": "cs5610"
     				},
     				"url": ""
     			}
@@ -31,7 +32,8 @@
     				"pass": "",
     				"port": 27017,
     				"databases": {
-    					"form_builder": "form_builder"
+    					"form_builder": "form_builder",
+                        "cs5610": "cs5610"
     				},
     				"url": "mongodb://localhost:27017/form_builder/"
     			}
@@ -42,8 +44,8 @@
     };
 
     if (process.env.OPENSHIFT_APP_UUID){
-    	config.openshift.db.mongodb.url = "mongodb://"+config.openshift.db.mongodb.host+":"+config.openshift.db.mongodb.port+"/";
-        //config.openshift.db.mongodb.url = config.openshift.db.mongodb.user + ":" + config.openshift.db.mongodb.pass + "@" + config.openshift.db.mongodb.host + ":" + config.openshift.db.mongodb.port+"/";
+    	//config.openshift.db.mongodb.url = "mongodb://"+config.openshift.db.mongodb.host+":"+config.openshift.db.mongodb.port+"/";
+        config.openshift.db.mongodb.url = config.openshift.db.mongodb.user + ":" + config.openshift.db.mongodb.pass + "@" + config.openshift.db.mongodb.host + ":" + config.openshift.db.mongodb.port+"/";
     	return config.openshift;
     } else {
     	config.local.db.mongodb.url = "mongodb://"+config.local.db.mongodb.host+":"+config.local.db.mongodb.port+"/";

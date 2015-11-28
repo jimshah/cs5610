@@ -7,7 +7,7 @@ var express = require('express'),
 var config          = require('./config')();            // load configuration
 //console.log("Config is ", config);
 
-var formBuilderDb = (require('./database/mongo.js')(config.db.mongodb)).connect("form_builder");
+var formBuilderDb = (require('./database/mongo.js')(config.db.mongodb)).connect("cs5610");
 //console.log("formBuilderDb", formBuilderDb);
 
 //  Set the environment variables we need.
