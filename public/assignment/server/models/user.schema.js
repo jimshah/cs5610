@@ -7,6 +7,9 @@ var mongoose = require('mongoose'),
 
 // Define activity schema
 module.exports = new mongoose.Schema({
+    "id": {
+        type: objectId
+    },
     "username": {
     	type: String,
         required: true,

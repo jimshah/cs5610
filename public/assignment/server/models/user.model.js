@@ -1,28 +1,35 @@
 "use strict";
 
 var q = require("q"),
-Promise = require('bluebird');
+Promise = require('bluebird'),
+mongoose = require("mongoose");
 
 module.exports = function(app, formBuilderDb){
 
 	// Defining UserModel 
 	var UserSchema = require('./user.schema.js'),
-		UserModel = formBuilderDb.model('UserModel', UserSchema);
-	
-	//Local Empty Array of Users
-	var users = require("./user.mock.json").users;
+	UserModel = formBuilderDb.model('UserModel', UserSchema);
 
 	function createUser(user){
 		try {
 			return new Promise(function(resolve, reject){
+
 				if (!user || typeof user !== 'object'){
 					return reject("please provide a valid user object");
 				} else {
-					user.id = guid();
+					user.id = user._id = mongoose.Types.ObjectId();
 					user.role = [];
-					users.push(user);
-					return resolve(user);
+
+					UserModel.create(user, function(err, newlyCreatedUser){
+						if (err){
+							console.log("Error while createUser : ", err);
+							return reject(err);
+						} else {
+							return resolve(newlyCreatedUser);
+						}
+					});
 				}
+
 			});
 		} catch(error){
 			console.log("catched an Exception in 'createUser' method", error);
@@ -32,7 +39,16 @@ module.exports = function(app, formBuilderDb){
 
 	function findAllUsers(){
 		try {
-			return Promise.resolve(users);			
+			return new Promise(function(resolve, reject){
+				UserModel.find({}, function(err, dbUsers){
+					if (err){
+						console.log("Error while findAllUsers : ", err);
+						return reject(err);
+					} else {
+						resolve(dbUsers);
+					}
+				})
+			});			
 		} catch(error){
 			console.log("catched an Exception in 'findAllUsers' method", error);
 			return Promise.reject(error);
@@ -41,24 +57,14 @@ module.exports = function(app, formBuilderDb){
 
 	function findUserById(instanceId){
 		try{
-			var currentUser, currentIndex;
 			return new Promise(function(resolve, reject){
-				if (typeof instanceId === 'undefined'){
-					return reject("Please provide valid user id");
-				} else {
-					users.forEach(function(user, index){
-						if (user && user.id==instanceId)
-						{
-							currentUser = user;
-							currentIndex = index;
-						}
-					});
-					if (currentUser){
-						return resolve(currentUser);
+				UserModel.findOne({id: instanceId}, function(err, user){
+					if (err || !user){
+						return reject(err || "no user found with id:"+instanceId);
 					} else {
-						return reject("no user found with id:"+instanceId);
+						return resolve(user);
 					}
-				}
+				});
 			});
 		} catch(error){
 			console.log("catched an Exception in 'findUserById' method", error);
@@ -69,111 +75,105 @@ module.exports = function(app, formBuilderDb){
 	function updateUser(userId, updatedUser){
 		try{
 			return new Promise(function(resolve, reject){
-				var found = false;
-				var userAfterUpdate;
-				users.forEach(function(user){
-					if (user && user.id===userId){
-						found = true;
+				UserModel.findOne({id: userId}, function(err, user){
+					if (err || !user){
+						return reject(err || "no user found for updateUser with id:"+userId);
+					} else {
 		  				//Updating only newly properties from the input updatedUser object
 		  				for(var prop in user){
-		  					if (updatedUser[prop]){
+		  					if (!(typeof updatedUser[prop] == 'undefined')){
 		  						user[prop] = updatedUser[prop];
 		  					}
 		  				}
-		  				user.id = userId;
-		  				userAfterUpdate = user;
+		  				user.save(function(error){
+		  					if (error){
+		  						return reject("Error while saving after updating document : "+error);
+		  					} else {
+		  						return resolve(user);
+		  					}
+		  				});
 		  			}
 		  		});
-				if (found){
-					return resolve(userAfterUpdate);
-				} else {
-					return reject("Error finding user with id : "+userId);
-				}
 			});
-		} catch(error){
-			console.log("catched an Exception in 'updateUser' method", error);
-			return Promise.reject(error);
-		}
-	}
+} catch(error){
+	console.log("catched an Exception in 'updateUser' method", error);
+	return Promise.reject(error);
+}
+}
 
-	function deleteUserById(userId){
-		try {
-			return new Promise(function(resolve, reject){
-				if (typeof userId==="undefined" || !userId){
-					return reject("please provide a valid userId");
-				} else {
-					users.forEach(function(user, index){
-						if (user.id == userId){
-							users.splice(index, 1);
-							console.log("User with id "+userId+"succesfully deleted");
-						}
-					});
-					return resolve(users);
-				}
-			});
-		} catch(error){
-			console.log("catched an Exception in 'removeUser' method", error);
-			return Promise.reject(error);
-		}
-	}
-
-	function findUserByUsername(username){
-		try {
-			var currentUser, currentIndex;
-			return new Promise(function(resolve, reject){
-				if (!username){
-					return reject("Please provide valid username");
-				} else {
-					users.forEach(function(user, index){
-						if (user && user.username===username)
-						{
-							currentUser = user;
-							currentIndex = index;
-						}
-					});
-					if (currentUser){
-						return resolve(currentUser);
+function deleteUserById(userId){
+	try {
+		return new Promise(function(resolve, reject){
+			if (typeof userId==="undefined" || !userId){
+				return reject("please provide a valid userId");
+			} else {
+				UserModel.remove({id: userId}, function(err){
+					if(err){
+						return reject(err || "error deleting user with id:"+userId+" \n error being "+err);
 					} else {
-						return reject("no user found with username:"+username);
+						findAllUsers()
+						.then(function(dbUsers){
+							return resolve(dbUsers);
+						})
+						.catch(function(error){
+							return reject(error);
+						});
 					}
-				}
-			});
-		} catch(error){
-			console.log("catched an Exception in 'findUserByUsername' method", error);
-			return Promise.reject(error);
-		}
+				});
+			}
+		});
+	} catch(error){
+		console.log("catched an Exception in 'removeUser' method", error);
+		return Promise.reject(error);
 	}
+}
 
-	function findUserByCredentials(credentials){
-		try{
-			return new Promise(function(resolve, reject){
-				if (!credentials || typeof credentials !== 'object'){
-					return reject("Please provide a valid credential object");
-				} else if(!credentials.username ) {
-					return reject("No username found in the credentials");
-				} else if(!credentials.password ) {
-					return reject("No password found in the credentials");
-				} else {
-					var currentUser, currentIndex, username=credentials.username, password=credentials.password;
-					users.forEach(function(user, index){
-						if (user && user.username===username && user.password===password)
-						{
-							currentUser = user;
-							currentIndex = index;
-						}
-					});
-					if (currentUser){
-						return resolve(currentUser);
+function findUserByUsername(username){
+	try {
+		var currentUser, currentIndex;
+		return new Promise(function(resolve, reject){
+			if (!username){
+				return reject("Please provide valid username");
+			} else {
+				UserModel.findOne({username: username}, function(err, user){
+					if (err || !user){
+						return reject(err || "no user found while findUserByUsername : "+username);
 					} else {
-						return reject("No User with (username,password) : ("+username+","+password+") Found");
+						return resolve(user);
 					}
-				}
-			});
-		} catch(error){
-			console.log("catched an Exception in 'findUserByCredentials' method", error);
-			return Promise.reject(error);
-		}
+				});
+			}
+		});
+	} catch(error){
+		console.log("catched an Exception in 'findUserByUsername' method", error);
+		return Promise.reject(error);
 	}
+}
+
+function findUserByCredentials(credentials){
+	try{
+		return new Promise(function(resolve, reject){
+			if (!credentials || typeof credentials !== 'object'){
+				return reject("Please provide a valid credential object");
+			} else if(!credentials.username ) {
+				return reject("No username found in the credentials");
+			} else if(!credentials.password ) {
+				return reject("No password found in the credentials");
+			} else {
+				UserModel.findOne({username: credentials.username, password: credentials.password}, function(err, user){
+					if (err || !user){
+						return reject(err || "no user found while findUserByCredentials : "+credentials.username+","+credentials.password);
+					} else {
+						return resolve(user);
+					}
+				});
+			}
+		});
+	} catch(error){
+		console.log("catched an Exception in 'findUserByCredentials' method", error);
+		return Promise.reject(error);
+	}
+}
 
 	/**
 	 * [guid generates a unique id]
