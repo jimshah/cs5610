@@ -12,6 +12,9 @@ var OptionSchema = mongoose.Schema({
 
 // Define activity schema
 module.exports = new mongoose.Schema({
+    "id": {
+        type: objectId,
+    },
     "label": {
     	type: String
     },

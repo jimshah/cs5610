@@ -1,4 +1,5 @@
 "use strict";
+var mongoose = require("mongoose");
 
 module.exports = function(app, formModel, db){
 	app.get("/api/assignment/form/:formId/field", getFormFields);
@@ -16,7 +17,7 @@ module.exports = function(app, formModel, db){
 			requiredForm = requiredForm || {};
 			fields = requiredForm.fields || [];
 			fields.forEach(function(field, index){
-				if (fieldId == field.id){
+				if (field.id.equals(fieldId)){
 					field = inputField;
 				}
 			});
@@ -34,7 +35,8 @@ module.exports = function(app, formModel, db){
 
 	function cloneField(req, res, next){
 		var clonedField = req.body || {};
-		clonedField.id = guid();
+		//clonedField.id = guid();
+		clonedField.id = clonedField._id = mongoose.Types.ObjectId();
 		var index = req.params.index, formId = req.params.formId;
 		formModel.findFormById(formId)
 		.then(function(form){
@@ -54,7 +56,8 @@ module.exports = function(app, formModel, db){
 	function createField(req, res, next){
 		var queryFormModel = formModel;
 		var field = req.body || {};
-		field.id = guid();
+		//field.id = guid();
+		field.id = field._id = mongoose.Types.ObjectId();
 		var formId = req.params.formId;
 		formModel.findFormById(formId)
 		.then(function(requiredForm){
@@ -80,8 +83,9 @@ module.exports = function(app, formModel, db){
 			requiredForm = requiredForm || {};
 			var fields = requiredForm.fields || [];
 			var remainingFields = [];
+
 			fields.forEach(function(field, index){
-				if (fieldId == field.id){
+				if (field.id.equals(fieldId)){
 					fields.splice(index, 1);
 				}
 			});
@@ -104,7 +108,7 @@ module.exports = function(app, formModel, db){
 			var fields = requiredForm.fields || [];
 			var requiredField;
 			fields.forEach(function(field, index){
-				if (fieldId == field.id){
+				if (field.id.equals(fieldId)){
 					requiredField = field;
 				}
 			});

@@ -63,7 +63,6 @@
 
 		 	$http.delete("/api/assignment/form/"+formId+"/field/"+fieldId)
 		 	.success(function(remainingFields){
-		 		console.log("remainingFields", remainingFields);
 		 		deferred.resolve(remainingFields);
 		 	})
 		 	.error(function(error){

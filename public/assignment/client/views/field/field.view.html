@@ -22,7 +22,7 @@
 								<div class="col-sm-7">
 									<label for="{{field.id}}">{{field.label}}</label>
 									<!-- <input class="form-control" type="{{field.type}}" id="{{field.id}}"> -->
-									<div ng-switch on="field.type">
+									<div ng-switch on="field.fieldType">
 										<div class="" ng-switch-when="TEXT" id="{{field.id}}">
 											<input class="form-control" type="{{field.type}}"  placeholder="{{field.placeholder}}">
 										</div>

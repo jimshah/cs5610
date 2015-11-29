@@ -29,47 +29,47 @@
 		var slt = {
 			"id": null, 
 			"label": "New Text Field", 
-			"type": "TEXT", 
+			"fieldType": "TEXT", 
 			"placeholder": "New Field"
 		},
 		mltf = {
 			"id": null, 
 			"label": "New Text Field", 
-			"type": "TEXTAREA", 
+			"fieldType": "TEXTAREA", 
 			"placeholder": "New Field"
 		},
 		date = {
 			"id": null, 
 			"label": "New Date Field", 
-			"type": "DATE"
+			"fieldType": "DATE"
 		},
 		dropdown = {
 			"id": null, 
 			"label": "New Dropdown", 
-			"type": "OPTIONS", 
+			"fieldType": "OPTIONS", 
 			"options": [{"label": "Option 1", "value": "OPTION_1"}, {"label": "Option 2", "value": "OPTION_2"}, {"label": "Option 3", "value": "OPTION_3"}]
 		},
 		checkboxes = {
 			"id": null, 
 			"label": "New Checkboxes", 
-			"type": "CHECKBOXES", 
+			"fieldType": "CHECKBOXES", 
 			"options": [{"label": "Option 1", "value": "OPTION_1"}, {"label": "Option 2", "value": "OPTION_2"}, {"label": "Option 3", "value": "OPTION_3"}]
 		},
 		radio = {
 			"id": null, 
 			"label": "New Radio Buttons", 
-			"type": "RADIOS", 
+			"fieldType": "RADIOS", 
 			"options": [{"label": "Option 1", "value": "OPTION_1"}, {"label": "Option 2", "value": "OPTION_2"}, {"label": "Option 3", "value": "OPTION_3"}]
 		},
 		email = {
 			"id": null,
 			"label": "New Email Field",
-			"type": "EMAIL",
+			"fieldType": "EMAIL",
 			"placeholder": "New Email Field"
 		};
 
 		$scope.newField = {
-			"type": $scope.newFieldType,
+			"fieldType": $scope.newFieldType,
 			"slt": clone(slt),
 			"mltf": clone(mltf),
 			"date": clone(date),
@@ -108,7 +108,7 @@
 		$scope.addField = function(fieldType){
 			$scope.error = "";
 			if (fieldType){
-				$scope.newField.type = fieldType;
+				$scope.newField.fieldType = fieldType;
 				var newFieldObject = clone($scope.newField[fieldType]);
 				$scope.fields.push(newFieldObject);
 

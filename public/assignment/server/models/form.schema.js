@@ -14,11 +14,15 @@ FieldSchema = require("./field.schema.js");
 
 // Define activity schema
 module.exports = new mongoose.Schema({
+    "id": {
+        type: objectId,
+    },
     "title": {
     	type: String
     },
     "userId": {
-    	type: String
+    	type: objectId,
+        ref: 'UserModel'
     },
     "fields": [ FieldSchema ]
 }, {collection: 'cs5610.assignment.form'});

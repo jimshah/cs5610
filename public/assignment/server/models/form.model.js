@@ -1,13 +1,14 @@
 "use strict";
 
 var q = require("q"),
-Promise = require('bluebird');
+Promise = require('bluebird'),
+mongoose = require("mongoose");
 
 module.exports = function(app, formBuilderDb){
 
 	// Defining UserModel 
 	var FormSchema = require('./form.schema.js'),
-		FormModel = formBuilderDb.model('FormModel', FormSchema);
+	FormModel = formBuilderDb.model('FormModel', FormSchema);
 
 	var forms = require("./form.mock.json").forms;
 
@@ -20,10 +21,17 @@ module.exports = function(app, formBuilderDb){
 				} else if (!form || typeof form !== "object") {
 					return reject("please provide a valid form object");
 				} else {
-					form.id = guid();
+					form.id = form._id = mongoose.Types.ObjectId();
 					form.userId = userId;
-					forms.push(form);
-					return resolve(form);
+
+					FormModel.create(form, function(err, newlyCreatedForm){
+						if (err){
+							console.log("Error while createForm : ", err);
+							return reject(err);
+						} else {
+							return resolve(newlyCreatedForm);
+						}
+					});
 				}
 			});
 		} catch(error){
@@ -34,7 +42,16 @@ module.exports = function(app, formBuilderDb){
 
 	function findAllForms(){
 		try {
-			return Promise.resolve(forms);
+			return new Promise(function(resolve, reject){
+				FormModel.find({}, function(err, dbForms){
+					if (err){
+						console.log("Error while findAllUsers : ", err);
+						return reject(err);
+					} else {
+						return resolve(dbForms);
+					}
+				});
+			});
 		} catch(error){
 			console.log("catched an Exception in 'findAllForms' method", error);
 			return Promise.reject(error);
@@ -47,13 +64,14 @@ module.exports = function(app, formBuilderDb){
 				if (!userId || typeof userId === "undefined"){
 					return reject("please provide a valid userId");
 				} else {
-					var userForms = [];
-					forms.forEach(function(form, index){
-						if (form.userId === userId){
-							userForms.push(form);
+					FormModel.find({userId: userId}, function(err, userForms){
+						if (err){
+							console.log("Error while findAllFormsForUser : ", err);
+							return reject(err);
+						} else {
+							return resolve(userForms);
 						}
 					});
-					return resolve(userForms);
 				}
 			});
 		} catch(error){
@@ -68,17 +86,14 @@ module.exports = function(app, formBuilderDb){
 				if (!formId || typeof formId === "undefined"){
 					return reject("please provide a formId");
 				} else {
-					var requestedForm;
-					forms.forEach(function(form, index){
-						if (form.id == formId){
-							requestedForm = form;
+					FormModel.findOne({id: formId}, function(err, userFormsById){
+						if (err){
+							console.log("Error while findFormById : ", err);
+							return reject(err);
+						} else {
+							return resolve(userFormsById);
 						}
 					});
-					if (requestedForm){
-						return resolve(requestedForm);
-					} else {
-						return reject("no form found with formId:"+formId);
-					}
 				}
 			});
 		} catch(error){
@@ -93,13 +108,14 @@ module.exports = function(app, formBuilderDb){
 				if (!title || typeof title === "undefined"){
 					return reject("Please provide a valid form title");
 				} else {
-					var requiredForm;
-					forms.forEach(function(form, index){
-						if (form && from.title == title){
-							requiredForm = form;
+					FormModel.findOne({title: title}, function(err, requiredForm){
+						if (err){
+							console.log("Error while findFormByTitle : ", err);
+							return reject(err);
+						} else {
+							return resolve(requiredForm);
 						}
 					});
-					return resolve(requiredForm);
 				}
 			});
 		} catch(error){
@@ -111,26 +127,25 @@ module.exports = function(app, formBuilderDb){
 	function updateForm(formId, newForm){
 		try {
 			return new Promise(function(resolve, reject){
-				var found = false;
-				var formAfterUpdate;
-				forms.forEach(function(form){
-					if (form && form.id===formId){
-						found = true;
+				FormModel.findOne({id: formId}, function(err, form){
+					if (err || !form){
+						return reject(err || "no form found for updateForm with id:"+formId);
+					} else {
 		  				//Updating only newly properties from the input updatedUser object
 		  				for(var prop in form){
-		  					if (newForm[prop]){
+		  					if (!(typeof newForm[prop] == 'undefined')){
 		  						form[prop] = newForm[prop];
 		  					}
 		  				}
-		  				form.id = formId;
-		  				formAfterUpdate = form;
+		  				form.save(function(error){
+		  					if (error){
+		  						return reject("Error while saving after updating form : "+error);
+		  					} else {
+		  						return resolve(form);
+		  					}
+		  				});
 		  			}
 		  		});
-				if (found){
-					return resolve(formAfterUpdate);
-				} else {
-					return reject("Error finding form with id : "+formId);
-				}
 			});
 		} catch(error){
 			console.log("catched an Exception in 'updateForm' method", error);
@@ -144,26 +159,23 @@ module.exports = function(app, formBuilderDb){
 				if (!formId || typeof formId === "undefined"){
 					return callback("please provide a valid formId");
 				} else {
-					var found = false;
-					var userId ;
-					forms.forEach(function(form, index){
-						if (form && form.id == formId){
-							found = true;
-							userId = form.userId;
-							forms.splice(index, 1);
-						}
-					});
-					if (found){
-						var remaningForms = [];
-						forms.forEach(function(form, index){
-							if (form && form.userId === userId){
-								remaningForms.push(form);
+					findFormById(formId)
+					.then(function(retrievedForm){
+						var userId = retrievedForm.userId || "";
+						FormModel.remove({id: formId}, function(err){
+							if(err){
+								return reject(err || "error deleting formId with id:"+formId+" \n error being "+err);
+							} else {
+								findAllFormsForUser(userId)
+								.then(function(userForms){
+									return resolve(userForms);
+								});
 							}
 						})
-						return resolve(remaningForms);
-					} else {
-						return reject("No form found with formId : "+formId);
-					}
+					})
+					.catch(function(error){
+						return reject(error);
+					});
 				}
 			});
 		} catch(error){

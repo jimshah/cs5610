@@ -87,7 +87,7 @@ module.exports = function(app, formBuilderDb){
 		  				}
 		  				user.save(function(error){
 		  					if (error){
-		  						return reject("Error while saving after updating document : "+error);
+		  						return reject("Error while saving after updating user : "+error);
 		  					} else {
 		  						return resolve(user);
 		  					}
