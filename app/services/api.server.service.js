@@ -1,6 +1,12 @@
 "use strict";
 var http = require('http'),
 Promise = require('bluebird');
+var nodemailer = new require("../../services/nodemailer.js")();
+//console.log("nodemailer", nodemailer;
+/*nodemailer.prototype.sendEmail()
+.then(function(result){
+	console.log("result of nodemailer", result);
+});*/
 
 function ApiServerService() {
 };
