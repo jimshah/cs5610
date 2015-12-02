@@ -1,5 +1,12 @@
 "use strict";
 
+var nodemailer = new require("../../../../services/nodemailer.js")();
+//console.log("nodemailer", nodemailer;
+/*nodemailer.prototype.sendEmail()
+.then(function(result){
+	console.log("result of nodemailer", result);
+});*/
+
 module.exports = function(app, userModel, db){
 	app.post("/api/project/user", createUser);
 	app.get("/api/project/user", handleGetUserRequets);
@@ -20,6 +27,13 @@ module.exports = function(app, userModel, db){
 		var user = req.body;
 		userModel.createUser(user)
 		.then(function(newUser){
+
+			//Async sending of registration email
+			nodemailer.prototype.sendEmail({"to": newUser.email})
+			.then(function(result){
+				console.log("result of nodemailer", result);
+			});
+
 			res.json(newUser);
 		})
 		.catch(function(error){
