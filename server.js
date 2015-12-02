@@ -22,11 +22,14 @@ app.use(morgan("dev"));
 require("./helpers/jsonify-error.js");
 
 //Load Routes
-require("./app/routes")(app);
+//require("./app/routes")(app, db);
 
 
 //Load Assignment Server App
 require("./public/assignment/server/app.js")(app, db);
+
+//Load Project Server App
+require("./public/project/server/app.js")(app, db);
 
 // Handle 404
 /*app.use(function(req, res) {

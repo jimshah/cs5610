@@ -38,16 +38,20 @@
 
 			//Update button to update user profile
 			$scope.update = function(){
-				$scope.error = null;
-				$scope.success = null;
-				UserService.updateUser($scope.user.id, $scope.user, function(error, updatedUser){
-					if (error){
-						$scope.error = error;
-					} else {
+				if ($scope.user && $scope.user.email && $scope.user.fname && $scope.user.lname && $scope.user.password){
+					$scope.error = null;
+					$scope.success = null;
+					UserService.updateUser($scope.user.id, $scope.user)
+					.then(function(updatedUser){
 						$scope.user = updatedUser;
 						$scope.success = "Succesfully updated user profile";
-					}
-				});
+					})
+					.catch(function(error){
+						$scope.error = error;
+					});
+				} else {
+					$scope.error = "None of the fields should be left blank";
+				}
 			};
 
 			$scope.create = function(){

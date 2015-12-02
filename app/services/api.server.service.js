@@ -18,7 +18,7 @@ var api = {
 }
 
 
-module.exports = function(){
+module.exports = function(db){
 
 
 	ApiServerService.prototype.getCategories = function(req, res, next) {

@@ -1,7 +1,7 @@
 "use strict";
 var http = require('http');
-module.exports = function(req, res){
-	var apiService = require('../services/api.server.service');
+module.exports = function(db){
+	var apiService = require('../services/api.server.service')(db);
 	
 	return {
 		getCategories: apiService.getCategories,

@@ -22,12 +22,11 @@
 			$scope.login = function(){
 				if ($scope.user.email && $scope.user.password){
 					//Scope error make null
-					$scope.error = null;
-					UserService.findUserByEmail($scope.user.email, function(error, user){
-						if (error){
-							$scope.error = error;
-						} else {
-							//update rootscope user 
+					$scope.success = $scope.error = null;
+
+					UserService.findUserByEmailAndPassword($scope.user.email, $scope.user.password)
+					.then(function(user){
+						//update rootscope user 
 							$scope.user = $rootScope.user = user;
 							//broadcast login auth event for listeners to update loggedin user 
 							$rootScope.$broadcast('auth', user);
@@ -53,7 +52,9 @@
 									});
 								}
 							});
-						}
+					})
+					.catch(function(error){
+						$scope.error = error;
 					});
 }
 };
