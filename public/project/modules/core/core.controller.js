@@ -24,6 +24,20 @@
 				$scope.user = $rootScope.user = user;
 			});
 
+			//listen for $http starts and ends for spinning icon
+			$rootScope.$on("httpStarts", function(event, result){
+				/*setTimeout(function () {
+					$scope.loading = true;
+				}, 0);*/
+				$scope.loading = true;
+			});
+			$rootScope.$on("httpEnds", function(event, result){
+				/*setTimeout(function () {
+					$scope.loading = false;
+				}, 100);*/
+				$scope.loading = false;
+			});
+
 			$scope.initializeCoreCategories = function(){
 				CoreEvents.categories()
 				.then(function(categories){

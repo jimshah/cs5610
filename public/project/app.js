@@ -23,12 +23,25 @@
 	angular.module(app.applicationModuleName,app.applicationModuleVendorDependencies);
 
 	// Setting HTML5 Location Mode
-	angular.module(app.applicationModuleName).config(['$locationProvider', '$httpProvider', 
+	angular.module(app.applicationModuleName)
+	.config(['$locationProvider', '$httpProvider', 
 		function($locationProvider, $httpProvider) {
 			console.log("hello, hash prefixed");
 			//$locationProvider.hashPrefix('!');
 		}
-		]);
+		])
+	.run(['$http', '$rootScope', '$window', function($http, $rootScope, $window){
+		// Track any $http request starts
+		$http.defaults.transformRequest.push(function (response) {
+			$rootScope.$broadcast('httpStarts');
+			return response;
+		});
+		// Track any $http request ends
+		$http.defaults.transformResponse.push(function(response){
+			$rootScope.$broadcast('httpEnds');
+			return response;
+		});
+	}]);
 
 	//Then define the init function for starting up the application
 	angular.element(document).ready(function() {
