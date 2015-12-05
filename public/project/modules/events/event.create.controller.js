@@ -26,7 +26,6 @@
 			});
 			//listen for login/sigin to grab logged in user
 			$rootScope.$on("userEvents", function(event, events){
-				console.log("on auth");
 				$scope.error = $scope.success = "";
 				$scope.events = $rootScope.events = events;
 			});
@@ -39,10 +38,11 @@
 					$scope.newEvent.start_time && $scope.newEvent.venue_address && $scope.newEvent.privacy){
 					EventService.createEvent($scope.newEvent)
 					.then(function(userEvents){
-						/*$scope.events = $rootScope.events = userEvents;*/
+						$scope.events = $rootScope.events = userEvents;
+						//Braodcast userEvents
+						$rootScope.$broadcast('userEvents', userEvents);
 						$scope.success = "Successfully created new event";
 						$location.path( "/profile" );
-						console.log("eventcreated", userEvents);
 					})
 					.catch(function(error){
 						$scope.error = error;

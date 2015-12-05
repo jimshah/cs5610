@@ -51,21 +51,25 @@
 									$rootScope.$broadcast('auth', newlyCreatedUser);
 									$location.path( "/home" );
 
-									EventService.getUserEventsById($scope.user.id, function(error, events){
-										if (error || events && events.length === 0){
-											console.log(error || "no user events found");
-										} else {
-											$scope.events = $rootScope.events = events;
-											$rootScope.$broadcast('userEvents', events);
-											EventService.getUserRegisteredEvents($scope.user.id, function(error, userRegisteredEvents){
-												if (error){
-													console.log(error);
-												} else {
-													$scope.registeredEvents = $rootScope.registeredEvents;													
-													$rootScope.$broadcast('userRegisteredEvents', userRegisteredEvents);
-												}
-											});
-										}
+									//Retrieve User Events - as a host
+									EventService.getUserEventsAsHost($scope.user.id)
+									.then(function(events){
+										$scope.events = $rootScope.events = events;
+										//Braodcast userEvents
+										$rootScope.$broadcast('userEvents', events);
+									})
+									.catch(function(error){
+										console.log("Error fetching user host events : "+error);
+									});
+
+									//Retrieve User Events - as a guest
+									EventService.getUserEventsAsGuest($scope.user.id)
+									.then(function(userRegisteredEvents){
+										$scope.registeredEvents = $rootScope.registeredEvents = userRegisteredEvents;													
+										$rootScope.$broadcast('userRegisteredEvents', userRegisteredEvents);
+									})
+									.catch(function(error){
+										console.log("Error fetching user guest events : "+error);
 									});
 								})
 								.catch(function(error){

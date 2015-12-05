@@ -80,160 +80,216 @@ module.exports = function(app, db){
 		}
 	}
 
-	function getLocalEvent(eventId){
+	function registerEventfulEvent(eventId, userId){
 		try {
 			return new Promise(function(resolve, reject){
-				console.log("eventId", eventId);
-				EventModel.findOne({id: eventId}, function(err, event){
-					if (err || !event){
-						return reject({error : err || "no event found with id:"+eventId});
+				EventModel.findOne({id: eventId, userId: userId, guest: true}, function(err, event){
+					if (err || event){
+						return reject(err || "You have already registered for this event");
 					} else {
-						return resolve(event);
+						getEventfulEvent(eventId)
+						.then(function(eventfulEvent){
+							if (typeof eventfulEvent == "string"){
+								eventfulEvent = JSON.parse(eventfulEvent);
+							}
+							eventfulEvent.type = "eventful";
+							eventfulEvent._id = mongoose.Types.ObjectId();
+							eventfulEvent.guest = true;
+							eventfulEvent.host = false;
+							eventfulEvent.modified = new Date();
+							eventfulEvent.userId = userId;
+							EventModel.create(eventfulEvent, function(err, registeredEvent){
+								if (err){
+									//console.log("Error while createLocalEvent : ", err);
+									return reject({error: err});
+								} else {
+									getUserEventsAsGuest(registeredEvent.userId)
+									.then(function(userEvents){
+										return resolve(userEvents);
+									})
+									.catch(function(error){
+										console.log("error", error);
+										return reject({error: error});
+									})
+								}
+							});
+						})
+						.catch(function(error){
+							return reject({error: error});
+						});
 					}
 				});
-			});
-		} catch(error){
-			return Promise.resolve({error: error});
-		}
-	}
+				/*var options = {
+					host: "api.eventful.com",
+					path: "/json/events/get?app_key="+api.config.appKey+"&id="+eventId,
+					method: 'GET'
+				};
+				return getRequest(options)
+				.then(function(responseData){
+					return resolve(responseData);
+				})
+				.catch(function(error){
+					return reject({error: error});
+				});*/
+});
+} catch(error){
+	return Promise.resolve({error: error});
+}
+}
 
-	function getLocalEventsForUser(userId){
-		try {
-			return new Promise(function(resolve, reject){
-				if (!userId){
-					return reject({error: "Please supply a userId"});
+function getLocalEvent(eventId){
+	try {
+		return new Promise(function(resolve, reject){
+			EventModel.findOne({_id: eventId}, function(err, event){
+				if (err || !event){
+					return reject({error : err || "no event found with id:"+eventId});
 				} else {
-					EventModel.findOne({userId: userId}, function(err, userEvents){
-						if (err || !userEvents){
-							return reject({error : err || "no events found for userId:"+userId});
-						} else {
-							return resolve(userEvents);
-						}
-					});
+					return resolve(event);
 				}
 			});
-		} catch(error){
-			return Promise.resolve({error: error});
-		}
+		});
+	} catch(error){
+		return Promise.resolve({error: error});
 	}
+}
 
-	function createLocalEvent(eventObject){
-		try {
-			return new Promise(function(resolve, reject){
-				if (!eventObject || typeof eventObject !== 'object'){
-					return reject({error : "please provide a valid eventObject"});
-				} else {
-					eventObject.id = eventObject._id = mongoose.Types.ObjectId();
-					eventObject.type = "local";
-					eventObject.created = eventObject.modified = new Date();
-					eventObject.host = true;
-					eventObject.guest = false;
+function getLocalEventsForUser(userId){
+	try {
+		return new Promise(function(resolve, reject){
+			if (!userId){
+				return reject({error: "Please supply a userId"});
+			} else {
+				EventModel.findOne({userId: userId}, function(err, userEvents){
+					if (err || !userEvents){
+						return reject({error : err || "no events found for userId:"+userId});
+					} else {
+						return resolve(userEvents);
+					}
+				});
+			}
+		});
+	} catch(error){
+		return Promise.resolve({error: error});
+	}
+}
 
-					EventModel.create(eventObject, function(err, newlyCreatedEvent){
-						if (err){
+function createLocalEvent(eventObject){
+	try {
+		return new Promise(function(resolve, reject){
+			if (!eventObject || typeof eventObject !== 'object'){
+				return reject({error : "please provide a valid eventObject"});
+			} else {
+				eventObject.id = eventObject._id = mongoose.Types.ObjectId();
+				eventObject.type = "local";
+				eventObject.created = eventObject.modified = new Date();
+				eventObject.host = true;
+				eventObject.guest = false;
+
+				EventModel.create(eventObject, function(err, newlyCreatedEvent){
+					if (err){
 							//console.log("Error while createLocalEvent : ", err);
 							return reject(err);
 						} else {
-							console.log("created a new event", newlyCreatedEvent);
-							getLocalEventsForUser(newlyCreatedEvent.userId)
+							getUserAsHostEvents(newlyCreatedEvent.userId)
 							.then(function(userEvents){
 								return resolve(userEvents);
 							});
 						}
 					});
-				}
-			});
-		} catch(error){
-			return Promise.resolve({error: error});
-		}
+			}
+		});
+	} catch(error){
+		return Promise.resolve({error: error});
 	}
+}
 
-	function getUserAsHostEvents(userId){
-		try {
-			return new Promise(function(resolve, reject){
-				if (!userId){
-					return reject({error: "Please supply a userId"});
-				} else {
-					EventModel.findOne({userId: userId, host: true}, function(err, userEvents){
-						if (err){
-							return reject({error : err});
-						} else {
-							if (!userEvents){
-								userEvents = [];
-							}
-							return resolve(userEvents);
+function getUserAsHostEvents(userId){
+	try {
+		return new Promise(function(resolve, reject){
+			if (!userId){
+				return reject({error: "Please supply a userId"});
+			} else {
+				EventModel.find({userId: userId, host: true}, function(err, userEvents){
+					if (err){
+						return reject({error : err});
+					} else {
+						if (!userEvents){
+							userEvents = [];
 						}
-					});
-				}
-			});
-		} catch(error){
-			return Promise.resolve({error: error});
-		}
+						return resolve(userEvents);
+					}
+				});
+			}
+		});
+	} catch(error){
+		return Promise.resolve({error: error});
 	}
+}
 
-	function getUserEventsAsGuest(userId){
-		try {
-			return new Promise(function(resolve, reject){
-				if (!userId){
-					return reject({error: "Please supply a userId"});
-				} else {
-					EventModel.findOne({userId: userId, guest: true}, function(err, userEvents){
-						if (err){
-							return reject({error : err});
-						} else {
-							if (!userEvents){
-								userEvents = [];
-							}
-							return resolve(userEvents);
+function getUserEventsAsGuest(userId){
+	try {
+		return new Promise(function(resolve, reject){
+			if (!userId){
+				return reject({error: "Please supply a userId"});
+			} else {
+				EventModel.find({userId: userId, guest: true}, function(err, userEvents){
+					if (err){
+						return reject({error : err});
+					} else {
+						if (!userEvents){
+							userEvents = [];
 						}
-					});
-				}
-			});
-		} catch(error){
-			return Promise.resolve({error: error});
-		}
+						return resolve(userEvents);
+					}
+				});
+			}
+		});
+	} catch(error){
+		return Promise.resolve({error: error});
 	}
+}
 
-	function getRequest(options){
-		var self = this;
-		try {
-			return new Promise(function(resolve, reject){
-				options = options || {};
+function getRequest(options){
+	var self = this;
+	try {
+		return new Promise(function(resolve, reject){
+			options = options || {};
 
-				var callback = function(response) {
-					var str = '';
+			var callback = function(response) {
+				var str = '';
 
-					response.on('data', function (chunk) {
-						str += chunk;
-					});
+				response.on('data', function (chunk) {
+					str += chunk;
+				});
 
 
-					response.on('end', function () {
-						return resolve(str);
-					});
+				response.on('end', function () {
+					return resolve(str);
+				});
 
-					response.on("error", function(error){
-						return reject(error);
-					});
-				};
+				response.on("error", function(error){
+					return reject(error);
+				});
+			};
 
-				http.request(options, callback).end();
-			});
-		}catch(error){
-			console.log("caught an error in \"getRequest\" function");
-			return Promise.reject(error);
-		};
-	}
+			http.request(options, callback).end();
+		});
+	}catch(error){
+		console.log("caught an error in \"getRequest\" function");
+		return Promise.reject(error);
+	};
+}
 
-	return {
-		"getEventfulCategories": getEventfulCategories,
-		"getEventfulCategoryEvents": getEventfulCategoryEvents,
-		"getEventfulEvent": getEventfulEvent,
-		"getLocalEvent": getLocalEvent,
-		"getLocalEventsForUser": getLocalEventsForUser,
-		"createLocalEvent": createLocalEvent,
-		"getUserAsHostEvents": getUserAsHostEvents,
-		"getUserEventsAsGuest": getUserEventsAsGuest
+return {
+	"getEventfulCategories": getEventfulCategories,
+	"getEventfulCategoryEvents": getEventfulCategoryEvents,
+	"getEventfulEvent": getEventfulEvent,
+	"getLocalEvent": getLocalEvent,
+	"getLocalEventsForUser": getLocalEventsForUser,
+	"createLocalEvent": createLocalEvent,
+	"getUserAsHostEvents": getUserAsHostEvents,
+	"getUserEventsAsGuest": getUserEventsAsGuest,
+	"registerEventfulEvent": registerEventfulEvent
 	 	/*"createUser": createUser,
 	 	"findAllUsers": findAllUsers,
 	 	"findUserById": findUserById,

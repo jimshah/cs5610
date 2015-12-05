@@ -1,18 +1,12 @@
 "use strict";
 
-var nodemailer = new require("../../../../services/nodemailer.js")();
-//console.log("nodemailer", nodemailer;
-/*nodemailer.prototype.sendEmail()
-.then(function(result){
-	console.log("result of nodemailer", result);
-});*/
-
 module.exports = function(app, eventModel, db){
 	
 	// eventful api events
 	app.get("/api/eventful/category", getEventfulCategories);
 	app.get("/api/eventful/category/:category", getEventfulCategoryEvents);
 	app.get("/api/eventful/event/:eventId", getEventfulEvent);
+	app.get("/api/eventful/event/:eventId/user/:userId/register", registerEventfulEvent);
 
 	// local events
 	app.get("/api/local/event/:eventId", getLocalEvent);
@@ -62,9 +56,21 @@ module.exports = function(app, eventModel, db){
 		});
 	}
 
+	function registerEventfulEvent(req, res, next){
+		var eventId = req.params.eventId, 
+			userId = req.params.userId;
+		eventModel.registerEventfulEvent(eventId, userId)
+		.then(function(userEvents){
+			res.json(userEvents);
+		})
+		.catch(function(error){
+			console.log('registerEventfulEvent user error', JSON.stringify(error));
+			res.status(400).send(JSON.stringify(error));
+		});
+	}
+
 	function getLocalEvent(req, res, next){
 		var eventId = req.params.eventId;
-		console.log("eventId outer", eventId);
 		eventModel.getLocalEvent(eventId)
 		.then(function(event){
 			res.json(event);

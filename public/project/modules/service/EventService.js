@@ -37,8 +37,8 @@
 			var deferred = $q.defer();
 
 			$http.post("/api/local/event", eventObject)
-			.success(function(event){
-				deferred.resolve(event);
+			.success(function(userEvents){
+				deferred.resolve(userEvents);
 			})
 			.error(function(error){
 				if (error && error.message){
@@ -148,7 +148,6 @@
 				if (typeof response == "string"){
 					response = JSON.parse(response);
 				}
-				//console.log("event by id response", response);
 				deferred.resolve(response);
 			})
 			.error(function (error) {
@@ -203,39 +202,27 @@
 			}
 		}
 
-		function registerEvent(userId, givenEvent, callback){
-			try {
-				if (!userId){
-					return callback("Please supply proper userId");
-				} else if (!givenEvent){
-					return callback("Please supply proper givenEvent");
-				} else {
-					var eventInContext;
-					var duplicate = false;
-					events.forEach(function(event, index){
-						if (event.id === givenEvent.id){
-							eventInContext = event;
-							if (event && event.attendees && event.attendees.indexOf(userId) >-1){
-								duplicate = true;
-							}
-						}
-					});
-					if (duplicate){
-						return callback("You have already registered for this event");
-					} else {
-						if (!eventInContext){
-							eventInContext = givenEvent;
-							events.push(givenEvent);
-						}
-						eventInContext.attendees = eventInContext.attendees || [];
-						eventInContext.attendees.push(userId);
-						return getUserRegisteredEvents(userId, callback);	 			
+		function registerEvent(userId, givenEvent){
+			var deferred = $q.defer();
+			if (!userId){
+				deferred.reject("Please supply proper userId");
+			} else if (!givenEvent){
+				deferred.reject("Please supply proper givenEvent");
+			} else {
+				var eventId = givenEvent.id;
+				$http.get('/api/eventful/event/'+eventId+'/user/'+userId+'/register')
+				.success(function (response) {
+					if (typeof response == "string"){
+						response = JSON.parse(response);
 					}
-				}
-			} catch(error){
-				console.log("catched an Exception in 'registerEvent' method", error);
-				return callback(error);
+					deferred.resolve(response);
+				})
+				.error(function (error) {
+					deferred.reject(error);
+				});
+
 			}
+			return deferred.promise;
 		}
 
 		function getEventById(eventId, callback){

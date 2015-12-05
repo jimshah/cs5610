@@ -21,7 +21,6 @@
 			});
 			//listen for login/sigin to grab logged in user
 			$rootScope.$on("userEvents", function(event, events){
-				console.log("on auth");
 				$scope.error = $scope.success = "";
 				$scope.events = $rootScope.events = events;
 			});
@@ -37,13 +36,13 @@
 				$scope.error=$scope.success="";
 				if ($scope.user && $scope.user.id) {
 					$scope.event.type="api";
-					EventService.registerEvent($scope.user.id, $scope.event, function(error, registeredEvents){
-						if (error){
-							console.log(error);
-							$scope.error = error;
-						} else {
-							$scope.success = "Successfully registered for this event";
-						}
+					EventService.registerEvent($scope.user.id, $scope.event)
+					.then(function(userRegisteredEvents){
+						$rootScope.$broadcast('userRegisteredEvents', userRegisteredEvents);
+						$scope.success = "Successfully registered for this event";
+					})
+					.catch(function(error){
+						$scope.error = error;
 					});
 				} else {
 					$scope.error = "Please Login to register for this event";

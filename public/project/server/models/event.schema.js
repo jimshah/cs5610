@@ -28,15 +28,19 @@ objectId = mongoose.Schema.Types.ObjectId;
 // Define activity schema
 module.exports = new mongoose.Schema({
     "id": {
-        type: objectId,
+        //type: objectId,
+        type: String,
     },
     "title": {
         type: String,
         required: true
     },
     "type": {
+        type: String//Eventful api has type field
+    },/*
+    "typeOf": {
         type: String//Either local or api
-    },
+    },*/
     "userId": {
         type: objectId,
         ref: "User"

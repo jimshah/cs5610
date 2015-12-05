@@ -27,35 +27,38 @@
 					UserService.findUserByEmailAndPassword($scope.user.email, $scope.user.password)
 					.then(function(user){
 						//update rootscope user 
-							$scope.user = $rootScope.user = user;
+						$scope.user = $rootScope.user = user;
 							//broadcast login auth event for listeners to update loggedin user 
 							$rootScope.$broadcast('auth', user);
 							//Navigate to profile
 							$location.path( "/home" );
-							//Retrieve User Events
-							EventService.getUserEventsById($scope.user.id, function(error, events){
-								if (error || events && events.length === 0){
-									console.log(error || "no user events found");
-								} else {
-									$scope.events = $rootScope.events = events;
-									//Braodcast userEvents
-									$rootScope.$broadcast('userEvents', events);
 
-									EventService.getUserRegisteredEvents($scope.user.id, function(error, userRegisteredEvents){
-										if (error){
-											console.log(error);
-										} else {
-											$scope.registeredEvents = $rootScope.registeredEvents;
-											//Braodcast userEvents
-											$rootScope.$broadcast('userRegisteredEvents', userRegisteredEvents);
-										}
-									});
-								}
+							//Retrieve User Events - as a host
+							EventService.getUserEventsAsHost($scope.user.id)
+							.then(function(events){
+								$scope.events = $rootScope.events = events;
+								//Braodcast userEvents
+								$rootScope.$broadcast('userEvents', events);
+							})
+							.catch(function(error){
+								console.log("Error fetching user host events : "+error);
 							});
-					})
-					.catch(function(error){
-						$scope.error = error;
-					});
+
+							//Retrieve User Events - as a guest
+							EventService.getUserEventsAsGuest($scope.user.id)
+							.then(function(userRegisteredEvents){
+								$scope.registeredEvents = $rootScope.registeredEvents = userRegisteredEvents;													
+								$rootScope.$broadcast('userRegisteredEvents', userRegisteredEvents);
+							})
+							.catch(function(error){
+								console.log("Error fetching user guest events : "+error);
+							});
+
+							
+						})
+.catch(function(error){
+	$scope.error = error;
+});
 }
 };
 
