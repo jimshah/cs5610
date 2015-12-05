@@ -10,8 +10,8 @@
 	//Defining header controller
 	angular
 	.module(moduleName)
-	.controller("LocalEventController", ['$scope', '$http', '$rootScope', '$location', 'Event', '$routeParams', 'EventService', 
-		function($scope, $http, $rootScope, $location, Event, $routeParams, EventService) {
+	.controller("LocalEventController", ['$scope', '$http', '$rootScope', '$location', '$routeParams', 'EventService', 
+		function($scope, $http, $rootScope, $location, $routeParams, EventService) {
 			$scope.eventId = $routeParams.eventId;
 
 			//listen for login/sigin to grab logged in user

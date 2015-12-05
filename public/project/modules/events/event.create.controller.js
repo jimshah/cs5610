@@ -7,7 +7,7 @@
 	// Use app's registerModule function to register a new module
 	app.registerModule(moduleName);
 
-	//Defining header controller
+	//Defining CreateEventController - for Event create Page
 	angular
 	.module(moduleName)
 	.controller("CreateEventController", ['$scope', '$rootScope', '$location', '$window', 'UserService', 'EventService',  
@@ -37,15 +37,16 @@
 				$scope.newEvent.type = "local";
 				if ($scope.newEvent && $scope.newEvent.title && $scope.newEvent.description && $scope.newEvent.date && 
 					$scope.newEvent.start_time && $scope.newEvent.venue_address && $scope.newEvent.privacy){
-					EventService.createEvent($scope.newEvent, function(error, userEvents){
-					if (error){
-						$scope.error = error;
-					} else {
-						$scope.events = $rootScope.events = userEvents;
+					EventService.createEvent($scope.newEvent)
+					.then(function(userEvents){
+						/*$scope.events = $rootScope.events = userEvents;*/
 						$scope.success = "Successfully created new event";
 						$location.path( "/profile" );
-					}
-				});
+						console.log("eventcreated", userEvents);
+					})
+					.catch(function(error){
+						$scope.error = error;
+					});
 				} else {
 					$scope.error = "please fill out all of the details";
 				}

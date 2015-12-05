@@ -7,11 +7,11 @@
 	// Use app's registerModule function to register a new module
 	app.registerModule(moduleName);
 
-	//Defining header controller
+	//Defining EventController - for individual event page 
 	angular
 	.module(moduleName)
-	.controller("EventController", ['$scope', '$http', '$rootScope', '$location', 'Event', '$routeParams', 'EventService', 
-		function($scope, $http, $rootScope, $location, Event, $routeParams, EventService) {
+	.controller("EventController", ['$scope', '$http', '$rootScope', '$location', '$routeParams', 'EventService', 
+		function($scope, $http, $rootScope, $location, $routeParams, EventService) {
 			$scope.eventId = $routeParams.eventId;
 
 			//listen for login/sigin to grab logged in user
@@ -27,7 +27,7 @@
 			});
 
 			$scope.initializeEventdetails = function(eventId){
-				Event.event(eventId)
+				EventService.getEventfulEvent(eventId)
 				.then(function(eventObject){
 					$scope.event = eventObject;
 				});

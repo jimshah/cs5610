@@ -31,6 +31,135 @@
 			attendees: []
 		}];
 
+		//////////////// Local Events Starts ////////////////
+
+		function createEvent(eventObject){
+			var deferred = $q.defer();
+
+			$http.post("/api/local/event", eventObject)
+			.success(function(event){
+				deferred.resolve(event);
+			})
+			.error(function(error){
+				if (error && error.message){
+					deferred.reject(error.message);	
+				} else{
+					deferred.reject(error);
+				}
+			});
+			return deferred.promise;
+		}
+
+		function getUserEventsAsHost(userId){
+			var deferred = $q.defer();
+
+			$http.post("/api/local/event/user/"+userId+"/host")
+			.success(function(userEvents){
+				deferred.resolve(userEvents);
+			})
+			.error(function(error){
+				if (error && error.message){
+					deferred.reject(error.message);	
+				} else{
+					deferred.reject(error);
+				}
+			});
+			return deferred.promise;
+		}
+
+		function getLocalEventById(eventId){
+			var deferred = $q.defer();
+
+			$http.get("/api/local/event/"+eventId)
+			.success(function(event){
+				deferred.resolve(event);
+			})
+			.error(function(error){
+				if (error && error.message){
+					deferred.reject(error.message);	
+				} else{
+					deferred.reject(error);
+				}
+			});
+			return deferred.promise;
+		}
+
+		//////////////// Local Events Ends ////////////////
+
+		// Any event [local/eventful] that a user registers, we store it in mongo, 
+		// keeping that user as guest for that event
+		function getUserEventsAsGuest(userId){
+			var deferred = $q.defer();
+
+			$http.post("/api/local/event/user/"+userId+"/guest")
+			.success(function(userEvents){
+				deferred.resolve(userEvents);
+			})
+			.error(function(error){
+				if (error && error.message){
+					deferred.reject(error.message);	
+				} else{
+					deferred.reject(error);
+				}
+			});
+			return deferred.promise;
+		}
+
+		//////////////// Eventful Events Starts ////////////////
+
+		function getCategories(){
+			var deferred = $q.defer();
+			//$http.get('/api/categories')
+			$http.get('/api/eventful/category')
+			.success(function (response) {
+				if (typeof response == "string"){
+					response = JSON.parse(response);
+				}
+						//$window.categories = response;
+						deferred.resolve(response);
+					})
+			.error(function (error) {
+				deferred.reject(error);
+			});
+			return deferred.promise;
+		}
+
+		function categoryEvents(category){
+			var deferred = $q.defer();
+			//$http.get('/api/categories/'+category)
+			$http.get('/api/eventful/category/'+category)
+			.success(function (response) {
+				if (typeof response == "string"){
+					response = JSON.parse(response);
+				}
+				$window.categoryEvents = response;
+				deferred.resolve(response);
+			})
+			.error(function (error) {
+				deferred.reject(error);
+			});
+			return deferred.promise;
+		}
+
+		function getEventfulEvent(eventId){
+			var deferred = $q.defer();
+			$http.get('/api/eventful/event/'+eventId)
+			.success(function (response) {
+				if (typeof response == "string"){
+					response = JSON.parse(response);
+				}
+				//console.log("event by id response", response);
+				deferred.resolve(response);
+			})
+			.error(function (error) {
+				deferred.reject(error);
+			});
+			return deferred.promise;
+		}
+
+		//////////////// Eventful Events Ends ////////////////
+
+
 		/**
 		 * [getUserEventsById description]
 		 * @param  {[type]}   userId   [description]
@@ -48,23 +177,6 @@
 		 		return callback(null, userEvents);
 		 	} catch(error){
 		 		console.log("catched an Exception in 'getUserEventsById' method", error);
-		 		return callback(error);
-		 	}
-		 }
-
-		 function createEvent(eventObject, callback){
-		 	try {
-		 		if (!eventObject || typeof eventObject !== 'object'){
-		 			return callback("Please provide a proper event object");
-		 		} else {
-		 			eventObject.id = guid();
-		 			eventObject.created = eventObject.modified = formatDate(new Date());
-		 			eventObject.type="local";
-		 			events.push(eventObject);
-		 			return getUserEventsById(eventObject.userId, callback);
-		 		}
-		 	} catch(error){
-		 		console.log("catched an Exception in 'createUserEvent' method", error);
 		 		return callback(error);
 		 	}
 		 }
@@ -181,10 +293,17 @@
 		//Creating a UserService
 		var eventService = {
 			getUserEventsById: getUserEventsById ,
-			createEvent: createEvent,
 			registerEvent: registerEvent,
 			getUserRegisteredEvents: getUserRegisteredEvents,
-			getEventById: getEventById
+			getEventById: getEventById,
+
+			"createEvent": createEvent,
+			"getUserEventsAsHost": getUserEventsAsHost,
+			"getUserEventsAsGuest": getUserEventsAsGuest,
+			"getCategories": getCategories,
+			"categoryEvents": categoryEvents,
+			"getEventfulEvent": getEventfulEvent,
+			"getLocalEventById": getLocalEventById
 		};
 		return eventService;		
 	};

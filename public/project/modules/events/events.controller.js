@@ -10,18 +10,24 @@
 	//Defining header controller
 	angular
 	.module(moduleName)
-	.controller("EventsController", ['$scope', '$http', '$location', 'Events', '$routeParams', 
-		function($scope, $http, $location, Events, $routeParams) {
+	.controller("EventsController", ['$scope', '$http', '$location', '$routeParams', '$window', 'EventService', 
+		function($scope, $http, $location, $routeParams, $window, EventService) {
 			$scope.categories = [];
 			$scope.categoryEvents = [];
 			$scope.categorySelected = capitalizeFirstLetter($routeParams.categoryId) + " Events" || "Music Events";
 
 
 			$scope.initializeCategories = function(){
-				Events.categories()
-				.then(function(categories){
-					$scope.categories = categories.category;
-				});
+				if ($window.categories){
+					$scope.categories = $window.categories;
+					//console.log("$window.categories", $window.categories);
+				} else {
+					EventService.getCategories()
+					.then(function(categories){
+						$window.categories = categories.category;
+						$scope.categories = categories.category;
+					});
+				}
 			}
 
 			//Need to clean code - use fn composition
@@ -33,7 +39,7 @@
 					$scope.categorySelected = $scope.categorySelected.replace(re, ' ');
 					$scope.categorySelected = capitalizeFirstLetter($scope.categorySelected);
 				}
-				Events.categoryEvents(categoryId)
+				EventService.categoryEvents(categoryId)
 				.then(function(categoryEvents){
 					$scope.categoryEvents = categoryEvents.events.event;
 				});
