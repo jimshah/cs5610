@@ -13,7 +13,7 @@
 	//Defining our app configs, cann add some more attributes to it later on as we progress
 	var app = {
 		applicationModuleName: "JoinUs",
-		applicationModuleVendorDependencies: ['ngRoute'],//['ngResource', 'ngAnimate', 'ui.router', 'ui.bootstrap', 'ui.utils'],
+		applicationModuleVendorDependencies: ['ngRoute', 'ngCookies'],//['ngResource', 'ngAnimate', 'ui.router', 'ui.bootstrap', 'ui.utils'],
 		registerModule: registerModule
 	};
 

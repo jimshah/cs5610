@@ -17,37 +17,37 @@
 		 function findUserByEmail(email){
 		 	var deferred = $q.defer();
 
-		  	$http.get("/api/project/user?email="+email)
-		  	.success(function(user){
-		  		deferred.resolve(user);
-		  	})
-		  	.error(function(error){
-		  		if (error && error.message){
-		  			deferred.reject(error.message);	
-		  		} else{
-		  			deferred.reject(error);
-		  		}
-		  	});
+		 	$http.get("/api/project/user?email="+email)
+		 	.success(function(user){
+		 		deferred.resolve(user);
+		 	})
+		 	.error(function(error){
+		 		if (error && error.message){
+		 			deferred.reject(error.message);	
+		 		} else{
+		 			deferred.reject(error);
+		 		}
+		 	});
 
-		  	return deferred.promise;
+		 	return deferred.promise;
 		 };
 
 		 function findUserByEmailAndPassword(email, password){
 		 	var deferred = $q.defer();
 
-		  	$http.get("/api/project/user?email="+email+"&password="+password)
-		  	.success(function(user){
-		  		deferred.resolve(user);
-		  	})
-		  	.error(function(error){
-		  		if (error && error.message){
-		  			deferred.reject(error.message);	
-		  		} else{
-		  			deferred.reject(error);
-		  		}
-		  	});
+		 	$http.get("/api/project/user?email="+email+"&password="+password)
+		 	.success(function(user){
+		 		deferred.resolve(user);
+		 	})
+		 	.error(function(error){
+		 		if (error && error.message){
+		 			deferred.reject(error.message);	
+		 		} else{
+		 			deferred.reject(error);
+		 		}
+		 	});
 
-		  	return deferred.promise;
+		 	return deferred.promise;
 		 };
 
 		 /**
@@ -105,19 +105,19 @@
 		  function deleteUserById(userId){
 		  	var deferred = $q.defer();
 
-		   	$http.delete("/api/project/user/"+userId)
-		   	.success(function(remainingUsers){
-		   		deferred.resolve(remainingUsers);
-		   	})
-		   	.error(function(error){
-		   		if (error && error.message){
-		   			deferred.reject(error.message);	
-		   		} else{
-		   			deferred.reject(error);
-		   		}
-		   	});
+		  	$http.delete("/api/project/user/"+userId)
+		  	.success(function(remainingUsers){
+		  		deferred.resolve(remainingUsers);
+		  	})
+		  	.error(function(error){
+		  		if (error && error.message){
+		  			deferred.reject(error.message);	
+		  		} else{
+		  			deferred.reject(error);
+		  		}
+		  	});
 
-		   	return deferred.promise;
+		  	return deferred.promise;
 		  };
 
 		  /**
@@ -144,6 +144,27 @@
 		   	return deferred.promise;
 		   };
 
+		   function getUserByToken(token){
+		   	var deferred = $q.defer();
+
+		   	$http.get("/api/user/token/"+token)
+		   	.success(function(user){
+		   		if (typeof user == "string"){
+		   			user = JSON.parse(user);
+		   		}
+		   		deferred.resolve(user);
+		   	})
+		   	.error(function(error){
+		   		if (error && error.message){
+		   			deferred.reject(error.message);	
+		   		} else{
+		   			deferred.reject(error);
+		   		}
+		   	});
+
+		   	return deferred.promise;
+		   }
+
 		/**
 		 * [guid generates a unique id]
 		 * @return String [a unique id]
@@ -165,7 +186,8 @@
 			createUser: createUser,
 			deleteUserById: deleteUserById,
 			updateUser: updateUser,
-			findUserByEmailAndPassword: findUserByEmailAndPassword 
+			findUserByEmailAndPassword: findUserByEmailAndPassword,
+			getUserByToken: getUserByToken
 		};
 		return userService;		
 	};

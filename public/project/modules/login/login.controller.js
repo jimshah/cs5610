@@ -10,8 +10,8 @@
 	//Defining header controller
 	angular
 	.module(moduleName)
-	.controller("LoginController", ['$scope', '$rootScope', '$location', '$window', 'UserService', 'EventService', 
-		function($scope, $rootScope, $location, $window, UserService, EventService) {
+	.controller("LoginController", ['$scope', '$rootScope', '$location', '$window', 'UserService', 'EventService', 'GlobalService',  
+		function($scope, $rootScope, $location, $window, UserService, EventService, GlobalService) {
 			$scope.success= $scope.error = "";
 			$scope.user = {
 				email: "",
@@ -32,6 +32,8 @@
 							$rootScope.$broadcast('auth', user);
 							//Navigate to profile
 							$location.path( "/home" );
+
+							GlobalService.setUser(user._id);
 
 							//Retrieve User Events - as a host
 							EventService.getUserEventsAsHost($scope.user.id)

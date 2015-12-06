@@ -15,94 +15,94 @@ module.exports = function(app, db){
 	 * @param  {[type]} user [description]
 	 * @return {[type]}      [description]
 	 */
-	function createUser(user){
-		try {
-			return new Promise(function(resolve, reject){
+	 function createUser(user){
+	 	try {
+	 		return new Promise(function(resolve, reject){
 
-				if (!user || typeof user !== 'object'){
-					return reject("please provide a valid user object");
-				} else {
-					user.id = user._id = mongoose.Types.ObjectId();
-					user.provider = "local";
-					user.joined = new Date();
+	 			if (!user || typeof user !== 'object'){
+	 				return reject("please provide a valid user object");
+	 			} else {
+	 				user.id = user._id = mongoose.Types.ObjectId();
+	 				user.provider = "local";
+	 				user.joined = new Date();
 
-					UserModel.create(user, function(err, newlyCreatedUser){
-						if (err){
-							console.log("Error while createUser : ", err);
-							return reject(err);
-						} else {
-							return resolve(newlyCreatedUser);
-						}
-					});
-				}
+	 				UserModel.create(user, function(err, newlyCreatedUser){
+	 					if (err){
+	 						console.log("Error while createUser : ", err);
+	 						return reject(err);
+	 					} else {
+	 						return resolve(newlyCreatedUser);
+	 					}
+	 				});
+	 			}
 
-			});
-		} catch(error){
-			console.log("catched an Exception in 'createUser' method", error);
-			return Promise.reject(error);
-		}
-	}
+	 		});
+	 	} catch(error){
+	 		console.log("catched an Exception in 'createUser' method", error);
+	 		return Promise.reject(error);
+	 	}
+	 }
 
 	/**
 	 * [findAllUsers description]
 	 * @return {[type]} [description]
 	 */
-	function findAllUsers(){
-		try {
-			return new Promise(function(resolve, reject){
-				UserModel.find({}, function(err, dbUsers){
-					if (err){
-						console.log("Error while findAllUsers : ", err);
-						return reject(err);
-					} else {
-						resolve(dbUsers);
-					}
-				})
-			});			
-		} catch(error){
-			console.log("catched an Exception in 'findAllUsers' method", error);
-			return Promise.reject(error);
-		}
-	}
+	 function findAllUsers(){
+	 	try {
+	 		return new Promise(function(resolve, reject){
+	 			UserModel.find({}, function(err, dbUsers){
+	 				if (err){
+	 					console.log("Error while findAllUsers : ", err);
+	 					return reject(err);
+	 				} else {
+	 					resolve(dbUsers);
+	 				}
+	 			})
+	 		});			
+	 	} catch(error){
+	 		console.log("catched an Exception in 'findAllUsers' method", error);
+	 		return Promise.reject(error);
+	 	}
+	 }
 
 	/**
 	 * [findUserById description]
 	 * @param  {[type]} instanceId [description]
 	 * @return {[type]}            [description]
 	 */
-	function findUserById(instanceId){
-		try{
-			return new Promise(function(resolve, reject){
-				UserModel.findOne({id: instanceId}, function(err, user){
-					if (err || !user){
-						return reject(err || "no user found with id:"+instanceId);
-					} else {
-						return resolve(user);
-					}
-				});
-			});
-		} catch(error){
-			console.log("catched an Exception in 'findUserById' method", error);
-			return Promise.reject(error);
-		}
-	}
+	 function findUserById(instanceId){
+	 	try{
+	 		return new Promise(function(resolve, reject){
+	 			UserModel.findOne({id: instanceId}, function(err, user){
+	 				if (err || !user){
+	 					return reject(err || "no user found with id:"+instanceId);
+	 				} else {
+	 					return resolve(user);
+	 				}
+	 			});
+	 		});
+	 	} catch(error){
+	 		console.log("catched an Exception in 'findUserById' method", error);
+	 		return Promise.reject(error);
+	 	}
+	 }
 
-	function findUserByEmail(email){
-		try{
-			return new Promise(function(resolve, reject){
-				UserModel.findOne({email: email}, function(err, user){
-					if (err || !user){
-						return reject(err || "no user found with email:"+email);
-					} else {
-						return resolve(user);
-					}
-				});
-			});
-		} catch(error){
-			console.log("catched an Exception in 'findUserById' method", error);
-			return Promise.reject(error);
-		}
-	}
+	 function findUserByEmail(email){
+	 	try{
+	 		return new Promise(function(resolve, reject){
+	 			UserModel.findOne({email: email}, function(err, user){
+	 				if (err || !user){
+	 					return reject(err || "no user found with email:"+email);
+	 				} else {
+	 					return resolve(user);
+	 				}
+	 			});
+	 		});
+	 	} catch(error){
+	 		console.log("catched an Exception in 'findUserById' method", error);
+	 		return Promise.reject(error);
+	 	}
+	 }
 
 	/**
 	 * [updateUser description]
@@ -110,13 +110,13 @@ module.exports = function(app, db){
 	 * @param  {[type]} updatedUser [description]
 	 * @return {[type]}             [description]
 	 */
-	function updateUser(userId, updatedUser){
-		try{
-			return new Promise(function(resolve, reject){
-				UserModel.findOne({id: userId}, function(err, user){
-					if (err || !user){
-						return reject(err || "no user found for updateUser with id:"+userId);
-					} else {
+	 function updateUser(userId, updatedUser){
+	 	try{
+	 		return new Promise(function(resolve, reject){
+	 			UserModel.findOne({id: userId}, function(err, user){
+	 				if (err || !user){
+	 					return reject(err || "no user found for updateUser with id:"+userId);
+	 				} else {
 		  				//Updating only newly properties from the input updatedUser object
 		  				for(var prop in user){
 		  					if (!(typeof updatedUser[prop] == 'undefined')){
@@ -132,74 +132,91 @@ module.exports = function(app, db){
 		  				});
 		  			}
 		  		});
-			});
-		} catch(error){
-			console.log("catched an Exception in 'updateUser' method", error);
-			return Promise.reject(error);
-		}
-	}
+	 		});
+	 	} catch(error){
+	 		console.log("catched an Exception in 'updateUser' method", error);
+	 		return Promise.reject(error);
+	 	}
+	 }
 
 	/**
 	 * [deleteUserById description]
 	 * @param  {[type]} userId [description]
 	 * @return {[type]}        [description]
 	 */
-	function deleteUserById(userId){
-		try {
-			return new Promise(function(resolve, reject){
-				if (typeof userId==="undefined" || !userId){
-					return reject("please provide a valid userId");
-				} else {
-					UserModel.remove({id: userId}, function(err){
-						if(err){
-							return reject(err || "error deleting user with id:"+userId+" \n error being "+err);
-						} else {
-							findAllUsers()
-							.then(function(dbUsers){
-								return resolve(dbUsers);
-							})
-							.catch(function(error){
-								return reject(error);
-							});
-						}
-					});
-				}
-			});
-		} catch(error){
-			console.log("catched an Exception in 'removeUser' method", error);
-			return Promise.reject(error);
-		}
-	}
+	 function deleteUserById(userId){
+	 	try {
+	 		return new Promise(function(resolve, reject){
+	 			if (typeof userId==="undefined" || !userId){
+	 				return reject("please provide a valid userId");
+	 			} else {
+	 				UserModel.remove({id: userId}, function(err){
+	 					if(err){
+	 						return reject(err || "error deleting user with id:"+userId+" \n error being "+err);
+	 					} else {
+	 						findAllUsers()
+	 						.then(function(dbUsers){
+	 							return resolve(dbUsers);
+	 						})
+	 						.catch(function(error){
+	 							return reject(error);
+	 						});
+	 					}
+	 				});
+	 			}
+	 		});
+	 	} catch(error){
+	 		console.log("catched an Exception in 'removeUser' method", error);
+	 		return Promise.reject(error);
+	 	}
+	 }
 
 	/**
 	 * [findUserByCredentials description]
 	 * @param  {[type]} credentials [description]
 	 * @return {[type]}             [description]
 	 */
-	function findUserByCredentials(credentials){
-		try{
-			return new Promise(function(resolve, reject){
-				if (!credentials || typeof credentials !== 'object'){
-					return reject("Please provide a valid credential object");
-				} else if(!credentials.email ) {
-					return reject("No email found in the credentials");
-				} else if(!credentials.password ) {
-					return reject("No password found in the credentials");
-				} else {
-					UserModel.findOne({email: credentials.email, password: credentials.password}, function(err, user){
-						if (err || !user){
-							return reject(err || "no user found while findUserByCredentials : "+credentials.email+","+credentials.password);
-						} else {
-							return resolve(user);
-						}
-					});
-				}
-			});
-		} catch(error){
-			console.log("catched an Exception in 'findUserByCredentials' method", error);
-			return Promise.reject(error);
-		}
-	}
+	 function findUserByCredentials(credentials){
+	 	try{
+	 		return new Promise(function(resolve, reject){
+	 			if (!credentials || typeof credentials !== 'object'){
+	 				return reject("Please provide a valid credential object");
+	 			} else if(!credentials.email ) {
+	 				return reject("No email found in the credentials");
+	 			} else if(!credentials.password ) {
+	 				return reject("No password found in the credentials");
+	 			} else {
+	 				UserModel.findOne({email: credentials.email, password: credentials.password}, function(err, user){
+	 					if (err || !user){
+	 						return reject(err || "no user found while findUserByCredentials : "+credentials.email+","+credentials.password);
+	 					} else {
+	 						return resolve(user);
+	 					}
+	 				});
+	 			}
+	 		});
+	 	} catch(error){
+	 		console.log("catched an Exception in 'findUserByCredentials' method", error);
+	 		return Promise.reject(error);
+	 	}
+	 }
+
+	 function getUserByToken(token){
+	 	try{
+	 		return new Promise(function(resolve, reject){
+	 			UserModel.findOne({id: token}, function(err, user){
+	 				if (err || !user){
+	 					return reject(err || "no user found in getUserByToken : "+token);
+	 				} else {
+	 					return resolve(user);
+	 				}
+	 			});
+	 		});
+	 	} catch(error){
+	 		console.log("catched an Exception in 'getUserByToken' method", error);
+	 		return Promise.reject(error);
+	 	}
+	 }
 
 	/**
 	 * [guid generates a unique id]
@@ -222,7 +239,8 @@ module.exports = function(app, db){
 	 	"updateUser": updateUser,
 	 	"deleteUserById": deleteUserById,
 	 	"findUserByCredentials": findUserByCredentials,
-	 	"findUserByEmail": findUserByEmail
+	 	"findUserByEmail": findUserByEmail,
+	 	"getUserByToken": getUserByToken
 	 };
 
 

@@ -12,6 +12,19 @@ module.exports = function(app, userModel, db){
 	app.get("/api/project/user", handleGetUserRequets);
 	app.put("/api/project/user/:id", updateUser);
 	app.delete("/api/project/user/:userId", deleteUserById);
+	app.get("/api/user/token/:token", getUserByToken);
+
+	function getUserByToken(req, res, next){
+		var token = req.params.token;
+		userModel.getUserByToken(token)
+		.then(function(user){
+			res.json(user);
+		})
+		.catch(function(error){
+			console.log('getUserByToken error', JSON.stringify(error));
+			res.status(400).send(JSON.stringify(error));
+		});
+	}
 
 	function handleGetUserRequets(req, res, next){
 		if (req && req.query && req.query.email && req.query.password){
