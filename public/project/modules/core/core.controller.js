@@ -48,6 +48,7 @@
 						$scope.secondaryHeaders = $scope.coreCategories.splice(0,5);
 					}
 				});
+
 			};
 
 			$scope.goto = function(index){
@@ -67,7 +68,7 @@
 
 			$scope.initializeUserOnRefresh = function(){
 				var userId;
-				if (GlobalService.isAuth){
+				if (GlobalService.isAuth()){
 					userId = GlobalService.getUser();
 					if (userId){
 						UserService.getUserByToken(userId)
@@ -89,24 +90,24 @@
 
 							//Retrieve User Events - as a guest
 							EventService.getUserEventsAsGuest($scope.user.id)
-							.then(function(userRegisteredEvents){
-								$scope.registeredEvents = $rootScope.registeredEvents = userRegisteredEvents;													
-								$rootScope.$broadcast('userRegisteredEvents', userRegisteredEvents);
+								.then(function(userRegisteredEvents){
+									$scope.registeredEvents = $rootScope.registeredEvents = userRegisteredEvents;													
+									$rootScope.$broadcast('userRegisteredEvents', userRegisteredEvents);
+								})
+								.catch(function(error){
+									console.log("Error fetching user guest events : "+error);
+								});
 							})
 							.catch(function(error){
-								console.log("Error fetching user guest events : "+error);
+								console.log("initializeUserOnRefresh error: "+error);
 							});
-						})
-.catch(function(error){
-	console.log("initializeUserOnRefresh error: "+error);
-});
-}
-}
-};
-$scope.initializeUserOnRefresh();
-$scope.initializeCoreCategories();
-}
-]);
+					}
+				}
+			};
+			$scope.initializeUserOnRefresh();
+			$scope.initializeCoreCategories();
+		}
+		]);
 
 angular.module(moduleName).filter('formatHeader', function() {
 	return function(input) {
