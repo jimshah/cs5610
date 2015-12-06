@@ -1,0 +1,6 @@
+.search .event-categories .list-group-item {
+	color: white;
+	background-color: rgba(43, 18, 3, 0.29);
+	background-color: rgba(31, 8, 8, 0.46);
+	border: 5px solid  rgba(43, 18, 3, 0.53);
+}

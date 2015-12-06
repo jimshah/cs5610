@@ -2,7 +2,7 @@
 	<div class="event-categories">
 		<ul class="event-categories list-group">
 			<li class="category list-group-item" ng-repeat="cat in categories">
-				<a href ng-click="initializeEvents(cat.id)">{{cat.name}}</a>
+				<a ng-bind-html="cat.name" href ng-click="initializeEvents(cat.id)"></a>
 			</li>
 		</ul>
 	</div>

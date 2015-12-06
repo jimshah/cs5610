@@ -37,6 +37,9 @@
 		.when("/event/local/:eventId", {
 			templateUrl : "/project/modules/event/event.local.client.view.html" 
 		})
+		.when("/event/search/:keywords", {
+			templateUrl : "/project/modules/search/search.view.html" 
+		})
 		.otherwise({
 			redirectTo : "/" 
 		})

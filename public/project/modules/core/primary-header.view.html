@@ -13,6 +13,14 @@
         </a>
         <div class="collapse navbar-collapse js-collapse">
             <ul class="nav navbar-nav navbar navbar-right">
+                <li id="header-{{$index}}" class="header-title search">
+                    <div class="search-header">
+                        <input id="searchEvents" data-ng-model="keywords" type="search" maxlength="50" name="query" placeholder="Search Events" value="" autocomplete="off">
+                        <button class="btn btn-xs" ng-click="search(keywords)">
+                            <span class="search-icon fa fa-search" id="searchIcon"></span>
+                        </button>
+                    </div>
+                </li>
                 <li id="header-{{$index}}" class="header-title" ng-repeat='header in headerList'>
                     <a ng-click="goto($index)">{{header}}</a>
                 </li>

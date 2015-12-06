@@ -1,0 +1,21 @@
+<div class="search container" ng-controller="SearchController">
+	<div class="title row">
+		<h2>Search Results</h2>
+	</div>
+	<div class="row">
+		<ul class="event-categories list-group">
+			<li class="event list-group-item" ng-repeat="event in events">
+				<!-- <a href="{{event.url}}"> -->
+				<div class="row">
+					<!-- <div class="col-sm-2"><img src="{{event.image.url}}" alt="{{event.image.caption}}"></div> -->
+					<a href="#/event/:{{event.id}}">
+						<div class="event-title"><h3>{{event.title}}</h3></div>
+					</a>
+				</div>
+				<div ng-bind-html="event.description" class="row event-description">
+					<!-- {{}} -->
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>

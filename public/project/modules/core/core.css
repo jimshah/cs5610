@@ -48,6 +48,16 @@
  	font-size: 20px;
  }
 
+ #navigation .header-title .search-header {
+ 	padding: 15px 30px;
+ }
+
+ #navigation .header-title .search-header .search-icon{
+ 	/* padding: 4px; */
+ 	padding-top: 4px;
+ 	padding-bottom: 4px;
+ }
+
 /**
  * Secondary header
  */

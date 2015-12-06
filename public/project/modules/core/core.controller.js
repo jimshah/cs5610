@@ -104,6 +104,14 @@
 					}
 				}
 			};
+
+			$scope.search = function(keywords){
+				if (keywords){
+					$scope.success= $scope.error = "";
+					$location.path( "/event/search/"+keywords );
+				}
+			};
+
 			$scope.initializeUserOnRefresh();
 			$scope.initializeCoreCategories();
 		}

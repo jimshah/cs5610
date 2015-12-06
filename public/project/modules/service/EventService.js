@@ -156,6 +156,22 @@
 			return deferred.promise;
 		}
 
+		function searchEventfulEvent(keywords){
+			keywords = keywords || "food";
+			var deferred = $q.defer();
+			$http.get('/api/event/search/'+keywords)
+			.success(function (response) {
+				if (typeof response == "string"){
+					response = JSON.parse(response);
+				}
+				deferred.resolve(response);
+			})
+			.error(function (error) {
+				deferred.reject(error);
+			});
+			return deferred.promise;
+		}
+
 		//////////////// Eventful Events Ends ////////////////
 
 
@@ -290,7 +306,8 @@
 			"getCategories": getCategories,
 			"categoryEvents": categoryEvents,
 			"getEventfulEvent": getEventfulEvent,
-			"getLocalEventById": getLocalEventById
+			"getLocalEventById": getLocalEventById,
+			"searchEventfulEvent": searchEventfulEvent
 		};
 		return eventService;		
 	};
