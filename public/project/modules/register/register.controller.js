@@ -10,8 +10,8 @@
 	//Defining header controller
 	angular
 	.module(moduleName)
-	.controller("RegisterController", ['$scope', '$rootScope', '$location', '$window', 'UserService', 'EventService', 
-		function($scope, $rootScope, $location, $window, UserService, EventService) {
+	.controller("RegisterController", ['$scope', '$rootScope', '$location', '$window', 'UserService', 'EventService', 'GlobalService', 
+		function($scope, $rootScope, $location, $window, UserService, EventService, GlobalService) {
 			$scope.success= $scope.error = "";
 			$scope.user = {
 				fname: "",
@@ -49,6 +49,9 @@
 								.then(function(newlyCreatedUser){
 									$scope.user = $rootScope.user = newlyCreatedUser;
 									$rootScope.$broadcast('auth', newlyCreatedUser);
+
+									GlobalService.setUser(newlyCreatedUser._id);
+
 									$location.path( "/home" );
 
 									//Retrieve User Events - as a host
