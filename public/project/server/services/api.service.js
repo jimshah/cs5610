@@ -15,6 +15,7 @@ module.exports = function(app, userModel, db){
 	app.route("/api/categories").get(getCategories);
 	app.route("/api/categories/:category").get(getCategoryEvents);
 	app.route("/api/event/:eventId").get(getEvent);
+	app.route("/api/event/search/:keywords").get(getEventsByKeyword);
 
 	/**
 	 * [getCategories description]
@@ -96,6 +97,37 @@ module.exports = function(app, userModel, db){
 	 		};
 	 		return getRequest(options)
 	 		.then(function(responseData){
+	 			res.status(200).send(responseData);
+	 		})
+	 		.catch(function(error){
+	 			res.status(400).send({error: error});
+	 		})
+	 	} catch(error){
+	 		res.status(400).send({error: error});	
+	 	}
+	 };
+
+	 /**
+	  * [getEventsByKeyword description]
+	  * @param  {[type]}   req  [description]
+	  * @param  {[type]}   res  [description]
+	  * @param  {Function} next [description]
+	  * @return {[type]}        [description]
+	  */
+	 function getEventsByKeyword(req, res, next) {
+	 	var self = this, keywords = req.params.keywords;
+
+	 	try {
+	 		var options = {
+	 			host: "api.eventful.com",
+	 			path: "/json/events/search?app_key="+api.config.appKey+"&keywords="+keywords,
+	 			method: 'GET'
+	 		};
+	 		return getRequest(options)
+	 		.then(function(responseData){
+	 			if (typeof responseData == "string"){
+	 				responseData = JSON.parse(responseData);
+	 			}
 	 			res.status(200).send(responseData);
 	 		})
 	 		.catch(function(error){
