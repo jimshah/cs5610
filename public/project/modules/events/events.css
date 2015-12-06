@@ -6,6 +6,7 @@
 
 .category-events li.event {
 	background-color: rgba(31, 8, 8, 0.46);
+	color: white;
 }
 
 .category-events li.event a {
@@ -16,12 +17,11 @@
 
 .category-events li.event .event-title {
 	padding-bottom: 15px;
-	padding-top: 10px;
+	/* padding-top: 10px; */
+	padding-left: 25px;
 }
 
 .category-events li.event .event-description {
-
-	color: white;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	display: -webkit-box;
@@ -32,4 +32,9 @@
 	padding-left: 40px;
 	padding-right: 40px;
 	padding-top: 10px;
+}
+
+.category-events li.event .event-details {
+	padding-left: 10px;
+	padding-bottom: 10px;
 }

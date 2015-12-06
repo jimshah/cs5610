@@ -1,14 +1,21 @@
 <div class="category-events">
-	<ul class="event-categories list-group">
+	<ul class="event-categories list-group text-left">
 		<li class="event list-group-item" ng-repeat="event in categoryEvents">
 			<!-- <a href="{{event.url}}"> -->
 			<div class="row">
-				<!-- <div class="col-sm-2"><img src="{{event.image.url}}" alt="{{event.image.caption}}"></div> -->
+				<!-- <div class="col-sm-2"><img src="{{event.image.medium.url}}" alt="{{event.image.caption}}"></div> -->
 				<a href="#/event/:{{event.id}}">
 					<div class="event-title"><h3>{{event.title}}</h3></div>
 				</a>
 			</div>
-			<div ng-bind-html="event.description" class="row event-description">
+			<!-- <div ng-bind-html="event.description" class="row event-description"></div> -->
+			<div class="row event-details"> 
+				<div class="event-starts col-sm-12 col-sm-left">
+					<span>Starts: {{event.start_time}}</span>
+				</div>
+				<div class="event-venue col-sm-12 col-sm-left">
+					<span>Venue: <a href="{{event.venue_url}}">{{event.venue_name}}</a></span>
+				</div>
 			</div>
 		</li>
 	</ul>

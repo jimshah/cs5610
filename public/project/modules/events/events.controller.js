@@ -41,6 +41,7 @@
 				}
 				EventService.categoryEvents(categoryId)
 				.then(function(categoryEvents){
+					console.log(categoryEvents.events.event);
 					$scope.categoryEvents = categoryEvents.events.event;
 				});
 			};
