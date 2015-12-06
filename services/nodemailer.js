@@ -27,7 +27,7 @@ module.exports = function(mailConfig){
 			    from: mailConfig.user, // sender address 
 			    to: options.to || "shah.jain@husky.neu.edu", // list of receivers 
 			    subject: "Welcome. to JoinUs", // Subject line 
-			    text: 'We are sending this email to confirm your registration to JoinUs.' // plaintext body 
+			    text: options.text || 'We are sending this email to confirm your registration to JoinUs.' // plaintext body 
 			    //html: '<b>Hello world ✔</b>' // html body 
 			};
 			return new Promise(function(resolve, reject){

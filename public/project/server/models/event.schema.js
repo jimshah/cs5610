@@ -89,5 +89,13 @@ module.exports = new mongoose.Schema({
     "guest": {
         type: Boolean,
         default: true
+    },
+    "guestList": {
+        type: String
+    },
+    "notification": {
+        "message": {
+            type: String
+        }
     }
 }, {collection: 'cs5610.project.event'});

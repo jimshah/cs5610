@@ -21,6 +21,7 @@
 
 .category-events li.event .event-description {
 
+	color: white;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	display: -webkit-box;

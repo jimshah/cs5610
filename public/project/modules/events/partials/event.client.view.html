@@ -2,15 +2,14 @@
 	<ul class="event-categories list-group">
 		<li class="event list-group-item" ng-repeat="event in categoryEvents">
 			<!-- <a href="{{event.url}}"> -->
-			<a href="#/event/:{{event.id}}">
-				<div class="row">
-					<!-- <div class="col-sm-2"><img src="{{event.image.url}}" alt="{{event.image.caption}}"></div> -->
+			<div class="row">
+				<!-- <div class="col-sm-2"><img src="{{event.image.url}}" alt="{{event.image.caption}}"></div> -->
+				<a href="#/event/:{{event.id}}">
 					<div class="event-title"><h3>{{event.title}}</h3></div>
-				</div>
-				<div class="row event-description">
-					{{event.description}}
-				</div>
-			</a>
+				</a>
+			</div>
+			<div ng-bind-html="event.description" class="row event-description">
+			</div>
 		</li>
 	</ul>
 </div>

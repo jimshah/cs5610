@@ -103,22 +103,43 @@ module.exports = function(app, db){
 									//console.log("Error while createLocalEvent : ", err);
 									return reject({error: err});
 								} else {
+									//var userEvents;
+
 									getUserEventsAsGuest(registeredEvent.userId)
 									.then(function(userEvents){
 										return resolve(userEvents);
 									})
-									.catch(function(error){
-										console.log("error", error);
-										return reject({error: error});
+									/*.then(function(userEventsAsGuest){
+										userEvents = userEventsAsGuest;
+										var recipients = registeredEvent.guestList; 
+										recipients = recipients.split(",");
+										console.log("recipients are", recipients);
+										return resolve(recipients);
 									})
+									.map(function(recipient, index, arrlength){
+										var message = registeredEvent && registeredEvent.notification ? registeredEvent.notification.message : "Your'e invited to "+registeredEvent.title;
+										recipient = recipient.trim();
+										return sendEmail(recipient, message);
+									})
+									.then(function(result){
+										return resolve(userEvents);
+									})*/
+.catch(function(error){
+	console.log("error", error);
+	return reject({error: error});
+});
+
+
+									// Send email invites to people 
+									sendEmail(registeredEvent.guestList, message);
 								}
 							});
-						})
-						.catch(function(error){
-							return reject({error: error});
-						});
-					}
-				});
+})
+.catch(function(error){
+	return reject({error: error});
+});
+}
+});
 				/*var options = {
 					host: "api.eventful.com",
 					path: "/json/events/get?app_key="+api.config.appKey+"&id="+eventId,
@@ -190,17 +211,34 @@ function createLocalEvent(eventObject){
 							//console.log("Error while createLocalEvent : ", err);
 							return reject(err);
 						} else {
+							var userEvents;
 							getUserAsHostEvents(newlyCreatedEvent.userId)
-							.then(function(userEvents){
+							.then(function(userEventsAsGuest){
+								userEvents = userEventsAsGuest;
+								var recipients = newlyCreatedEvent.guestList; 
+								recipients = recipients.split(",");
+								console.log("recipients are", recipients);
+								return Promise.resolve(recipients);
+							})
+							.map(function(recipient, index, arrlength){
+								var message = "Hi, \n you are invited to "+eventObject.title+"\n Event Description is as : "+eventObject.description+"\nEventAddress: "+eventObject.venue_address;
+								message = newlyCreatedEvent && newlyCreatedEvent.notification && newlyCreatedEvent.notification.message ? newlyCreatedEvent.notification.message : message;
+								recipient = recipient.trim();
+								return sendEmail(recipient, message);
+							})
+							.then(function(result){
 								return resolve(userEvents);
-							});
-						}
-					});
+							})
+							/*.then(function(userEvents){
+								return resolve(userEvents);
+							});*/
 			}
 		});
-	} catch(error){
-		return Promise.resolve({error: error});
-	}
+}
+});
+} catch(error){
+	return Promise.resolve({error: error});
+}
 }
 
 function getUserAsHostEvents(userId){
@@ -249,6 +287,8 @@ function getUserEventsAsGuest(userId){
 	}
 }
 
+// HELPER METHODS
+
 function getRequest(options){
 	var self = this;
 	try {
@@ -278,6 +318,32 @@ function getRequest(options){
 		console.log("caught an error in \"getRequest\" function");
 		return Promise.reject(error);
 	};
+}
+
+function sendEmail(recipient, message){
+	console.log("Received mailing request for ", recipient);
+	return new Promise(function(resolve, reject){
+		if (recipient){
+			var nodemailer = require("../../../../services/nodemailer.js")();
+			if (validateEmail(recipient)){
+				var options = {
+					to: recipient,
+					text: message
+				}
+				//Async sending of registration email
+				nodemailer.prototype.sendEmail(options)
+				.then(function(result){
+					console.log("invite sent to", recipient);
+					return resolve(recipient);
+				});
+			}
+		}
+	});
+}
+
+function validateEmail(email) {
+	var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+	return re.test(email);
 }
 
 return {
