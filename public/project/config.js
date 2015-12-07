@@ -40,6 +40,12 @@
 		.when("/event/search/:keywords", {
 			templateUrl : "/project/modules/search/search.view.html" 
 		})
+		.when("/event/users/search", {
+			templateUrl : "/project/modules/users/users.view.html" 
+		})
+		.when("/event/users/:friendId/profile", {
+			templateUrl : "/project/modules/users/partials/user.view.html" 
+		})
 		.otherwise({
 			redirectTo : "/" 
 		})

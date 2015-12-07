@@ -21,6 +21,9 @@
                         </button>
                     </div>
                 </li>
+                <li id="header-{{$index}}" class="header-title search-users">
+                    <a href="#/event/users/search">Users</a>
+                </li>
                 <li id="header-{{$index}}" class="header-title" ng-repeat='header in headerList'>
                     <a ng-click="goto($index)">{{header}}</a>
                 </li>

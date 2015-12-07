@@ -1,0 +1,30 @@
+<div class="container users" ng-controller="UsersController">
+	<div class="row">
+		<h2>Search a User here</h2>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-12">
+			<div class="box">
+				<div class="box-content">
+					<div class="" ng-repeat="u in users">
+						<div ng-if="u.id!=user.id" class="col-sm-4 pins">
+							<div class="outer">
+								<a href="#/event/users/{{u.id}}/profile">
+									<div class="row name">
+										<span>Name: {{u.fname}} {{u.lname}}</span>
+									</div>
+									<div class="row email">
+										<span>Email: {{u.email}}</span>
+									</div>
+									<div class="row joined">
+										<span>Joined: {{u.joined | date:'MM/dd/yyyy' }}</span>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
