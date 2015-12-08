@@ -241,6 +241,29 @@
 			return deferred.promise;
 		}
 
+		function registerLocalEvent(userId, givenEvent){
+			var deferred = $q.defer();
+			if (!userId){
+				deferred.reject("Please supply proper userId");
+			} else if (!givenEvent){
+				deferred.reject("Please supply proper givenEvent");
+			} else {
+				var eventId = givenEvent.id;
+				$http.get('/api/local/event/'+eventId+'/user/'+userId+'/register')
+				.success(function (response) {
+					if (typeof response == "string"){
+						response = JSON.parse(response);
+					}
+					deferred.resolve(response);
+				})
+				.error(function (error) {
+					deferred.reject(error);
+				});
+
+			}
+			return deferred.promise;
+		}
+
 		function getEventById(eventId, callback){
 			try {
 				var eventToReturn;
@@ -307,7 +330,8 @@
 			"categoryEvents": categoryEvents,
 			"getEventfulEvent": getEventfulEvent,
 			"getLocalEventById": getLocalEventById,
-			"searchEventfulEvent": searchEventfulEvent
+			"searchEventfulEvent": searchEventfulEvent,
+			"registerLocalEvent": registerLocalEvent
 		};
 		return eventService;		
 	};

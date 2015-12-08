@@ -25,6 +25,29 @@
 				$scope.events = $rootScope.events = events;
 			});
 
+			$scope.register = function(){
+				$scope.error=$scope.success="";
+				if ($scope.user && $scope.user.id && $scope.event) {
+					$scope.event.type="local";
+					EventService.registerLocalEvent($scope.user.id, $scope.event)
+					.then(function(userRegisteredEvents){
+						$rootScope.$broadcast('userRegisteredEvents', userRegisteredEvents);
+						$scope.success = "Successfully registered for this event";
+					})
+					.catch(function(error){
+						$scope.error = error;
+					});
+				} else {
+					$scope.error = "Please Login to register for this event";
+				}
+			};
+
+			$scope.hasRegistered = function(){
+				if ($scope.user && $scope.userId){
+					
+				}
+			}
+
 			$scope.initializeEventdetails = function(eventId){
 				EventService.getLocalEventById(eventId)
 				.then(function(eventObject){

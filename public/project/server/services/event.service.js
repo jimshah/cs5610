@@ -14,6 +14,7 @@ module.exports = function(app, eventModel, db){
 	app.post("/api/local/event", createLocalEvent);
 	app.post("/api/local/event/user/:userId/host", getUserAsHostEvents);
 	app.post("/api/local/event/user/:userId/guest", getUserEventsAsGuest);
+	app.get("/api/local/event/:eventId/user/:userId/register", registerLocalEvent);
 
 	// app.post("/api/project/user", createUser);
 	// app.get("/api/project/user", handleGetUserRequets);
@@ -60,6 +61,20 @@ module.exports = function(app, eventModel, db){
 		var eventId = req.params.eventId, 
 			userId = req.params.userId;
 		eventModel.registerEventfulEvent(eventId, userId)
+		.then(function(userEvents){
+			res.json(userEvents);
+		})
+		.catch(function(error){
+			console.log('registerEventfulEvent user error', JSON.stringify(error));
+			res.status(400).send(JSON.stringify(error));
+		});
+	}
+
+	registerLocalEvent
+	function registerLocalEvent(req, res, next){
+		var eventId = req.params.eventId, 
+			userId = req.params.userId;
+		eventModel.registerLocalEvent(eventId, userId)
 		.then(function(userEvents){
 			res.json(userEvents);
 		})

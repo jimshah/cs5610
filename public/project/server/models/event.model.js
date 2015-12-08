@@ -100,58 +100,68 @@ module.exports = function(app, db){
 							eventfulEvent.userId = userId;
 							EventModel.create(eventfulEvent, function(err, registeredEvent){
 								if (err){
-									//console.log("Error while createLocalEvent : ", err);
 									return reject({error: err});
 								} else {
-									//var userEvents;
-
 									getUserEventsAsGuest(registeredEvent.userId)
 									.then(function(userEvents){
 										return resolve(userEvents);
 									})
-									/*.then(function(userEventsAsGuest){
-										userEvents = userEventsAsGuest;
-										var recipients = registeredEvent.guestList; 
-										recipients = recipients.split(",");
-										console.log("recipients are", recipients);
-										return resolve(recipients);
-									})
-									.map(function(recipient, index, arrlength){
-										var message = registeredEvent && registeredEvent.notification ? registeredEvent.notification.message : "Your'e invited to "+registeredEvent.title;
-										recipient = recipient.trim();
-										return sendEmail(recipient, message);
-									})
-									.then(function(result){
-										return resolve(userEvents);
-									})*/
-.catch(function(error){
-	console.log("error", error);
-	return reject({error: error});
-});
-
-
-									// Send email invites to people 
-									sendEmail(registeredEvent.guestList, message);
+									.catch(function(error){
+										console.log("error", error);
+										return reject({error: error});
+									});
 								}
 							});
-})
-.catch(function(error){
-	return reject({error: error});
+						})
+						.catch(function(error){
+							return reject({error: error});
+						});
+					}
+				});
 });
+} catch(error){
+	return Promise.resolve({error: error});
 }
-});
-				/*var options = {
-					host: "api.eventful.com",
-					path: "/json/events/get?app_key="+api.config.appKey+"&id="+eventId,
-					method: 'GET'
-				};
-				return getRequest(options)
-				.then(function(responseData){
-					return resolve(responseData);
-				})
-				.catch(function(error){
-					return reject({error: error});
-				});*/
+}
+
+function registerLocalEvent(eventId, userId){
+	try {
+		return new Promise(function(resolve, reject){
+			EventModel.findOne({id: eventId, userId: userId, guest: true}, function(err, event){
+				if (err || event){
+					return reject(err || "You have already registered for this event");
+				} else {
+					getLocalEvent(eventId)
+					.then(function(localEvent){
+						if (typeof localEvent == "string"){
+							localEvent = JSON.parse(localEvent);
+						}
+						localEvent.type = "local";
+						localEvent._id = mongoose.Types.ObjectId();
+						localEvent.guest = true;
+						localEvent.host = false;
+						localEvent.modified = new Date();
+						localEvent.userId = userId;
+						EventModel.create(localEvent, function(err, registeredEvent){
+							if (err){
+								return reject({error: err});
+							} else {
+								getUserEventsAsGuest(registeredEvent.userId)
+								.then(function(userEvents){
+									return resolve(userEvents);
+								})
+								.catch(function(error){
+									console.log("error", error);
+									return reject({error: error});
+								});
+							}
+						});
+					})
+					.catch(function(error){
+						return reject({error: error});
+					});
+				}
+			});
 });
 } catch(error){
 	return Promise.resolve({error: error});
@@ -161,7 +171,7 @@ module.exports = function(app, db){
 function getLocalEvent(eventId){
 	try {
 		return new Promise(function(resolve, reject){
-			EventModel.findOne({_id: eventId}, function(err, event){
+			EventModel.findOne({id: eventId}, function(err, event){
 				if (err || !event){
 					return reject({error : err || "no event found with id:"+eventId});
 				} else {
@@ -208,32 +218,28 @@ function createLocalEvent(eventObject){
 
 				EventModel.create(eventObject, function(err, newlyCreatedEvent){
 					if (err){
-							//console.log("Error while createLocalEvent : ", err);
-							return reject(err);
-						} else {
-							var userEvents;
-							getUserAsHostEvents(newlyCreatedEvent.userId)
-							.then(function(userEventsAsGuest){
-								userEvents = userEventsAsGuest;
-								var recipients = newlyCreatedEvent.guestList; 
-								recipients = recipients.split(",");
-								console.log("recipients are", recipients);
-								return Promise.resolve(recipients);
-							})
-							.map(function(recipient, index, arrlength){
-								var message = "Hi, \n you are invited to "+eventObject.title+"\n Event Description is as : "+eventObject.description+"\nEventAddress: "+eventObject.venue_address;
-								message = newlyCreatedEvent && newlyCreatedEvent.notification && newlyCreatedEvent.notification.message ? newlyCreatedEvent.notification.message : message;
-								recipient = recipient.trim();
-								return sendEmail(recipient, message);
-							})
-							.then(function(result){
-								return resolve(userEvents);
-							})
-							/*.then(function(userEvents){
-								return resolve(userEvents);
-							});*/
-			}
-		});
+						return reject(err);
+					} else {
+						var userEvents;
+						getUserAsHostEvents(newlyCreatedEvent.userId)
+						.then(function(userEventsAsGuest){
+							userEvents = userEventsAsGuest;
+							var recipients = newlyCreatedEvent.guestList; 
+							recipients = recipients.split(",");
+							console.log("recipients are", recipients);
+							return Promise.resolve(recipients);
+						})
+						.map(function(recipient, index, arrlength){
+							var message = "Hi, \n you are invited to "+eventObject.title+"\n Event Description is as : "+eventObject.description+"\nEventAddress: "+eventObject.venue_address;
+							message = newlyCreatedEvent && newlyCreatedEvent.notification && newlyCreatedEvent.notification.message ? newlyCreatedEvent.notification.message : message;
+							recipient = recipient.trim();
+							return sendEmail(recipient, message);
+						})
+						.then(function(result){
+							return resolve(userEvents);
+						})
+					}
+				});
 }
 });
 } catch(error){
@@ -355,7 +361,8 @@ return {
 	"createLocalEvent": createLocalEvent,
 	"getUserAsHostEvents": getUserAsHostEvents,
 	"getUserEventsAsGuest": getUserEventsAsGuest,
-	"registerEventfulEvent": registerEventfulEvent
+	"registerEventfulEvent": registerEventfulEvent,
+	"registerLocalEvent": registerLocalEvent
 	 	/*"createUser": createUser,
 	 	"findAllUsers": findAllUsers,
 	 	"findUserById": findUserById,

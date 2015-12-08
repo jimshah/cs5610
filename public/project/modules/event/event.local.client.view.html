@@ -1,14 +1,55 @@
-<div class="container individual-event" ng-controller="LocalEventController">
+<!-- <div class="container individual-event" ng-controller="LocalEventController">
 	<div class="row event-description text-center main-text">
 		<h1 class="event-title">{{event.title}}</h1>
-		<!-- <h4 class="venue">Venue: {{event.venue_name}} {{event.venue_type}}</h4> -->
 		<h4 class="address">Address: {{event.venue_address}} {{event.city_name}} {{event.region_name}} {{event.country_name}}</h4>
 		<h4 class="time">time: {{event.start_time}}</h4>
 		<p class="description">{{event.description}}</p>
 	</div>
-	<!-- <div class="register-event">
-		<button type="submit" ng-click="register()" class="btn btn-default">Register</button>
-	</div> -->
+	<div ng-if="error" class="error not-found">
+		{{error}}
+	</div>
+	<div ng-if="success" class="success">
+		{{success}}
+	</div>
+</div> -->
+
+<div class="container individual-event" ng-controller="LocalEventController">
+	<div class="row event-description text-left main-text">
+
+		<div class="part1">
+			<div class="row event-title">
+				<h1>{{event.title}}</h1>
+			</div>
+			<div class="row event-meta">
+				<div class="col-sm-8 text-left">
+					<!-- <h5 class="venue">Venue: {{event.venue_name}} {{event.venue_type}}</h5> -->
+					<h5 class="address">Address: {{event.venue_address}} {{event.city_name}}, {{event.region_name}}</h5>
+					<h5 class="time">time: {{event.start_time}}</h5>
+				</div>
+				<div class="col-sm-4 col-sm-push-1">
+					<div class="register-event">
+						<button type="submit" ng-click="register()" class="btn btn-default">Register</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="part2">
+			<div class="row event-meta-description">
+				<h3>Further Event Details</h3>
+				<p class="description" ng-bind-html="event.description"></p>
+			</div>
+			<div class="row event-tags">
+				<span>Tags: </span>
+				<span class="tag" ng-repeat="tag in event.tags.tag">
+					<a href="#/events/{{tag.id}}">{{tag.title}}</a>
+					<span ng-if="!($index==event.tags.tag.length-1)"> | </span>
+				</span>
+			</div>
+		</div>
+
+	</div>
+
 	<div ng-if="error" class="error not-found">
 		{{error}}
 	</div>
