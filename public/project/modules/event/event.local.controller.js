@@ -33,6 +33,7 @@
 					.then(function(userRegisteredEvents){
 						$rootScope.$broadcast('userRegisteredEvents', userRegisteredEvents);
 						$scope.success = "Successfully registered for this event";
+						$scope.disabled = true;
 					})
 					.catch(function(error){
 						$scope.error = error;
@@ -43,8 +44,21 @@
 			};
 
 			$scope.hasRegistered = function(){
-				if ($scope.user && $scope.userId){
-					
+				if ($scope.user && $scope.user.id  && $scope.event){
+					$scope.disabled = false;
+					EventService.getUserEventsAsGuest($scope.user.id)
+					.then(function(userEvents){
+						if (userEvents){
+							userEvents.forEach(function(event){
+								if (event.id == $scope.event.id){
+									$scope.disabled = true;
+								}
+							});
+						}
+					})
+					.catch(function(error){
+
+					});
 				}
 			}
 
@@ -52,6 +66,7 @@
 				EventService.getLocalEventById(eventId)
 				.then(function(eventObject){
 					$scope.event = eventObject;
+					$scope.hasRegistered();
 				})
 				.catch(function(error){
 					$scope.error = error;

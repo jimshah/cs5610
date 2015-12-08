@@ -28,7 +28,8 @@
 				</div>
 				<div class="col-sm-4 col-sm-push-1">
 					<div class="register-event">
-						<button type="submit" ng-click="register()" class="btn btn-default">Register</button>
+						<button ng-if="!disabled" type="submit" ng-click="register()" class="btn btn-default">Register</button>
+						<button ng-if="disabled" type="submit" ng-click="" class="btn btn-default" disabled>Already Registered</button>
 					</div>
 				</div>
 			</div>

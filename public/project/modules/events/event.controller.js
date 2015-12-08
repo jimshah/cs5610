@@ -21,17 +21,15 @@
 			});
 			//listen for login/sigin to grab logged in user
 			$rootScope.$on("userEvents", function(event, events){
-				console.log("2");
 				$scope.error = $scope.success = "";
 				$scope.events = $rootScope.events = events;
 			});
 
 			$scope.initializeEventdetails = function(eventId){
-				console.log("1");
 				EventService.getEventfulEvent(eventId)
 				.then(function(eventObject){
 					$scope.event = eventObject;
-					console.log("eventObject", eventObject);
+					$scope.hasRegistered();
 				});
 			};
 
@@ -43,6 +41,8 @@
 					.then(function(userRegisteredEvents){
 						$rootScope.$broadcast('userRegisteredEvents', userRegisteredEvents);
 						$scope.success = "Successfully registered for this event";
+						$scope.disabled = true;
+						console.log("$scope.disabled", $scope.disabled);
 					})
 					.catch(function(error){
 						$scope.error = error;
@@ -51,6 +51,25 @@
 					$scope.error = "Please Login to register for this event";
 				}
 			};
+
+			$scope.hasRegistered = function(){
+				if ($scope.user && $scope.user.id  && $scope.event){
+					$scope.disabled = false;
+					EventService.getUserEventsAsGuest($scope.user.id)
+					.then(function(userEvents){
+						if (userEvents){
+							userEvents.forEach(function(event){
+								if (event.id == $scope.event.id){
+									$scope.disabled = true;
+								}
+							});
+						}
+					})
+					.catch(function(error){
+
+					});
+				}
+			}
 
 			$scope.initializeEventdetails($scope.eventId);
 
