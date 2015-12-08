@@ -32,6 +32,25 @@
 				$scope.registeredEvents = $rootScope.registeredEvents = events;
 			});
 
+			$scope.searchUser = function(searchTerm){
+				$scope.error = $scope.success = "";
+				if (searchTerm){
+					UserService.findUserBySearchTerm(searchTerm)
+					.then(function(users){
+						if (users && users.length > 0){
+							$scope.users = users;
+						} else {
+							$scope.users = [];
+							$scope.error = "no users found";
+						}
+					})
+					.catch(function(error){
+						$scope.users = [];
+						$scope.error = error;
+					})
+				}
+			}
+
 			$scope.search = function(){
 				$scope.success= $scope.error = "";
 				EventService.searchEventfulEvent(keywords)
@@ -53,7 +72,7 @@
 				});
 			}
 
-			$scope.init();
+			//$scope.init();
 			
 		}
 		]);

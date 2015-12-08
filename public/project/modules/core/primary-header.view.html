@@ -1,4 +1,4 @@
-<div id="nav-border"></div>
+<!-- <div id="nav-border"></div> -->
 <nav id="navigation" class="navbar center-menu" role="navigation" ng-controller="HeaderController">
     <div class="container navbar-container">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".js-collapse" ng-click="toggleCollapsibleMenu()">
@@ -8,7 +8,7 @@
             <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand brand-logo" href="#/project">
-            <img src="/project/modules/core/images/joinus.png" alt="JoinUs">
+            <img src="/project/modules/core/images/join_us.png" alt="JoinUs">
             <!-- <b>JoinUs</b> -->
         </a>
         <div class="collapse navbar-collapse js-collapse">
@@ -27,7 +27,7 @@
                 <li id="header-{{$index}}" class="header-title" ng-repeat='header in headerList'>
                     <a ng-click="goto($index)">{{header}}</a>
                 </li>
-                <li ng-if="!user" class="header-title">
+                <li ng-if="!user" class="header-title hidden-sm">
                     <a href="#/register" >Register</a>
                 </li>
                 <li ng-if="!user" class="header-title">

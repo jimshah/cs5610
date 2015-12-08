@@ -218,6 +218,26 @@ module.exports = function(app, db){
 	 	}
 	 }
 
+	 function findUserBySearchTerm(options){
+	 	try{
+	 		if (options && !options.lastName) {
+	 			options = { '$or': [{ "fname": options.fname }, { "lname": options.lname }] };
+	 		}
+	 		return new Promise(function(resolve, reject){
+	 			UserModel.find(options, function(err, user){
+	 				if (err || !user){
+	 					return reject(err || "No user found");
+	 				} else {
+	 					return resolve(user);
+	 				}
+	 			});
+	 		});
+	 	} catch(error){
+	 		console.log("catched an Exception in 'findUserBySearchTerm' method", error);
+	 		return Promise.reject(error);
+	 	}
+	 }
+
 	/**
 	 * [guid generates a unique id]
 	 * @return String [a unique id]
@@ -240,7 +260,8 @@ module.exports = function(app, db){
 	 	"deleteUserById": deleteUserById,
 	 	"findUserByCredentials": findUserByCredentials,
 	 	"findUserByEmail": findUserByEmail,
-	 	"getUserByToken": getUserByToken
+	 	"getUserByToken": getUserByToken,
+	 	"findUserBySearchTerm": findUserBySearchTerm
 	 };
 
 

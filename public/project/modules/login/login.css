@@ -1,7 +1,67 @@
 .login {
-	background-color: rgba(31, 8, 8, 0.46);
+	/* background-color: rgba(31, 8, 8, 0.46); */
 	padding: 40px;
 }
+
+.login .title {
+	font-size: 46px;
+	margin-bottom: 20px;
+	margin-top: 0;
+	font-weight: 700;
+	/* text-shadow: -1px 0 #EC6952, 0 1px #EC6952, 1px 0 #EC6952, 0 -1px #EC6952;
+	color: #fff;
+	text-shadow: -2px 0 #D9A21D, 0 1px #D9A21D, 1px 0 #D9A21D, 0 2px #D9A21D; */
+	color: #341002;
+}
+
+.login .login-form {
+	color: white;
+	padding: 25px;
+	/* padding-top: 50px; */
+	border-color: #341002;
+	border-width: 1px;
+	border-style: solid;
+}
+
+.login input {
+	border-color: #341002;
+	border-width: 1px;
+	border-style: solid;
+}
+
+.login .login-form .form-group {
+	padding-top: 10px;
+	/* color: #fff;
+	text-shadow: -2px 0 #D9A21D, 0 1px #D9A21D, 1px 0 #D9A21D, 0 2px #D9A21D; */
+	color: #341002;
+	font-size: 16px;
+	font-weight: bolder;
+}
+
+.login .login-form .form-group button{
+	color: #341002;
+	background-color: #E8BC51;
+	border-color: #341002;
+}
+
+.login .login-form .form-group button:hover{
+	color: #E8BC51;
+	background-color: #341002;
+	border-color: #E8BC51;
+}
+
 .login .register {
+	color: #341002;
 	background-color: transparent;
+	padding: 0;
+}
+
+.login .register a {
+	font-weight: bolder;
+}
+
+.login .error {
+	color: red;
+    margin-top: -5px;
+    padding-bottom: 5px;
 }

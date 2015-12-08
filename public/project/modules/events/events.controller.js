@@ -16,6 +16,17 @@
 			$scope.categoryEvents = [];
 			$scope.categorySelected = capitalizeFirstLetter($routeParams.categoryId) + " Events" || "Music Events";
 
+			$scope.gotoEvent = function(event){
+				if (event){
+					$location.path( "/event/"+event.id );
+				}
+			}
+
+			$scope.loadCategories = function(cat){
+				if (cat && cat.id){
+					$location.path( "/events/"+cat.id );
+				}
+			}
 
 			$scope.initializeCategories = function(){
 				if ($window.categories){
@@ -41,7 +52,6 @@
 				}
 				EventService.categoryEvents(categoryId)
 				.then(function(categoryEvents){
-					console.log(categoryEvents.events.event);
 					$scope.categoryEvents = categoryEvents.events.event;
 				});
 			};

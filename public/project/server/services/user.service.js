@@ -13,6 +13,7 @@ module.exports = function(app, userModel, db){
 	app.put("/api/project/user/:id", updateUser);
 	app.delete("/api/project/user/:userId", deleteUserById);
 	app.get("/api/user/token/:token", getUserByToken);
+	app.get("/api/search/user/:searchTerm", findUserBySearchTerm);
 
 	function getUserByToken(req, res, next){
 		var token = req.params.token;
@@ -141,5 +142,29 @@ module.exports = function(app, userModel, db){
 			console.log('delete user error', JSON.stringify(error));
 			res.status(400).send(JSON.stringify(error));
 		});
+	}
+
+	function findUserBySearchTerm(req, res, next){
+		var searchTerm = req.params.searchTerm;
+		if (searchTerm){
+			var options = {};
+			var searchTerm = searchTerm.split(" ");
+			if (searchTerm.length >= 2) {
+				options.fname = { $regex: new RegExp(searchTerm[0], "i") };
+				options.lname = { $regex: new RegExp(searchTerm[1], "i") };
+			} else {
+				options.fname = { $regex: new RegExp(searchTerm[0], "i") };
+			}
+			userModel.findUserBySearchTerm(options)
+			.then(function(user){
+				res.json(user);
+			})
+			.catch(function(error){
+				console.log('findUserBySearchTerm error', JSON.stringify(error));
+				res.status(400).send(JSON.stringify(error));
+			});
+		} else {
+			res.status(400).send({error: "Please include a search term to search for an user"});
+		}
 	}
 };

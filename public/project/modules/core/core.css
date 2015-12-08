@@ -12,6 +12,7 @@
  	border-radius: 5px; */
  	max-width: 120px;
  	margin-top: -30px;
+ 	padding-top: 20px;
  }
  #navigation .header-title a {
  	color: #fff;
@@ -25,6 +26,14 @@
  	color: #ec6952;
  	background: none;
  }
+
+ #navigation .header-title a:focus{
+ 	text-decoration: none;
+ 	/* background-color: #eee; */
+ 	color: #ec6952;
+ 	background: none;
+ }
+
  #nav-border {
  	margin-top: 20px;
  	display: list-item;
@@ -34,6 +43,11 @@
  	border-radius: 0px;
  	border-top: 5px solid rgba(253, 253, 3, 0.25);
  	border-bottom: 5px solid rgba(253, 253, 3, 0.25);
+ }
+
+ #navigation {
+ 	margin-bottom: 0px;
+ 	padding-top: 0px;
  }
 
  #navigation button {
@@ -58,9 +72,18 @@
  	padding-bottom: 4px;
  }
 
+ .primary-header {
+ 	background-color: #341002;
+ }
+
 /**
  * Secondary header
  */
+ .secondary-header {
+ 	background-color: #341002;
+ 	padding-bottom: 10px;
+ 	padding-top: 20px;
+ }
  .secondary-header .navbar .navbar-nav {
  	display: inline-block;
  	float: none;

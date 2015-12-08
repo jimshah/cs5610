@@ -32,6 +32,24 @@
 		 	return deferred.promise;
 		 };
 
+		 function findUserBySearchTerm(searchTerm){
+		 	var deferred = $q.defer();
+
+		 	$http.get("/api/search/user/"+searchTerm)
+		 	.success(function(user){
+		 		deferred.resolve(user);
+		 	})
+		 	.error(function(error){
+		 		if (error && error.message){
+		 			deferred.reject(error.message);	
+		 		} else{
+		 			deferred.reject(error);
+		 		}
+		 	});
+
+		 	return deferred.promise;
+		 }
+
 		 function findUserByEmailAndPassword(email, password){
 		 	var deferred = $q.defer();
 
@@ -187,7 +205,8 @@
 			deleteUserById: deleteUserById,
 			updateUser: updateUser,
 			findUserByEmailAndPassword: findUserByEmailAndPassword,
-			getUserByToken: getUserByToken
+			getUserByToken: getUserByToken,
+			findUserBySearchTerm: findUserBySearchTerm
 		};
 		return userService;		
 	};

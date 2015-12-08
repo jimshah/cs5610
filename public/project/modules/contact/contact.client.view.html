@@ -1,7 +1,7 @@
 <div class="container contact" ng-controller="ContactController">
 	<div class="row heading">
 		<h2 class="title">Contact us</h2>
-		<h5 claass="sub-title">Fill the form below keenly and we will get back to you soon.</h5>
+		<h5 claass="sub-title">Fill the form below kindly and we will get back to you soon.</h5>
 	</div>
 	<div class="row description">
 		<!-- FORM STARTS -->
@@ -38,9 +38,9 @@
 					<textarea  rows="6" type="text" data-ng-model="contact.query" class="form-control" id="contact-query" placeholder="Post your query here ..." required></textarea>
 				</div>
 			</div>
-			<div class="form-group">
+			<div class="form-group submit">
 				<div class="col-sm-offset-2 col-sm-10">
-					<button type="submit" ng-click="submitContactQuery()" class="btn btn-default">Submit</button>
+					<button type="submit" class="btn btn-lg" ng-click="submitContactQuery()" class="btn btn-default">Submit</button>
 				</div>
 			</div>
 			<div class="success updated" ng-if="success">

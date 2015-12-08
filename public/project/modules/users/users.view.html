@@ -1,7 +1,25 @@
 <div class="container users" ng-controller="UsersController">
 	<div class="row">
-		<h2>Search a User here</h2>
+		<div class="search-header">
+			<h2>User Search</h2>
+		</div>
 	</div>
+	<div class="row">
+		<div class="search-user">
+			<div class="title">
+				<div class="input-group col-sm-6">
+					<input type="text" data-ng-model="searchTerm" class="form-control" placeholder="John Snow">
+					<span class="input-group-btn">
+						<button class="btn btn-default" ng-click="searchUser(searchTerm)" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+					</span>
+				</div>				
+			</div>
+		</div>
+		<div class="error not-found" ng-if="error">
+			<span>{{error}}</span>
+		</div>
+	</div>
+
 	<div class="row">
 		<div class="col-xs-12 col-sm-12">
 			<div class="box">
@@ -13,9 +31,9 @@
 									<div class="row name">
 										<span>Name: {{u.fname}} {{u.lname}}</span>
 									</div>
-									<div class="row email">
+									<!-- <div class="row email">
 										<span>Email: {{u.email}}</span>
-									</div>
+									</div> -->
 									<div class="row joined">
 										<span>Joined: {{u.joined | date:'MM/dd/yyyy' }}</span>
 									</div>

@@ -1,26 +1,73 @@
 .contact {
-	background-color: rgba(31, 8, 8, 0.46);
-    padding: 40px;
+	/* background-color: rgba(31, 8, 8, 0.46); */
+	padding: 40px;
+	padding-top: 25px;
 }
 
 .contact .heading {
-	color: white;
-	padding-bottom: 25px;
+	padding-bottom: 20px;
+	color: #341002;
 }
 
 .contact .heading .title {
 	font-size: 46px;
-	margin-bottom: 20px;
+	/* margin-bottom: 20px; */
 	margin-top: 0;
 	font-weight: 700;
-	text-shadow: -1px 0 #EC6952, 0 1px #EC6952, 1px 0 #EC6952, 0 -1px #EC6952;
-	color: #fff;
+	color: #341002;
 }
 
 .contact .description .contact-form {
 	color: white;
+	border-color: #341002;
+	border-width: 1px;
+	border-style: solid;
+	padding-left: 25px;
+	padding-right: 25px;
+}
+
+.contact .contact-form .form-group {
+	color: #341002;
+	font-size: 16px;
+	font-weight: bolder;
+	padding-top: 10px;
+	margin-bottom: 5px;
+}
+
+.contact input {
+	border-color: #341002;
+	border-width: 1px;
+	border-style: solid;
+}
+
+.contact textarea {
+	border-color: #341002;
+	border-width: 1px;
+	border-style: solid;
+}
+
+.contact button {
+	color: #341002;
+	background-color: #E8BC51;
+	border-color: #341002;
+}
+
+.contact button:hover {
+	color: #E8BC51;
+	background-color: #341002;
+	border-color: #E8BC51;
 }
 
 .contact .description .contact-form .form-group{
 	padding-top: 15px;
+}
+
+.contact .contact-form .submit {
+	margin-bottom: 15px;
+}
+
+.contact .error {
+	color: red;
+    margin-top: -5px;
+    padding-bottom: 5px;
 }

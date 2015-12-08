@@ -13,7 +13,7 @@
 	.controller("HeaderController", ['$scope', '$rootScope', '$location', '$window', 'CoreEvents', 'GlobalService', 'UserService', 'EventService', 
 		function($scope, $rootScope, $location, $window, CoreEvents, GlobalService, UserService, EventService) {
 			$scope.isCollapsed = false;
-			$scope.headerList = ['Home','Contact'];
+			$scope.headerList = ['Contact'];
 			$scope.coreCategories = [];
 			$scope.secondaryHeaders = [];
 
