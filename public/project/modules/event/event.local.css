@@ -1,10 +1,20 @@
+.individual-event .edit-event button{
+	background-color: transparent;
+	border-width: 0px;
+	z-index: 5;
+	position: fixed;
+	margin-left: -42px;
+}
+
 .individual-event .error {
 	color: red;
-    margin-top: -5px;
-    padding-bottom: 5px;
-    padding-top: 10px;
+	margin-top: -5px;
+	padding-bottom: 5px;
+	padding-top: 10px;
 }
 
 .success {
 	color: green;
 }
+
+.

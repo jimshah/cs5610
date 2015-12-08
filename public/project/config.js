@@ -46,6 +46,9 @@
 		.when("/event/users/:friendId/profile", {
 			templateUrl : "/project/modules/users/partials/user.view.html" 
 		})
+		.when("/event/edit/:eventId", {
+			templateUrl : "/project/modules/event/event.edit.view.html" 
+		})
 		.otherwise({
 			redirectTo : "/" 
 		})

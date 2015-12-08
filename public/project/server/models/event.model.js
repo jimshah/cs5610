@@ -226,7 +226,6 @@ function createLocalEvent(eventObject){
 							userEvents = userEventsAsGuest;
 							var recipients = newlyCreatedEvent.guestList; 
 							recipients = recipients.split(",");
-							console.log("recipients are", recipients);
 							return Promise.resolve(recipients);
 						})
 						.map(function(recipient, index, arrlength){
@@ -293,6 +292,31 @@ function getUserEventsAsGuest(userId){
 	}
 }
 
+function updateEvent(event){
+	try {
+		return new Promise(function(resolve, reject){
+			if (!event || typeof event != "object"){
+				return reject({error: "Please supply an event object"});
+			} else {
+				delete event['_id'];
+				delete event['userId'];
+				delete event['guest'];
+				delete event['host'];
+				event.modified = new Date();
+				EventModel.update({id: event.id}, event, {multi: true}, function(err, userEvents){
+					if (err){
+						return reject({error : err});
+					} else {
+						return resolve(event);
+					}
+				});
+			}
+		});
+	} catch(error){
+		return Promise.resolve({error: error});
+	}
+}
+
 // HELPER METHODS
 
 function getRequest(options){
@@ -327,7 +351,6 @@ function getRequest(options){
 }
 
 function sendEmail(recipient, message){
-	console.log("Received mailing request for ", recipient);
 	return new Promise(function(resolve, reject){
 		if (recipient){
 			var nodemailer = require("../../../../services/nodemailer.js")();
@@ -339,7 +362,6 @@ function sendEmail(recipient, message){
 				//Async sending of registration email
 				nodemailer.prototype.sendEmail(options)
 				.then(function(result){
-					console.log("invite sent to", recipient);
 					return resolve(recipient);
 				});
 			}
@@ -362,7 +384,8 @@ return {
 	"getUserAsHostEvents": getUserAsHostEvents,
 	"getUserEventsAsGuest": getUserEventsAsGuest,
 	"registerEventfulEvent": registerEventfulEvent,
-	"registerLocalEvent": registerLocalEvent
+	"registerLocalEvent": registerLocalEvent,
+	"updateEvent": updateEvent
 	 	/*"createUser": createUser,
 	 	"findAllUsers": findAllUsers,
 	 	"findUserById": findUserById,

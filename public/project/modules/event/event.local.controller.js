@@ -44,6 +44,7 @@
 			};
 
 			$scope.hasRegistered = function(){
+				$scope.disabled = false;
 				if ($scope.user && $scope.user.id  && $scope.event){
 					$scope.disabled = false;
 					EventService.getUserEventsAsGuest($scope.user.id)
@@ -60,6 +61,10 @@
 
 					});
 				}
+			}
+
+			$scope.editEvent = function(){
+				$location.path("/event/edit/"+$scope.event.id);
 			}
 
 			$scope.initializeEventdetails = function(eventId){

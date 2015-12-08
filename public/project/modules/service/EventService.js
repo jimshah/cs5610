@@ -283,6 +283,23 @@
 			}
 		}
 
+		function updateEvent(event){
+			var deferred = $q.defer();
+			
+			var eventId = event.id;
+			$http.put('/api/event/'+eventId, event)
+			.success(function (response) {
+				if (typeof response == "string"){
+					response = JSON.parse(response);
+				}
+				deferred.resolve(response);
+			})
+			.error(function (error) {
+				deferred.reject(error);
+			});
+			return deferred.promise;
+		}
+
 
 		/**
 		 * [guid generates a unique id]
@@ -331,7 +348,8 @@
 			"getEventfulEvent": getEventfulEvent,
 			"getLocalEventById": getLocalEventById,
 			"searchEventfulEvent": searchEventfulEvent,
-			"registerLocalEvent": registerLocalEvent
+			"registerLocalEvent": registerLocalEvent,
+			"updateEvent": updateEvent
 		};
 		return eventService;		
 	};

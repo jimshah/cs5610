@@ -16,6 +16,8 @@ module.exports = function(app, eventModel, db){
 	app.post("/api/local/event/user/:userId/guest", getUserEventsAsGuest);
 	app.get("/api/local/event/:eventId/user/:userId/register", registerLocalEvent);
 
+	app.put("/api/event/:eventId", updateEvent)
+
 	// app.post("/api/project/user", createUser);
 	// app.get("/api/project/user", handleGetUserRequets);
 	// app.put("/api/project/user/:id", updateUser);
@@ -156,6 +158,18 @@ module.exports = function(app, eventModel, db){
 				res.status(400).send(JSON.stringify(error));
 			});
 		}
+	}
+
+	function updateEvent(req, res, next){
+		var event = req.body || {};
+		eventModel.updateEvent(event)
+			.then(function(updatedEvent){
+				res.json(updatedEvent);
+			})
+			.catch(function(error){
+				console.log('updateEvent user error', JSON.stringify(error));
+				res.status(400).send(JSON.stringify(error));
+			});
 	}
 	
 };
