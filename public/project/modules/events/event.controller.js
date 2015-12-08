@@ -21,14 +21,17 @@
 			});
 			//listen for login/sigin to grab logged in user
 			$rootScope.$on("userEvents", function(event, events){
+				console.log("2");
 				$scope.error = $scope.success = "";
 				$scope.events = $rootScope.events = events;
 			});
 
 			$scope.initializeEventdetails = function(eventId){
+				console.log("1");
 				EventService.getEventfulEvent(eventId)
 				.then(function(eventObject){
 					$scope.event = eventObject;
+					console.log("eventObject", eventObject);
 				});
 			};
 

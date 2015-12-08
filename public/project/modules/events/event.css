@@ -2,18 +2,89 @@
 	color: white;
 }
 .individual-event .event-description {
-	color: white;
 	font-weight: bold;
+	color: #341002;
 }
 .individual-event .event-description .event-title{
 	font-size: 46px;
-	margin-bottom: 20px;
 	margin-top: 0;
 	font-weight: 700;
-	text-shadow: -1px 0 #EC6952, 0 1px #EC6952, 1px 0 #EC6952, 0 -1px #EC6952;
+	/* text-shadow: -1px 0 #EC6952, 0 1px #EC6952, 1px 0 #EC6952, 0 -1px #EC6952; */
 	color: #fff;
-	padding-bottom: 50px;
+	padding-bottom: 15px;
+	padding-left: 20px;
+
+	font-size: 46px;
+	font-weight: 700;
+	color: #341002;
 }
+
+.individual-event .event-description .event-meta{
+	padding-bottom: 15px;
+}
+
+.individual-event .event-description .event-meta .venue{
+	margin: 0;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.individual-event .event-description .event-meta .address{
+	margin: 0;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.individual-event .event-description .event-meta .time{
+	margin: 0;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.individual-event .event-description .event-meta .register-event button{
+	color: #341002;
+	background-color: #E8BC51;
+	border-color: #341002;
+}
+
+.individual-event .event-description .event-meta .register-event button:hover{
+	color: #E8BC51;
+	background-color: #341002;
+	border-color: #E8BC51;
+}
+
+.individual-event .event-description .event-meta-description{
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.individual-event .event-description .event-meta-description .description{
+	font-weight: normal;
+}
+
+.individual-event .event-description .event-tags{
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom: 15px;
+	margin-top: 20px;
+}
+
+.individual-event .event-description .part1 {
+	margin-top: 20px;
+	border-color: #341002;
+	border-width: 1px;
+	border-style: solid;
+	padding-left: 10px;
+}
+
+.individual-event .event-description .part2 {
+	margin-top: 20px;
+	border-color: #341002;
+	border-width: 1px;
+	border-style: solid;
+	padding-left: 10px;
+}
+
 .individual-event .event-description .address,.venue,.time{
 	padding: 10px;
 }
