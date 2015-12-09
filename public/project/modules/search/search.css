@@ -1,6 +1,11 @@
 .search .event-categories .list-group-item {
-	color: white;
-	background-color: rgba(43, 18, 3, 0.29);
-	background-color: rgba(31, 8, 8, 0.46);
-	border: 5px solid  rgba(43, 18, 3, 0.53);
+	color: #341002;
+	background-color: rgba(232, 188, 81, 0.54);
+	border: 0px solid #ddd;
+	box-shadow: 0 1px 0 0 rgba(0,0,0,.25);
+}
+
+.search .event-categories .list-group-item:hover {
+	box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.22);
+	cursor: pointer;
 }
