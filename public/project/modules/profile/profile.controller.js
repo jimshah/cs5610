@@ -14,7 +14,7 @@
 		function($scope, $rootScope, $location, $window, UserService, EventService) {
 			$scope.success= $scope.error = "";
 
-			$scope.user = $rootScope.user;
+			//$scope.user = $rootScope.user;
 			$scope.events = $rootScope.events;
 			$scope.registeredEvents = $rootScope.registeredEvents;
 			$window.profile = $scope;
@@ -65,6 +65,31 @@
 					$location.path("/event/"+event.id);
 				}
 			};
+
+			function init(){
+				console.log("$scope.user", $scope.user);
+				//Retrieve User Events - as a host
+				EventService.getUserEventsAsHost($scope.user.id)
+				.then(function(events){
+					$scope.events = $rootScope.events = events;
+					//Braodcast userEvents
+					$rootScope.$broadcast('userEvents', events);
+				})
+				.catch(function(error){
+					console.log("Error fetching user host events : "+error);
+				});
+
+				//Retrieve User Events - as a guest
+				EventService.getUserEventsAsGuest($scope.user.id)
+				.then(function(userRegisteredEvents){
+					$scope.registeredEvents = $rootScope.registeredEvents = userRegisteredEvents;													
+					$rootScope.$broadcast('userRegisteredEvents', userRegisteredEvents);
+				})
+				.catch(function(error){
+					console.log("Error fetching user guest events : "+error);
+				});
+			}
+
 		}
 		]);
 

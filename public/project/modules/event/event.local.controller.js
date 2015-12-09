@@ -18,6 +18,7 @@
 			$rootScope.$on("auth", function(event, user){
 				$scope.error = $scope.success = "";
 				$scope.user = $rootScope.user = user;
+				//$scope.hasRegistered();
 			});
 			//listen for login/sigin to grab logged in user
 			$rootScope.$on("userEvents", function(event, events){
@@ -67,10 +68,46 @@
 				$location.path("/event/edit/"+$scope.event.id);
 			}
 
+			$scope.deleteEvent = function(){
+				if ($scope.event){
+					EventService.deleteEvent($scope.event)
+					.then(function(result){
+						
+						//Retrieve User Events - as a host
+						EventService.getUserEventsAsHost($scope.user.id)
+						.then(function(events){
+							$scope.events = $rootScope.events = events;
+							//Braodcast userEvents
+							$rootScope.$broadcast('userEvents', events);
+
+							//Retrieve User Events - as a guest
+							EventService.getUserEventsAsGuest($scope.user.id)
+							.then(function(userRegisteredEvents){
+								$scope.registeredEvents = $rootScope.registeredEvents = userRegisteredEvents;													
+								$rootScope.$broadcast('userRegisteredEvents', userRegisteredEvents);
+								$location.path( "/profile" );
+							})
+							.catch(function(error){
+								console.log("Error fetching user guest events : "+error);
+							});
+						})
+						.catch(function(error){
+							console.log("Error fetching user host events : "+error);
+						});
+					})
+					.catch(function(error){
+						$scope.error = error;
+					});
+				}
+			}
+
 			$scope.initializeEventdetails = function(eventId){
 				EventService.getLocalEventById(eventId)
 				.then(function(eventObject){
 					$scope.event = eventObject;
+					/*console.log("$scope.user", $scope.user);
+					console.log("$scope.event", $scope.event);
+					console.log($scope.user.id==$scope.event.userId && $scope.event.host);*/
 					$scope.hasRegistered();
 				})
 				.catch(function(error){

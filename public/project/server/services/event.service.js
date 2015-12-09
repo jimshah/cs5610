@@ -17,6 +17,7 @@ module.exports = function(app, eventModel, db){
 	app.get("/api/local/event/:eventId/user/:userId/register", registerLocalEvent);
 
 	app.put("/api/event/:eventId", updateEvent)
+	app.delete("/api/event/:eventId", deleteEvent);
 
 	// app.post("/api/project/user", createUser);
 	// app.get("/api/project/user", handleGetUserRequets);
@@ -168,6 +169,18 @@ module.exports = function(app, eventModel, db){
 			})
 			.catch(function(error){
 				console.log('updateEvent user error', JSON.stringify(error));
+				res.status(400).send(JSON.stringify(error));
+			});
+	}
+
+	function deleteEvent(req, res, next){
+		var eventId = req.params.eventId;
+		eventModel.deleteEvent(eventId)
+			.then(function(response){
+				res.json(response);
+			})
+			.catch(function(error){
+				console.log('deleteEvent user error', JSON.stringify(error));
 				res.status(400).send(JSON.stringify(error));
 			});
 	}

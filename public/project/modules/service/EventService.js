@@ -300,6 +300,20 @@
 			return deferred.promise;
 		}
 
+		function deleteEvent(event){
+			var deferred = $q.defer();
+			
+			var eventId = event.id;
+			$http.delete('/api/event/'+event.id)
+			.success(function (response) {
+				deferred.resolve(response);
+			})
+			.error(function (error) {
+				deferred.reject(error);
+			});
+			return deferred.promise;
+		}
+
 
 		/**
 		 * [guid generates a unique id]
@@ -349,7 +363,8 @@
 			"getLocalEventById": getLocalEventById,
 			"searchEventfulEvent": searchEventfulEvent,
 			"registerLocalEvent": registerLocalEvent,
-			"updateEvent": updateEvent
+			"updateEvent": updateEvent,
+			"deleteEvent": deleteEvent
 		};
 		return eventService;		
 	};

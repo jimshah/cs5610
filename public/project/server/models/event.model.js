@@ -225,7 +225,7 @@ function createLocalEvent(eventObject){
 						.then(function(userEventsAsGuest){
 							userEvents = userEventsAsGuest;
 							var recipients = newlyCreatedEvent.guestList; 
-							recipients = recipients.split(",");
+							recipients = recipients ? recipients.split(",") : [];
 							return Promise.resolve(recipients);
 						})
 						.map(function(recipient, index, arrlength){
@@ -239,8 +239,8 @@ function createLocalEvent(eventObject){
 						})
 					}
 				});
-}
-});
+			}
+		});
 } catch(error){
 	return Promise.resolve({error: error});
 }
@@ -317,6 +317,57 @@ function updateEvent(event){
 	}
 }
 
+function deleteEvent(eventId){
+	try {
+		return new Promise(function(resolve, reject){
+			if (!eventId){
+				return reject({error: "Please supply an eventId"});
+			} else {
+				EventModel.find({id: eventId}, function(err, docs){
+					if (err){
+						return reject({error : err});
+					} else {
+						return deleteMongooseDocuments(docs)
+						.then(function(response){
+							return resolve(response);
+						})
+						.catch(function(error){
+							return reject({error: error});
+						})
+					}
+				});
+			}
+		});
+	} catch(error){
+		return Promise.resolve({error: error});
+	}
+}
+
+function deleteMongooseDocuments(documents){
+	try {
+		return Promise.resolve(documents)
+		.map(function(doc, index, arrLength){
+			return deleteDoc(doc);
+		});
+	} catch(error){
+		return Promise.reject(error);
+	}
+}
+
+function deleteDoc(doc){
+	try {
+		return new Promise(function(resolve, reject){
+			EventModel.findOne({_id: doc}).remove(function(err){
+				if (err){
+					return reject(err);
+				} else return resolve();
+			});
+		});
+	} catch(error){
+
+	}
+}
+
 // HELPER METHODS
 
 function getRequest(options){
@@ -385,7 +436,8 @@ return {
 	"getUserEventsAsGuest": getUserEventsAsGuest,
 	"registerEventfulEvent": registerEventfulEvent,
 	"registerLocalEvent": registerLocalEvent,
-	"updateEvent": updateEvent
+	"updateEvent": updateEvent,
+	"deleteEvent": deleteEvent
 	 	/*"createUser": createUser,
 	 	"findAllUsers": findAllUsers,
 	 	"findUserById": findUserById,

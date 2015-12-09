@@ -6,6 +6,14 @@
 	margin-left: -42px;
 }
 
+.individual-event .delete-event button{
+	background-color: transparent;
+	border-width: 0px;
+	z-index: 5;
+	position: fixed;
+	margin-left: -90px;
+}
+
 .individual-event .error {
 	color: red;
 	margin-top: -5px;
