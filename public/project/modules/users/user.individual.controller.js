@@ -66,7 +66,11 @@
 			};
 
 			$scope.follow = function(){
-				if($scope.friendId && $scope.user && !$scope.following){
+				$scope.error = $scope.success = "";
+				if (!$scope.user){
+					$scope.error = "Please Login to follow";
+					console.log("$scope.error", $scope.error);
+				}else if($scope.friendId && $scope.user && !$scope.following){
 					UserService.addFollower($scope.user, $scope.friend)
 					.then(function(response){
 						$scope.friend = response;
@@ -88,7 +92,7 @@
 						}
 					});
 				} else {
-					$scope.following = false
+					$scope.following = false;
 				};
 			}
 

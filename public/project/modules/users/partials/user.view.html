@@ -28,9 +28,13 @@
 					</div>
 				</div>
 
-				<div class="form-group row follow" ng-if="friend._id != user.id">
+				<div class="form-group row follow" ng-if="user && friend._id != user.id">
 					<button ng-if="!following" ng-click="follow()" class="btn btn-default">Follow</button>
 					<button ng-if="following" class="btn btn-default disabled">Already Following</button>
+				</div>
+
+				<div class="form-group row error" ng-if="error">
+					<span>{{error}}</span>
 				</div>
 
 				<div class="form-group row followers">
