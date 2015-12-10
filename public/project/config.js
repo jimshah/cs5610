@@ -40,6 +40,9 @@
 		.when("/event/search/:keywords", {
 			templateUrl : "/project/modules/search/search.view.html" 
 		})
+		.when("/event/users/search/:searchTerm", {
+			templateUrl : "/project/modules/users/users.view.html" 
+		})
 		.when("/event/users/search", {
 			templateUrl : "/project/modules/users/users.view.html" 
 		})

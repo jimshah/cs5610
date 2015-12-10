@@ -14,6 +14,7 @@
 		function($scope, $location, $window, EventService, $routeParams, UserService, $rootScope) {
 			$scope.success= $scope.error = "";
 			$scope.keywords = $routeParams.keywords;
+			$scope.searchTerm = $routeParams.searchTerm || "";
 
 			//listen for login/sigin to grab logged in user
 			$rootScope.$on("auth", function(event, user){
@@ -34,6 +35,7 @@
 
 			$scope.searchUser = function(searchTerm){
 				$scope.error = $scope.success = "";
+				//console.log("Searching for user ", searchTerm);
 				if (searchTerm){
 					UserService.findUserBySearchTerm(searchTerm)
 					.then(function(users){
@@ -48,6 +50,15 @@
 						$scope.users = [];
 						$scope.error = error;
 					})
+				}
+			}
+
+			$scope.gotoSearchUser = function(searchTerm){
+				if (searchTerm){
+					//console.log("Navigating to search", searchTerm);
+					$location.path("/event/users/search/"+searchTerm);
+				} else {
+					$scope.users = [];
 				}
 			}
 
@@ -73,6 +84,7 @@
 			}
 
 			//$scope.init();
+			$scope.searchUser($scope.searchTerm);
 			
 		}
 		]);
