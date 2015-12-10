@@ -30,6 +30,10 @@
 				.then(function(eventObject){
 					$scope.event = eventObject;
 					$scope.hasRegistered();
+					EventService.getEventRegisteredUsers(eventId)
+					.then(function(attendees){
+						$scope.attendees = attendees;
+					});
 				});
 			};
 
@@ -42,7 +46,6 @@
 						$rootScope.$broadcast('userRegisteredEvents', userRegisteredEvents);
 						$scope.success = "Successfully registered for this event";
 						$scope.disabled = true;
-						console.log("$scope.disabled", $scope.disabled);
 					})
 					.catch(function(error){
 						$scope.error = error;

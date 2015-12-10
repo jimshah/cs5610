@@ -17,6 +17,10 @@ module.exports = function(app, db){
 	var EventSchema = require('./event.schema.js'),
 	EventModel = db.model('Event', EventSchema);
 
+	// Defining UserModel 
+	var UserSchema = require('./user.schema.js'),
+	UserModel = db.model('UserM', UserSchema);
+
 	function getEventfulCategories(){
 		try {
 			return new Promise(function(resolve, reject){
@@ -292,6 +296,64 @@ function getUserEventsAsGuest(userId){
 	}
 }
 
+function getEventRegisteredUsers(eventId){
+	try {
+		return getEventInstances(eventId)
+		.map(function(eventInstance, index, arrLength){
+			var userId = eventInstance.userId;
+			if (userId){
+				return getUser(userId);
+			} else {
+				return Promise.resolve(null);
+			}
+		})
+		.then(function(users){
+			return Promise.resolve(users);
+		});
+	} catch(error){
+		return Promise.resolve({error: error});
+	}
+}
+
+function getUser(userId){
+	try {
+		return new Promise(function(resolve, reject){
+			UserModel.findOne({_id: userId}, function(err, user){
+			if (err){
+				return reject(err);
+			} else {
+				return resolve(user);
+			}
+		});
+		});
+	} catch(error){
+		return Promise.resolve({error: error});
+	}
+}
+
+function getEventInstances(eventId){
+	try {
+		return new Promise(function(resolve, reject){
+			if (!eventId){
+				return resolve([]);
+			} else {
+				EventModel.find({id: eventId, guest: true}, function(err, eventInstances){
+					if (err){
+						return reject({error : err});
+					} else {
+						if (!eventInstances){
+							eventInstances = [];
+						}
+						return resolve(eventInstances);
+					}
+				});
+			}
+		});
+	} catch(error){
+		return Promise.resolve({error: error});
+	}
+}
+
 function updateEvent(event){
 	try {
 		return new Promise(function(resolve, reject){
@@ -437,7 +499,8 @@ return {
 	"registerEventfulEvent": registerEventfulEvent,
 	"registerLocalEvent": registerLocalEvent,
 	"updateEvent": updateEvent,
-	"deleteEvent": deleteEvent
+	"deleteEvent": deleteEvent,
+	"getEventRegisteredUsers": getEventRegisteredUsers
 	 	/*"createUser": createUser,
 	 	"findAllUsers": findAllUsers,
 	 	"findUserById": findUserById,

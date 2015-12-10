@@ -313,6 +313,22 @@
 			});
 			return deferred.promise;
 		}
+		
+		function getEventRegisteredUsers(eventId){
+			var deferred = $q.defer();
+			
+			$http.get('/api/event/'+eventId+'/users')
+			.success(function (response) {
+				if (typeof response == "string"){
+					response = JSON.parse(response);
+				}
+				deferred.resolve(response);
+			})
+			.error(function (error) {
+				deferred.reject(error);
+			});
+			return deferred.promise;
+		}
 
 
 		/**
@@ -364,7 +380,8 @@
 			"searchEventfulEvent": searchEventfulEvent,
 			"registerLocalEvent": registerLocalEvent,
 			"updateEvent": updateEvent,
-			"deleteEvent": deleteEvent
+			"deleteEvent": deleteEvent,
+			"getEventRegisteredUsers": getEventRegisteredUsers
 		};
 		return eventService;		
 	};

@@ -19,6 +19,8 @@ module.exports = function(app, eventModel, db){
 	app.put("/api/event/:eventId", updateEvent)
 	app.delete("/api/event/:eventId", deleteEvent);
 
+	app.get("/api/event/:eventId/users", getEventRegisteredUsers);
+
 	// app.post("/api/project/user", createUser);
 	// app.get("/api/project/user", handleGetUserRequets);
 	// app.put("/api/project/user/:id", updateUser);
@@ -62,7 +64,7 @@ module.exports = function(app, eventModel, db){
 
 	function registerEventfulEvent(req, res, next){
 		var eventId = req.params.eventId, 
-			userId = req.params.userId;
+		userId = req.params.userId;
 		eventModel.registerEventfulEvent(eventId, userId)
 		.then(function(userEvents){
 			res.json(userEvents);
@@ -76,7 +78,7 @@ module.exports = function(app, eventModel, db){
 	registerLocalEvent
 	function registerLocalEvent(req, res, next){
 		var eventId = req.params.eventId, 
-			userId = req.params.userId;
+		userId = req.params.userId;
 		eventModel.registerLocalEvent(eventId, userId)
 		.then(function(userEvents){
 			res.json(userEvents);
@@ -164,25 +166,37 @@ module.exports = function(app, eventModel, db){
 	function updateEvent(req, res, next){
 		var event = req.body || {};
 		eventModel.updateEvent(event)
-			.then(function(updatedEvent){
-				res.json(updatedEvent);
-			})
-			.catch(function(error){
-				console.log('updateEvent user error', JSON.stringify(error));
-				res.status(400).send(JSON.stringify(error));
-			});
+		.then(function(updatedEvent){
+			res.json(updatedEvent);
+		})
+		.catch(function(error){
+			console.log('updateEvent user error', JSON.stringify(error));
+			res.status(400).send(JSON.stringify(error));
+		});
 	}
 
 	function deleteEvent(req, res, next){
 		var eventId = req.params.eventId;
 		eventModel.deleteEvent(eventId)
-			.then(function(response){
-				res.json(response);
-			})
-			.catch(function(error){
-				console.log('deleteEvent user error', JSON.stringify(error));
-				res.status(400).send(JSON.stringify(error));
-			});
+		.then(function(response){
+			res.json(response);
+		})
+		.catch(function(error){
+			console.log('deleteEvent user error', JSON.stringify(error));
+			res.status(400).send(JSON.stringify(error));
+		});
+	}
+
+	function getEventRegisteredUsers(req, res, next){
+		var eventId = req.params.eventId;
+		eventModel.getEventRegisteredUsers(eventId)
+		.then(function(response){
+			res.json(response);
+		})
+		.catch(function(error){
+			console.log('getEventRegisteredUsers user error', JSON.stringify(error));
+			res.status(400).send(JSON.stringify(error));
+		});
 	}
 	
 };

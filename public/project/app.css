@@ -1,6 +1,7 @@
 .join-body {
 	background-color: #181818;
 	background-color: #E8BC51;
+	overflow-x: hidden;
 }
 .join-body #body-image img{
 	/* z-index: -1;

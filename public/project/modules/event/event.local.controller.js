@@ -107,8 +107,13 @@
 					$scope.event = eventObject;
 					/*console.log("$scope.user", $scope.user);
 					console.log("$scope.event", $scope.event);
-					console.log($scope.user.id==$scope.event.userId && $scope.event.host);*/
+					console.log($scope.user.idattendees$scope.event.userId && $scope.event.host);*/
 					$scope.hasRegistered();
+					EventService.getEventRegisteredUsers(eventId)
+					.then(function(attendees){
+						$scope.attendees = attendees;
+						//console.log("attendees", attendees);
+					});
 				})
 				.catch(function(error){
 					$scope.error = error;
