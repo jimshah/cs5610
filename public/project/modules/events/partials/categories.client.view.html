@@ -1,5 +1,5 @@
 <div class="categories">
-	<div class="event-categories">
+	<div class="event-categories hidden-xs">
 		<ul class="event-categories list-group">
 			<li ng-click="loadCategories(cat)" class="category list-group-item" ng-repeat="cat in categories">
 				<!-- <a ng-bind-html="cat.name" href ng-click="initializeEvents(cat.id)"></a> -->
@@ -7,4 +7,30 @@
 			</li>
 		</ul>
 	</div>
+	<div class="event-categories hidden-sm">
+		<div class="form-group visible-xs">
+			<label for="e-cat">Categories:</label>
+			<!-- <select class="form-control" ng-options="cat as cat.name for cat in categories" -->
+
+			<select class="form-control" ng-options="cat.id as cat.name for cat in categories"
+			ng-model="selectedCat" ng-change="initializeEventsMobile(selectedCat)" id="e-cat"></select>
+
+
+			<!-- <select data-ng-model="selectedCat" class="form-control" ng-change="initializeEventsMobile()">
+				<option value="" ng-repeat="cat in categories" data-ng-bind-html="cat.name"></option>
+			</select> -->
+		</div>
+	</div>
 </div>
+
+
+<!-- <select data-ng-model="newFieldType" name="select" id="add-new-field">
+	<option value="">No Fields Selected</option>
+	<option value="slt">Single Line Text Field</option>
+	<option value="mltf">Multi Line Text Field</option>
+	<option value="date">Date Field</option>
+	<option value="dropdown">Dropdown Field</option>
+	<option value="checkboxes">Checkboxes Field</option>
+	<option value="radio">Radio Buttons Field</option>
+	<option value="email">New Email Field</option>
+</select> -->
