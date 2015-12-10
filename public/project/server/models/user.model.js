@@ -238,6 +238,34 @@ module.exports = function(app, db){
 	 	}
 	 }
 
+	 function addFollower(followObject){
+	 	try{
+	 		var follower = followObject.follower;
+	 		var followingTo = followObject.followingTo;
+	 		return new Promise(function(resolve, reject){
+	 			UserModel.findOne({_id: followingTo._id}, function(err, user){
+	 				if (err || !user){
+	 					return reject(err || "No user found to follow");
+	 				} else {
+	 					user.followers = user.followers || [];
+	 					follower.followerId = follower._id;
+	 					user.followers.push(follower);
+	 					user.save(function(error){
+	 						if (error){
+	 							return reject(error);
+	 						} else {
+	 							return resolve(user);
+	 						}
+	 					});
+	 				}
+	 			});
+	 		});
+	 	} catch(error){
+	 		console.log("catched an Exception in 'findUserBySearchTerm' method", error);
+	 		return Promise.reject(error);
+	 	}
+	 }
+
 	/**
 	 * [guid generates a unique id]
 	 * @return String [a unique id]
@@ -261,7 +289,8 @@ module.exports = function(app, db){
 	 	"findUserByCredentials": findUserByCredentials,
 	 	"findUserByEmail": findUserByEmail,
 	 	"getUserByToken": getUserByToken,
-	 	"findUserBySearchTerm": findUserBySearchTerm
+	 	"findUserBySearchTerm": findUserBySearchTerm,
+	 	"addFollower": addFollower
 	 };
 
 

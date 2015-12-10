@@ -6,7 +6,7 @@ objectId = mongoose.Schema.Types.ObjectId;
 // Define activity schema
 module.exports = new mongoose.Schema({
     "id": {
-        type: objectId,
+        type: objectId
     },
     "fname": {
         type: String
@@ -34,6 +34,17 @@ module.exports = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
+    "followers": [{
+        followerId: {
+            type: objectId
+        },
+        followingFrom: {
+            type: Date,
+            default: Date.now()
+        },
+        fname: String,
+        lname: String
+    }],
     "provider": String,
     "providerIdentifierField": String,
     "providerData": {

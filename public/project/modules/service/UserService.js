@@ -183,6 +183,31 @@
 		   	return deferred.promise;
 		   }
 
+		   function addFollower(follower, followingTo){
+		   	var deferred = $q.defer();
+		   	var followObject = {
+		   		follower: follower,
+		   		followingTo: followingTo
+		   	};
+
+		   	$http.put("/api/user/follow/", followObject)
+		   	.success(function(user){
+		   		if (typeof user == "string"){
+		   			user = JSON.parse(user);
+		   		}
+		   		deferred.resolve(user);
+		   	})
+		   	.error(function(error){
+		   		if (error && error.message){
+		   			deferred.reject(error.message);	
+		   		} else{
+		   			deferred.reject(error);
+		   		}
+		   	});
+
+		   	return deferred.promise;
+		   }
+
 		/**
 		 * [guid generates a unique id]
 		 * @return String [a unique id]
@@ -206,7 +231,8 @@
 			updateUser: updateUser,
 			findUserByEmailAndPassword: findUserByEmailAndPassword,
 			getUserByToken: getUserByToken,
-			findUserBySearchTerm: findUserBySearchTerm
+			findUserBySearchTerm: findUserBySearchTerm,
+			addFollower: addFollower
 		};
 		return userService;		
 	};

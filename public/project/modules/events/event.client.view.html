@@ -37,7 +37,7 @@
 				<span>Attendees: </span>
 				<span ng-if="user" class="attendee" ng-repeat="user in attendees">
 					<a href="#/event/users/{{user._id}}/profile">{{user.fname}} {{user.lname}}</a>
-					<span ng-if="!($index==event.tags.tag.length-1)"> | </span>
+					<span ng-if="!($index==attendees.length-1)"> | </span>
 				</span>
 			</div>
 		</div>

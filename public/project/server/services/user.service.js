@@ -14,6 +14,7 @@ module.exports = function(app, userModel, db){
 	app.delete("/api/project/user/:userId", deleteUserById);
 	app.get("/api/user/token/:token", getUserByToken);
 	app.get("/api/search/user/:searchTerm", findUserBySearchTerm);
+	app.put("/api/user/follow/", addFollower);
 
 	function getUserByToken(req, res, next){
 		var token = req.params.token;
@@ -166,5 +167,17 @@ module.exports = function(app, userModel, db){
 		} else {
 			res.status(400).send({error: "Please include a search term to search for an user"});
 		}
+	}
+
+	function addFollower(req, res, next){
+		var followObject = req.body;
+		userModel.addFollower(followObject)
+		.then(function(user){
+			res.json(user);
+		})
+		.catch(function(error){
+			console.log('addFollower error', JSON.stringify(error));
+			res.status(400).send(JSON.stringify(error));
+		});
 	}
 };

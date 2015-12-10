@@ -110,3 +110,11 @@
 .individual-user .form-control[disabled], fieldset[disabled] .form-control {
     cursor: auto;
 }
+
+.follow {
+	padding-left: 15px;
+}
+
+.followers {
+	padding-left: 15px;
+}
