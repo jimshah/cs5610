@@ -21,6 +21,7 @@
 				EventService.searchEventfulEvent(keywords)
 				.then(function(events){
 					$scope.events = events.events.event;
+					//console.log("$scope.events", $scope.events);
 				})
 				.catch(function(error){
 					$scope.error = error;
