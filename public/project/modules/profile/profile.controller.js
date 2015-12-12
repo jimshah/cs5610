@@ -34,6 +34,7 @@
 			$rootScope.$on("userRegisteredEvents", function(event, events){
 				$scope.error = $scope.success = "";
 				$scope.registeredEvents = $rootScope.registeredEvents = events;
+				// console.log("$scope.registeredEvents", $scope.registeredEvents);
 			});
 
 			//Update button to update user profile
