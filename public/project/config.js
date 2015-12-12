@@ -31,6 +31,12 @@
 		.when("/profile", {
 			templateUrl : "/project/modules/profile/profile.client.view.html" 
 		})
+		.when("/profile/events", {
+			templateUrl : "/project/modules/profile/profile.event.client.view.html" 
+		})
+		.when("/profile/events/attending", {
+			templateUrl : "/project/modules/profile/profile.attending.client.view.html" 
+		})
 		.when("/create/event", {
 			templateUrl : "/project/modules/events/event.create.client.view.html" 
 		})

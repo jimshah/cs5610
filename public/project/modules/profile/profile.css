@@ -125,6 +125,7 @@
 /* Sub tabs design */
 .profile .sub-tabs ul{
 	border-bottom: 1px solid #341002;
+	margin-left: 10px;
 } 
 
 .profile .sub-tabs ul.nav-tabs li {
