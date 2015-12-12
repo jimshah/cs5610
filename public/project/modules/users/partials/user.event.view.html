@@ -6,13 +6,13 @@
 		<div class="col-xs-3">
 			<div class="vertical-tabs">
 				<ul class="list-group text-center">
-					<li class="list-group-item anti-rotate active"><a href="">Personal Details</a></li>
-					<li class="list-group-item anti-rotate"><a href="#/event/users/{{friend._id}}/profile/events">Events</a></li>
+					<li class="list-group-item anti-rotate"><a href="#/event/users/{{friend._id}}/profile">Personal Details</a></li>
+					<li class="list-group-item anti-rotate active"><a href="">Events</a></li>
 				</ul>
 			</div>
 		</div>
 		<div class="col-xs-9 col-xs-pull-2 tab-content">
-			<div id="details" class="tab-pane active">
+			<div id="details" class="tab-pane">
 
 
 				<div class="form-group row">
@@ -54,12 +54,12 @@
 				
 			</div>
 
-			<div id="events" class="tab-pane">
+			<div id="events" class="tab-pane active">
 
 				<div class="sub-tabs row">
 					<ul class="nav nav-tabs">
 						<li id="createdTab" class="active"><a href="">Created</a></li>
-						<li id="attendingTab" ><a href="#/profile/events/attending">Attending</a></li>
+						<li id="attendingTab" ><a href="#/event/users/{{friend._id}}/profile/events/attending">Attending</a></li>
 					</ul>
 				</div>
 

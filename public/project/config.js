@@ -55,6 +55,14 @@
 		.when("/event/users/:friendId/profile", {
 			templateUrl : "/project/modules/users/partials/user.view.html" 
 		})
+
+		.when("/event/users/:friendId/profile/events", {
+			templateUrl : "/project/modules/users/partials/user.event.view.html" 
+		})
+
+		.when("/event/users/:friendId/profile/events/attending", {
+			templateUrl : "/project/modules/users/partials/user.attending.view.html" 
+		})
 		.when("/event/edit/:eventId", {
 			templateUrl : "/project/modules/event/event.edit.view.html" 
 		})

@@ -6,13 +6,13 @@
 		<div class="col-xs-3">
 			<div class="vertical-tabs">
 				<ul class="list-group text-center">
-					<li class="list-group-item anti-rotate active"><a href="">Personal Details</a></li>
-					<li class="list-group-item anti-rotate"><a href="#/event/users/{{friend._id}}/profile/events">Events</a></li>
+					<li class="list-group-item anti-rotate"><a href="#/event/users/{{friend._id}}/profile">Personal Details</a></li>
+					<li class="list-group-item anti-rotate active"><a href="">Events</a></li>
 				</ul>
 			</div>
 		</div>
 		<div class="col-xs-9 col-xs-pull-2 tab-content">
-			<div id="details" class="tab-pane active">
+			<div id="details" class="tab-pane">
 
 
 				<div class="form-group row">
@@ -54,17 +54,17 @@
 				
 			</div>
 
-			<div id="events" class="tab-pane">
+			<div id="events" class="tab-pane active">
 
 				<div class="sub-tabs row">
 					<ul class="nav nav-tabs">
-						<li id="createdTab" class="active"><a href="">Created</a></li>
-						<li id="attendingTab" ><a href="#/profile/events/attending">Attending</a></li>
+						<li id="createdTab" ><a href="#/event/users/{{friend._id}}/profile/events">Created</a></li>
+						<li id="attendingTab" class="active"><a href="">Attending</a></li>
 					</ul>
 				</div>
 
 				<div class="tab-content event-body">
-					<div id="createdEvents" class="user-events tab-pane active">
+					<div id="createdEvents" class="user-events tab-pane">
 						<h4>Created Events</h4>
 						<ul class="list-group event-categories">
 							<li class="col-sm-6 event list-group-item" ng-repeat="event in fevents.host" ng-click="gotoEventPage(event)">
@@ -81,7 +81,7 @@
 						</ul>
 					</div>
 
-					<div id="registeredEvents" class="user-registered-events tab-pane">
+					<div id="registeredEvents" class="user-registered-events tab-pane active">
 						<h4>Events Attending</h4>	
 						<ul class="list- event-categories">
 							<li class="col-sm-6 event list-group-item" ng-repeat="event in fevents.guest" ng-click="gotoEventPage(event)">
