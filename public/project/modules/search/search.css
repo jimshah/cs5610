@@ -1,3 +1,6 @@
+.search {
+	overflow-x: hidden;
+}
 .search .title h2 {
 	color: #341002;
 	padding-left: 10px;
