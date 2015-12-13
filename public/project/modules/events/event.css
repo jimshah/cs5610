@@ -1,5 +1,7 @@
 .individual-event {
 	color: white;
+	margin-left: 5px;
+	margin-right: 5px;
 }
 .individual-event .event-description {
 	font-weight: bold;

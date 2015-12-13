@@ -1,5 +1,7 @@
 .individual-event {
 	overflow-x: hidden;
+	margin-left: 5px;
+	margin-right: 5px;
 }
 
 .individual-event .edit-event button{
