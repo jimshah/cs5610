@@ -22,8 +22,10 @@
 			}
 
 			$scope.submitContactQuery = function(){
-				$scope.success="Submitted your query successfully";
-				console.log("contact query info is", $scope.contact);
+				if ($scope.fname && $scope.lname && $scope.email && $scope.query){
+					$scope.success="Submitted your query successfully";
+					//console.log("contact query info is", $scope.contact);
+				}
 			}
 		}
 		]);

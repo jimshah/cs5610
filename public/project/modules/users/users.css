@@ -5,6 +5,12 @@
 .users .search-header h2 {
 	margin-left: 10px;
 	padding-left: 10px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	font-size: 46px;
+	margin-top: 0;
+	font-weight: 600;
+	color: #341002;
 }
 
 .users .search-user {
@@ -59,6 +65,15 @@
 		padding-bottom: 20px;
 	}
 
+	.individual-user #details {
+		border-color: #341002;
+		border-width: 1px;
+		border-style: solid;
+		padding: 20px;
+		padding-bottom: 0px;
+		margin-left: 25px;
+	}
+
 	.individual-user .tab-content .form-group{
 		color: #341002;
 		font-size: 16px;
@@ -80,6 +95,18 @@
 	}
 
 	.follow .btn-default.disabled:hover {
+		color: #E8BC51;
+		background-color: #341002;
+		border-color: #E8BC51;
+	}
+
+	.follow button {
+		color: #341002;
+		background-color: #E8BC51;
+		border-color: #341002;
+	}
+
+	.follow button:hover {
 		color: #E8BC51;
 		background-color: #341002;
 		border-color: #E8BC51;

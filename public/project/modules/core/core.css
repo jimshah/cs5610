@@ -50,6 +50,15 @@
  	padding-top: 0px;
  }
 
+ #navigation .navbar-collapse {
+ 	padding-left: 0px;
+ 	margin-left: -5px;
+ }
+
+ #navigation .navbar-collapse ul {
+ 	overflow-x: hidden;
+ }
+
  #navigation button {
  	background-color: rgb(236, 105, 82);
  }

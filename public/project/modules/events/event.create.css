@@ -1,3 +1,47 @@
 .create-event {
-	color: white;
+	color: #341002;
+}
+
+.create-event .title {
+	padding-bottom: 20px;
+	/* margin-left: 5px;
+	margin-right: 5px; */
+}
+
+.create-event .title h2{
+	font-size: 46px;
+	font-weight: 700;
+}
+
+.create-event form {
+	border-color: #341002;
+	border-width: 1px;
+	border-style: solid;
+	padding: 25px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.create-event button {
+	color: #341002;
+	background-color: #E8BC51;
+	border-color: #341002;
+}
+
+.create-event button:hover {
+	color: #E8BC51;
+	background-color: #341002;
+	border-color: #E8BC51;
+}
+
+.create-event button:active {
+	color: #E8BC51;
+	background-color: #341002;
+	border-color: #E8BC51;
+}
+
+.create-event button:focus {
+	color: #E8BC51;
+	background-color: #341002;
+	border-color: #E8BC51;
 }

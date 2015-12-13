@@ -27,6 +27,12 @@
 
 .success {
 	color: green;
+	font-size: 16px;
+	font-weight: bolder;
+}
+.error {
+	font-size: 16px;
+	font-weight: bolder;
 }
 
 .event-attendees {

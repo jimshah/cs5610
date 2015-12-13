@@ -6,6 +6,10 @@
 	color: #341002;
 	font-size: 16px;
 	font-weight: bolder;
+	border-color: #341002;
+	border-width: 1px;
+	border-style: solid;
+	padding: 20px;
 }
 
 .profile .tab-content .form-horizontal .submit button{
