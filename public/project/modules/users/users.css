@@ -1,6 +1,7 @@
 .users {
 	color: #341002;
 	padding-right: 10px;
+	overflow-x: hidden;
 }
 
 .users .search-header h2 {

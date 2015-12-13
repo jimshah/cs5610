@@ -35,7 +35,7 @@
 				$scope.newEvent.userId = $scope.user.id;
 				$scope.newEvent.type = "local";
 				if ($scope.newEvent && $scope.newEvent.title && $scope.newEvent.description && $scope.newEvent.date && 
-					$scope.newEvent.start_time && $scope.newEvent.venue_address && $scope.newEvent.privacy){
+					$scope.newEvent.start_time && $scope.newEvent.venue_address){
 					EventService.createEvent($scope.newEvent)
 					.then(function(userEvents){
 						$scope.events = $rootScope.events = userEvents;
