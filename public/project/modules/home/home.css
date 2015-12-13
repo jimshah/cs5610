@@ -45,6 +45,8 @@
 	width: 100%;
 	min-height: 250px;
 	max-height: 450px;
+	/* margin-left: -12px;
+	width: 110%; */
 }
 .home-content {
 	padding-top: 30px;
