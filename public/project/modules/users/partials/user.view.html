@@ -2,107 +2,104 @@
 	<div class="row section-header">
 		<h2>{{friend.fname | uppercase}}'s Profile</h2>
 	</div>
-	<div ng-if="friend">
-		<div class="col-xs-3">
-			<div class="vertical-tabs">
-				<ul class="list-group text-center">
-					<li class="list-group-item anti-rotate active"><a href="">Personal Details</a></li>
-					<li class="list-group-item anti-rotate"><a href="#/event/users/{{friend._id}}/profile/events">Events</a></li>
-				</ul>
-			</div>
-		</div>
-		<div class="col-xs-9 col-xs-pull-2 tab-content">
-			<div id="details" class="tab-pane active">
-
-
-				<div class="form-group row">
-					<label for="profile-fname" class="col-sm-3">First Name:</label>
-					<div class="col-sm-5">
-						<input type="text" data-ng-model="friend.fname" class="form-control" id="profile-fname" placeholder="First Name" disabled>
-					</div>
-				</div>
-				<div class="form-group row">
-					<label for="profile-lname" class="col-sm-3">Last Name:</label>
-					<div class="col-sm-5">
-						<input type="text" data-ng-model="friend.lname" class="form-control" id="profile-lname" placeholder="Last Name" disabled>
-					</div>
-				</div>
-
-				<div class="form-group row" ng-if="following">
-					<label for="profile-email" class="col-sm-3">Email:</label>
-					<div class="col-sm-5">
-						<input type="text" data-ng-model="friend.email" class="form-control" id="profile-email" placeholder="Email" disabled>
-					</div>
-				</div>
-
-				<div class="form-group row follow" ng-if="user && friend._id != user.id">
-					<button ng-if="!following" ng-click="follow()" class="btn btn-default">Follow</button>
-					<button ng-if="following" class="btn btn-default disabled">Already Following</button>
-				</div>
-
-				<div class="form-group row error" ng-if="error">
-					<span>{{error}}</span>
-				</div>
-
-				<div class="form-group row followers">
-					<span>Followers: </span>
-					<span ng-if="f" class="attendee" ng-repeat="f in friend.followers">
-						<a href="#/event/users/{{f._id}}/profile">{{f.fname}} {{f.lname}}</a>
-						<span ng-if="!($index==friend.followers.length-1)"> | </span>
-					</span>
-				</div>
-				
-			</div>
-
-			<div id="events" class="tab-pane">
-
-				<div class="sub-tabs row">
-					<ul class="nav nav-tabs">
-						<li id="createdTab" class="active"><a href="">Created</a></li>
-						<li id="attendingTab" ><a href="#/profile/events/attending">Attending</a></li>
+	<div class="row">
+		<div ng-if="friend">
+			<div class="col-xs-3">
+				<div class="vertical-tabs">
+					<ul class="list-group text-center">
+						<li class="list-group-item anti-rotate active"><a href="">Personal Details</a></li>
+						<li class="list-group-item anti-rotate"><a href="#/event/users/{{friend._id}}/profile/events">Events</a></li>
 					</ul>
 				</div>
+			</div>
+			<div class="col-xs-9 col-xs-pull-1 tab-content">
+				<div id="details" class="tab-pane active">
 
-				<div class="tab-content event-body">
-					<div id="createdEvents" class="user-events tab-pane active">
-						<h4>Created Events</h4>
-						<ul class="list-group event-categories">
-							<li class="col-sm-6 event list-group-item" ng-repeat="event in fevents.host" ng-click="gotoEventPage(event)">
-								<div class="row event-block">
-									<div class="event-title"><h3>{{event.title}}</h3></div>
-									<div class="row event-meta">
-										<div class="row time">
-											<!-- <span>Venue: {{event.venue_address}} {{event.city_name}} {{event.region_name}} {{event.country_name}}</span> -->
-											<span>Time: {{event.start_time}}</span>
-										</div>
-									</div>
-								</div>
-							</li>
+
+					<div class="form-group row">
+						<label for="profile-fname" class="col-sm-3">First Name:</label>
+						<div class="col-sm-5">
+							<input type="text" data-ng-model="friend.fname" class="form-control" id="profile-fname" placeholder="First Name" disabled>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="profile-lname" class="col-sm-3">Last Name:</label>
+						<div class="col-sm-5">
+							<input type="text" data-ng-model="friend.lname" class="form-control" id="profile-lname" placeholder="Last Name" disabled>
+						</div>
+					</div>
+
+					<div class="form-group row" ng-if="following">
+						<label for="profile-email" class="col-sm-3">Email:</label>
+						<div class="col-sm-5">
+							<input type="text" data-ng-model="friend.email" class="form-control" id="profile-email" placeholder="Email" disabled>
+						</div>
+					</div>
+
+					<div class="form-group row follow" ng-if="user && friend._id != user.id">
+						<button ng-if="!following" ng-click="follow()" class="btn btn-default">Follow</button>
+						<button ng-if="following" class="btn btn-default disabled">Already Following</button>
+					</div>
+
+					<div class="form-group row error" ng-if="error">
+						<span>{{error}}</span>
+					</div>
+
+					<div class="form-group row followers">
+						<span>Followers: </span>
+						<span ng-if="f" class="attendee" ng-repeat="f in friend.followers">
+							<a href="#/event/users/{{f._id}}/profile">{{f.fname}} {{f.lname}}</a>
+							<span ng-if="!($index==friend.followers.length-1)"> | </span>
+						</span>
+					</div>
+
+				</div>
+
+				<div id="events" class="tab-pane">
+
+					<div class="sub-tabs row">
+						<ul class="nav nav-tabs">
+							<li id="createdTab" class="active"><a href="">Created</a></li>
+							<li id="attendingTab" ><a href="#/profile/events/attending">Attending</a></li>
 						</ul>
 					</div>
 
-					<div id="registeredEvents" class="user-registered-events tab-pane">
-						<h4>Events Attending</h4>	
-						<ul class="list- event-categories">
-							<li class="col-sm-6 event list-group-item" ng-repeat="event in fevents.guest" ng-click="gotoEventPage(event)">
-								<div class="row event-block">
-									<div class="event-title"><h3>{{event.title}}</h3></div>
-									<div class="row event-meta">
-										<div class="row time">
-											<span>Time: {{event.start_time}}</span>
+					<div class="tab-content event-body">
+						<div id="createdEvents" class="user-events tab-pane active">
+							<h4>Created Events</h4>
+							<ul class="list-group event-categories">
+								<li class="col-sm-6 event list-group-item" ng-repeat="event in fevents.host" ng-click="gotoEventPage(event)">
+									<div class="row event-block">
+										<div class="event-title"><h3>{{event.title}}</h3></div>
+										<div class="row event-meta">
+											<div class="row time">
+												<!-- <span>Venue: {{event.venue_address}} {{event.city_name}} {{event.region_name}} {{event.country_name}}</span> -->
+												<span>Time: {{event.start_time}}</span>
+											</div>
 										</div>
 									</div>
-								</div>
-							</li>
-						</ul>					
+								</li>
+							</ul>
+						</div>
+
+						<div id="registeredEvents" class="user-registered-events tab-pane">
+							<h4>Events Attending</h4>	
+							<ul class="list- event-categories">
+								<li class="col-sm-6 event list-group-item" ng-repeat="event in fevents.guest" ng-click="gotoEventPage(event)">
+									<div class="row event-block">
+										<div class="event-title"><h3>{{event.title}}</h3></div>
+										<div class="row event-meta">
+											<div class="row time">
+												<span>Time: {{event.start_time}}</span>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>					
+						</div>
 					</div>
 				</div>
 			</div>
-
-
-
-
-
 		</div>
 	</div>
 </div>
