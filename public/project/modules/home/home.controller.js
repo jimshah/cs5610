@@ -10,7 +10,7 @@
 	//Defining home controller
 	angular
 	.module(moduleName)
-	.controller("HomeController", ['$scope', '$location', function($scope, $location){
+	.controller("HomeController", ['$scope', '$location', '$window', function($scope, $location, $window){
 		$scope.hello = "Hello Jainam..!!";
 		$scope.courseName = "WebDev CS5610";
 		$scope.user = {
@@ -20,6 +20,10 @@
 
 		$scope.createEvent = function(){
 			$location.path("/create/event");
+		}
+
+		$scope.gotoDocumentation = function(){
+			$window.open('https://docs.google.com/document/d/197CFxx64LtC_VyLvU0O0UdNzAAYamC2radrpbvYZRhQ/edit?usp=sharing', '_blank');
 		}
 	}]);
 

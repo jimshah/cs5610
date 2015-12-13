@@ -72,3 +72,8 @@
 .home-content button:hover span{
 	color: #E8BC51;
 }
+
+.documentation {
+	padding-top: 25px;
+	padding-bottom: 50px;
+}
