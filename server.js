@@ -42,6 +42,9 @@ require("./public/assignment/server/app.js")(app, db);
 //Load Project Server App
 require("./public/project/server/app.js")(app, db);
 
+//Load Widget Server App
+require("./public/widgets/app.js")(app, db);
+
 // Handle 404
 /*app.use(function(req, res) {
 	res.redirect(302, '/not-found.html');
