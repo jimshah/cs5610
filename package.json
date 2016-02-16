@@ -34,7 +34,9 @@
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "q": "1.4.1",
-    "socket.io": "1.3.7"
+    "socket.io": "1.3.7",
+    "youtube-dl": "1.10.5",
+    "ytdl": "~0.3.13"
   },
   "devDependencies": {},
   "bundleDependencies": [],

@@ -1,6 +1,8 @@
 "use strict";
 var http = require('http'),
-Promise = require('bluebird');
+Promise = require('bluebird'),
+youtubedl = require('youtube-dl'),
+fs = require('fs');
 
 var api = {
 	config: {
@@ -39,21 +41,31 @@ module.exports = function(app, db){
 		try {			
 
 			//res.setHeader('content-type', 'text/javascript');
-			
 			var options = extractUrl(req, '/downloader/');
 
-			res.setHeader("Content-Disposition", "attachment;");//" filename=" + "index.txt");
+			//res.setHeader("Content-Disposition", "attachment;");//" filename=" + "index.txt");
 
 
 			if (!options || !options.host){
 				res.status(400).send("Please provide a valid url");
 			} else {
-				//url = 'http://' + url;
-				options.method = 'GET';
-				var https = require('https');
-				var request = https.get(options, function(response) {
-					response.pipe(res);
+				
+				var url = options.host + options.path;
+				console.log('Starting to Stream %s',url);
+				var video = youtubedl(url,['--format=18', '--no-check-certificate']);
+
+				video.on('info', function(info) {
+				  console.log('Download started');
+				  console.log('filename: ' + info.filename);
+				  console.log('size: ' + info.size);
 				});
+
+				video.on('error', function(error) {
+				  console.log('error', error);
+				  res.status(400).send({error: error});
+				});
+
+				video.pipe(res);
 			}
 		} catch(error){
 			res.status(400).send({error: error});
@@ -93,8 +105,6 @@ module.exports = function(app, db){
 
 		var host="", path="";
 		if (url && url.indexOf('/')>0){
-			console.log('url', url);
-			console.log('typeof url', typeof url);
 			host = url.substring(0, url.indexOf('/'));
 			path = url.substring(url.indexOf('/'));
 		} else {
@@ -105,40 +115,6 @@ module.exports = function(app, db){
 			path: path
 		};
 	}
-
-	/*var http = require('http');
-	var fs = require('fs');
-
-	var file = fs.createWriteStream("file.jpg");
-	var request = http.get("http://i3.ytimg.com/vi/J---aiyznGQ/mqdefault.jpg", function(response) {
-		response.pipe(file);
-	});*/
-
-	/**
-	 * [getCategories description]
-	 * @param  {[type]}   req  [description]
-	 * @param  {[type]}   res  [description]
-	 * @param  {Function} next [description]
-	 * @return {[type]}        [description]
-	 */
-	 function getCategories(req, res, next) {
-	 	try {
-	 		var options = {
-	 			host: "api.eventful.com",
-	 			path: "/json/categories/list?app_key="+api.config.appKey,
-	 			method: 'GET'
-	 		};
-	 		return getRequest(options)
-	 		.then(function(responseData){
-	 			res.status(200).send(responseData);
-	 		})
-	 		.catch(function(error){
-	 			res.status(400).send({error: error});
-	 		})
-	 	} catch(error){
-	 		res.status(400).send({error: error});
-	 	}
-	 };
 
 	/**
 	 * [getRequest description]
