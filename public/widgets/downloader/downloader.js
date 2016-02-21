@@ -8,30 +8,30 @@
 		angular.module(moduleName, dependencies || []);
 
 		// Add the module to the AngularJS configuration file
-		angular.module(scramble.applicationModuleName).requires.push(moduleName);
+		angular.module(downloader.applicationModuleName).requires.push(moduleName);
 	};
 
 	//Defining our app configs, cann add some more attributes to it later on as we progress
-	var scramble = {
-		applicationModuleName: "Scramble",
+	var downloader = {
+		applicationModuleName: "Downloader",
 		applicationModuleVendorDependencies: ['ngRoute'],//['ngResource', 'ngAnimate', 'ui.router', 'ui.bootstrap', 'ui.utils'],
 		registerModule: registerModule
 	};
 
-	window.scramble = scramble;
+	window.downloader = downloader;
 
 	//Declaring our root module
-	angular.module(scramble.applicationModuleName,scramble.applicationModuleVendorDependencies);
+	angular.module(downloader.applicationModuleName,downloader.applicationModuleVendorDependencies);
 
 	// Setting HTML5 Location Mode - May be later, not now
-	angular.module(scramble.applicationModuleName).config(['$locationProvider',
+	angular.module(downloader.applicationModuleName).config(['$locationProvider',
 		function($locationProvider) {
 			//console.log("hello, hash prefixed");
 			//$locationProvider.hashPrefix('!');
 		}
 		]);
 
-	angular.module(scramble.applicationModuleName).directive('keypressEvents',
+	angular.module(downloader.applicationModuleName).directive('keypressEvents',
 
 		function ($document, $rootScope) {
 			return {

@@ -1,0 +1,37 @@
+.navbar-toggle .icon-bar{
+	background-color: #fee970;
+}
+
+.navbar-brand.brand-logo b{
+	font-size: 25px;
+	font-weight: 900;
+	color: #fee970;
+}
+
+.header-title a{
+	color: #fee970;
+	font-size: 17px;
+}
+
+.downloader {
+	color: black;
+}
+
+.downloader-body {
+	/* background-color: #dbbb09; */
+	background-color: #5D021B;
+	color: #fee970;
+}
+
+.downloader-body h2 {
+	color: #fee970;
+}
+
+.downloader-body form {
+	color: #fee970;
+}
+
+.downloader-body .error {
+	color: red;
+	font-size: 25px;
+}

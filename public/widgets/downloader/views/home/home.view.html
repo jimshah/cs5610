@@ -1,20 +1,50 @@
-<div class="text-center" keypress-events ng-controller="HomeController">
-	<h2>Welcome to Downloader</h2>
-	<div class="row">
-		<div>
-			<span>Paster your link here</span>
+<div class="text-center container" keypress-events ng-controller="HomeController">
+	<div class="downloader overlay">
+		<h2>Welcome to Downloader</h2>
+		<div class="row login"  ng-if='!authorized'>
+			<!-- FORM STARTS -->
+			<form class="form-horizontal login-form">
+
+				<div class="form-group">
+					<label for="login-email" class="col-sm-2">Email:</label>
+					<div class="col-sm-5">
+						<input type="email" data-ng-model="user.email" class="form-control" id="login-email" placeholder="Email" required>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="login-password" class="col-sm-2">Password:</label>
+					<div class="col-sm-5">
+						<input type="password" data-ng-model="user.password" class="form-control" id="login-password" placeholder="Password" required>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-5">
+						<button type="submit" class="btn btn-md btn-primary" ng-click="login()" class="btn btn-default">Login</button>
+					</div>
+				</div>
+				<div class="error updated" ng-if="error">
+					<span>{{error}}</span>
+				</div>
+			</form>
 		</div>
-		<div>
-			<input type="text" data-ng-model="link">
+		<div class="row download" ng-if='authorized'>
+			<div>
+				<span>Paster your link here</span>
+			</div>
+			<div>
+				<input type="text" data-ng-model="link">
+			</div>
+			<!-- <div>
+				<button class="btn btn-primary btn-sm" ng-click="download(link)">Go</button>
+			</div> -->
+			<div>
+				<a href="/../downloader/{{link}}">{{link}}</a>
+			</div>
+			<div class="error" ng-if="error">
+				{{error}}
+			</div>
 		</div>
-		<div>
-			<button class="btn btn-primary btn-sm">Go</button>
-		</div>
-		<div>
-			<span>{{link}}</span>
-		</div>
-		<iframe src="{{link}}" frameborder="0">
-			
-		</iframe>
 	</div>
 </div>

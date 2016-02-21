@@ -4,7 +4,7 @@
 	
 	//Creating "HelloWorldController" controller -> normally create a separate files for controller
 	angular
-	.module(scramble.applicationModuleName)
+	.module(downloader.applicationModuleName)
 	.config(MyAppFunction)
 
 	function MyAppFunction($routeProvider){

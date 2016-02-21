@@ -16,34 +16,10 @@ module.exports = function(app, db){
 	app.route("/downloader/*").get(downloader);
 	app.route("/open/*").get(openSource);
 
-	//app.route("/api/categories").get(getCategories);
-	
-	/*function downloader(req, res, next) {
-		try {
-			var options = extractUrl(req);
-			console.log('options', options);
-			if (!options || !options.host){
-				res.status(400).send("Please provide a valid url");
-			} else {
-				//url = 'http://' + url;
-				options.method = 'GET';
-				var http = require('http');
-				var request = http.get(options, function(response) {
-					response.pipe(res);
-				});
-			}
-		} catch(error){
-			res.status(400).send({error: error});
-		}
-	}*/
-
 	function downloader(req, res, next) {
 		try {			
 
-			//res.setHeader('content-type', 'text/javascript');
 			var options = extractUrl(req, '/downloader/');
-
-			//res.setHeader("Content-Disposition", "attachment;");//" filename=" + "index.txt");
 
 
 			if (!options || !options.host){

@@ -5,7 +5,7 @@
 	var moduleName = "header";
 
 	// Use app's registerModule function to register a new module
-	scramble.registerModule(moduleName);
+	downloader.registerModule(moduleName);
 
 	//Defining header controller
 	angular
